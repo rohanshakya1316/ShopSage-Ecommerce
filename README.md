@@ -1,2 +1,2 @@
 # ShopSage-Ecommerce
-Internship B2C ecommerce project built with MERN stack
+B2C ecommerce project
