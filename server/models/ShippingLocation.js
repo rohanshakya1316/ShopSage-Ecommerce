@@ -1,41 +1,39 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const shippingLocationSchema = new mongoose.Schema(
   {
-    roleId: {
+    customerId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "UserRole",
+      ref: "User",
       required: true,
     },
-    fullName: {
+    fullAddress: {
       type: String,
       required: true,
       trim: true,
     },
-    email: {
+    province: {
       type: String,
       required: true,
-      unique: true,
-      lowercase: true,
       trim: true,
     },
-    password: {
+    city: {
       type: String,
       required: true,
-    },
-    phoneNumber: {
-      type: String,
       trim: true,
     },
-    status: {
+    zipPostalCode: {
       type: String,
-      enum: ["active", "inactive", "banned"],
-      default: "active",
+      trim: true,
+      default: null,
     },
   },
   { timestamps: true },
 );
 
-const User = mongoose.model("User", userSchema);
+const ShippingLocation = mongoose.model(
+  "ShippingLocation",
+  shippingLocationSchema,
+);
 
-export default User;
+export default ShippingLocation;
