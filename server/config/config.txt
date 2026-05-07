@@ -1,0 +1,4 @@
+yes folder ma hamile hamro chaine project ko configuration haru banauxam hai. 
+
+configuration in JavaScript file. 
+
