@@ -23,7 +23,13 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+<<<<<<< HEAD
     "mongoose": "^9.6.1",
+=======
+    "mongoose": "^9.6.1"
+  },
+  "devDependencies": {
+>>>>>>> ca43ff140c733b5c4410510f0ab59383c3edbf68
     "nodemon": "^3.1.14"
   }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import authService from "../services/auth.service.js";
 
 const authService = require("../services/auth.service");
@@ -35,3 +36,12 @@ const refreshToken = async (req, res) => {
 };
 
 export default { register, login, refreshToken };
+=======
+export const register = (req, res) => {
+  res.json({ message: "Register working" });
+};
+
+export const login = (req, res) => {
+  res.json({ message: "Login working" });
+};
+>>>>>>> ca43ff140c733b5c4410510f0ab59383c3edbf68
