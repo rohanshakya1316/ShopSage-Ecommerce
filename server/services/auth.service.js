@@ -1,21 +1,19 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 const generateAccessToken = (user) => {
   return jwt.sign(
     { id: user._id, email: user.email, role: user.role },
     process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN || "15m" }
+    { expiresIn: process.env.JWT_EXPIRES_IN || "15m" },
   );
 };
 
 const generateRefreshToken = (user) => {
-  return jwt.sign(
-    { id: user._id },
-    process.env.JWT_REFRESH_SECRET,
-    { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d" }
-  );
+  return jwt.sign({ id: user._id }, process.env.JWT_REFRESH_SECRET, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+  });
 };
 
 const register = async ({ name, email, password, role }) => {
@@ -23,12 +21,21 @@ const register = async ({ name, email, password, role }) => {
   if (existingUser) throw new Error("Email already in use");
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await User.create({ name, email, password: hashedPassword, role });
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    role,
+  });
 
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  return { accessToken, refreshToken, user: { id: user._id, name, email, role } };
+  return {
+    accessToken,
+    refreshToken,
+    user: { id: user._id, name, email, role },
+  };
 };
 
 const login = async ({ email, password }) => {
@@ -41,7 +48,11 @@ const login = async ({ email, password }) => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  return { accessToken, refreshToken, user: { id: user._id, name: user.name, email, role: user.role } };
+  return {
+    accessToken,
+    refreshToken,
+    user: { id: user._id, name: user.name, email, role: user.role },
+  };
 };
 
 const getUserById = async (id) => {

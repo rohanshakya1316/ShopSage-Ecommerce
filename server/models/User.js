@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    roleId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "UserRole",
+    role: {
+      type: [String],
+      enum: ["CUSTOMER", "MERCHANT", "ADMIN"],
       required: true,
     },
-    fullName: {
+    name: {
       type: String,
       required: true,
       trim: true,
@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phoneNumber: {
+    phone: {
       type: String,
       trim: true,
     },
