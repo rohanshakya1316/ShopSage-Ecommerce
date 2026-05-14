@@ -7,7 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "tw:build": "tailwindcss -i ./client/tailwind.css -o ./client/tailwind.output.css --minify",
+    "tw:watch": "tailwindcss -i ./client/tailwind.css -o ./client/tailwind.output.css --watch"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/rohanshakya1316/ShopSage-Ecommerce#readme",
   "dependencies": {
+    "axios": "^1.16.1",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",
@@ -29,6 +32,10 @@
     "mongoose": "^9.6.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "@tailwindcss/cli": "^4.3.0",
+    "autoprefixer": "^10.5.0",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0"
   }
 }
