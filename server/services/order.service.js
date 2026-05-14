@@ -1,5 +1,7 @@
 import Order from "../models/Order.js";
+import Payment from "../models/Payment.js";
 import Product from "../models/Product.js";
+import { payViaKhalti } from "../utils/paymentViaKhalti.js";
 
 export const createOrderService = async (userId, orderData) => {
   const {
@@ -19,7 +21,6 @@ export const createOrderService = async (userId, orderData) => {
   const formattedItems = [];
 
   for (const item of items) {
-
     const product = await Product.findById(item.productId);
 
     if (!product) {
@@ -27,9 +28,7 @@ export const createOrderService = async (userId, orderData) => {
     }
 
     if (product.stockQuantity < item.quantity) {
-      throw new Error(
-        `${product.productName} is out of stock`
-      );
+      throw new Error(`${product.productName} is out of stock`);
     }
 
     const itemTotal = product.price * item.quantity;
@@ -43,10 +42,8 @@ export const createOrderService = async (userId, orderData) => {
       price: product.price,
     });
 
-    
     product.stockQuantity -= item.quantity;
 
-    
     if (product.stockQuantity === 0) {
       product.status = "out_of_stock";
     }
@@ -83,6 +80,42 @@ export const getMyOrdersService = async (userId) => {
 };
 
 export const getSingleOrderService = async (orderId) => {
-  return await Order.findById(orderId)
-    .populate("items.productId");
+  return await Order.findById(orderId).populate("items.productId");
+};
+
+export const getOrderById = async (id) => {
+  const order = await Order.findById(id).populate("user", "name email phone");
+
+  if (!order)
+    throw {
+      status: 400,
+      message: "Order not Found.",
+    };
+
+  return order;
+};
+
+export const orderPaymentViaKhalti = async (id) => {
+  const order = await getOrderById(id);
+
+  const orderPayment = await Payment.create({
+    method: "Khalti",
+    amount: order.netAmt,
+  });
+
+  await Order.findByIdAndUpdate(id, {
+    paymentStatus: "paid",
+    payMethod: "khalti",
+  });
+
+  return await payViaKhalti({
+    amount: order.netAmt,
+    purchaseOrderId: order.orderNo,
+    purchaseOrderName: order.items,
+    customerInfo: {
+      name: order.user.name,
+      email: order.user.email,
+      phone: order.user.phone,
+    },
+  });
 };
