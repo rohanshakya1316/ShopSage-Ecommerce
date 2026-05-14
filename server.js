@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import connectDB from "./server/config/db.js";
+import authRouter from "./server/routes/auth.route.js";
 import productRouter from "./server/routes/product.routes.js";
 
 connectDB();
@@ -12,6 +13,8 @@ app.get("/", (req, res) => {
   res.json({ message: "ShopSage API is running" });
 });
 
+// routes
+app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
 
 const PORT = process.env.PORT || 5000;

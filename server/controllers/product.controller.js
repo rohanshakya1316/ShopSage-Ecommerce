@@ -1,5 +1,4 @@
-import Product from "../models/Product.js";
-import ProductVariant from "../models/ProductVariant.js";
+import productService from "../services/product.service.js";
 
 const createProduct = async (req, res) => {
   try {
@@ -9,35 +8,7 @@ const createProduct = async (req, res) => {
         .json({ message: "Only vendors can create products" });
     }
 
-    const {
-      productName,
-      urlSlug,
-      descriptionShort,
-      descriptionLong,
-      price,
-      stockQuantity,
-      catId,
-      status,
-    } = req.body;
-
-    const existingProduct = await Product.findOne({ urlSlug });
-    if (existingProduct) {
-      return res
-        .status(400)
-        .json({ message: "Product with this slug already exists" });
-    }
-
-    const product = await Product.create({
-      vendorId: req.user._id,
-      catId,
-      productName,
-      urlSlug,
-      descriptionShort,
-      descriptionLong,
-      price,
-      stockQuantity,
-      status,
-    });
+    const product = await productService.createProduct(req.user._id, req.body);
 
     res.status(201).json({
       message: "Product created successfully",
@@ -50,9 +21,7 @@ const createProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({ status: "active" })
-      .populate("catId", "categoryName urlSlug")
-      .populate("vendorId", "name email");
+    const products = await productService.getAllProducts();
 
     res.status(200).json({
       message: "Products fetched successfully",
@@ -66,15 +35,9 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id)
-      .populate("catId", "categoryName urlSlug")
-      .populate("vendorId", "name email");
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    const variants = await ProductVariant.find({ productId: req.params.id });
+    const { product, variants } = await productService.getProductById(
+      req.params.id,
+    );
 
     res.status(200).json({
       message: "Product fetched successfully",
@@ -82,28 +45,16 @@ const getProductById = async (req, res) => {
       variants,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    if (product.vendorId.toString() !== req.user._id.toString()) {
-      return res
-        .status(403)
-        .json({ message: "Not authorized to update this product" });
-    }
-
-    const updatedProduct = await Product.findByIdAndUpdate(
+    const updatedProduct = await productService.updateProduct(
       req.params.id,
+      req.user._id,
       req.body,
-      { new: true, runValidators: true },
     );
 
     res.status(200).json({
@@ -117,20 +68,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    if (product.vendorId.toString() !== req.user._id.toString()) {
-      return res
-        .status(403)
-        .json({ message: "Not authorized to delete this product" });
-    }
-
-    await Product.findByIdAndDelete(req.params.id);
-    await ProductVariant.deleteMany({ productId: req.params.id });
+    await productService.deleteProduct(req.params.id, req.user._id);
 
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
@@ -146,10 +84,7 @@ const getMyProducts = async (req, res) => {
         .json({ message: "Only vendors can view their products" });
     }
 
-    const products = await Product.find({ vendorId: req.user._id }).populate(
-      "catId",
-      "categoryName urlSlug",
-    );
+    const products = await productService.getMyProducts(req.user._id);
 
     res.status(200).json({
       message: "Your products fetched successfully",
