@@ -8,7 +8,7 @@ const createProduct = async (vendorId, productData) => {
     descriptionShort,
     descriptionLong,
     price,
-    stockQuantity,
+    stock,
     catId,
     status,
   } = productData;
@@ -20,14 +20,14 @@ const createProduct = async (vendorId, productData) => {
   }
 
   const product = await Product.create({
-    vendorId,
+    vendorId: vendorId,
     catId,
     productName,
     urlSlug,
     descriptionShort,
     descriptionLong,
     price,
-    stockQuantity,
+    stockQuantity: stock,
     status,
   });
 
