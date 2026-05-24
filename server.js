@@ -12,6 +12,7 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: join(__dirname, ".env") });
 import authRouter from "./server/routes/auth.route.js";
 import productRouter from "./server/routes/product.routes.js";
+import categoryRoutes from "./server/routes/category.routes.js";
 
 connectDB();
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 // routes
 app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
+app.use("/api/category", categoryRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
