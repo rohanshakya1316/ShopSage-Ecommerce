@@ -45,6 +45,9 @@ const productSchema = new mongoose.Schema(
       enum: ["active", "inactive", "out_of_stock"],
       default: "active",
     },
+    imageUrls: {
+      type: [String],
+    }
   },
   { timestamps: true },
 );

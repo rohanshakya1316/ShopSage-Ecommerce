@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import connectDB from "./server/config/db.js";
 import authRoutes from "./server/routes/auth.route.js";
+import productRoutes from "./server/routes/product.route.js";
 
 
 
@@ -18,6 +19,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "ShopSage API is running" });
