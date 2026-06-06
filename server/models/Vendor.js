@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const vendorSchema = new mongoose.Schema(
   {
-    roleId: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "UserRole",
+      ref: "User",
       required: true,
     },
-    fullName: {
+    businessName: {
       type: String,
       required: true,
       trim: true,
@@ -15,27 +15,38 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
-    phoneNumber: {
+    phoneNo: {
       type: String,
       trim: true,
     },
     status: {
       type: String,
-      enum: ["active", "inactive", "banned"],
-      default: "active",
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+    address: {
+      type: String,
+      trim: true,
+    },
+    vatNo: {
+      type: String,
+      trim: true,
+    },
+    paymentId: {
+      type: String,
+      default: null,
+    },
+    comRate: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true },
 );
 
-const User = mongoose.model("User", userSchema);
+const Vendor = mongoose.model("Vendor", vendorSchema);
 
-export default User;
+export default Vendor;
