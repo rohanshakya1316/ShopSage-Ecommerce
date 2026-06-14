@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopsage | Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Fraunces"', 'serif'],
+            body: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            sage: {
+              50: "#f3f7f4", 100: "#e4efe7", 200: "#c8decd", 300: "#9fc4a8",
+              400: "#73a97e", 500: "#4f8a5b", 600: "#3f6f49", 700: "#34593b",
+              800: "#2c4932", 900: "#243c28"
+            },
+            clay: { 500: "#c4744f", 600: "#a85f3d" }
+          },
+          boxShadow: {
+            soft: "0 10px 30px rgba(15, 23, 42, 0.08)",
+            lift: "0 20px 40px rgba(15, 23, 42, 0.14)"
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-display { font-family: 'Fraunces', serif; font-feature-settings: "ss01"; }
+    .card-anim { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease; }
+    .card-anim:hover { transform: translateY(-6px) scale(1.015); }
+    .fade-up { animation: fadeUp .5s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform: translateY(0); } }
+    ::-webkit-scrollbar { height: 6px; width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #c8decd; border-radius: 999px; }
+  </style>
+</head>
+<body class="bg-[#f7f5f0] text-slate-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#f7f5f0]/90 backdrop-blur border-b border-sage-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <button id="menuBtn" class="lg:hidden p-2 rounded-xl hover:bg-sage-100" aria-label="Open menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          <a href="#" class="text-2xl font-display font-bold text-sage-800 tracking-tight">Shopsage</a>
+        </div>
+
+        <div class="hidden lg:flex flex-1 max-w-xl mx-8">
+          <div class="relative w-full">
+            <input id="searchInput" type="text" placeholder="Search products, categories..." class="w-full rounded-2xl border border-sage-200 bg-white px-4 py-3 pl-11 outline-none focus:ring-2 focus:ring-sage-300 focus:border-sage-400" />
+            <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="cartBtn" class="relative p-2.5 rounded-xl hover:bg-sage-100">
+            <svg class="w-6 h-6 text-sage-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293A1 1 0 005.414 17H17m-10 0a2 2 0 104 0m6 0a2 2 0 104 0" />
+            </svg>
+            <span id="cartCount" class="absolute -top-1 -right-1 bg-clay-500 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="lg:hidden hidden pb-4">
+        <div class="relative w-full">
+          <input id="searchInputMobile" type="text" placeholder="Search products..." class="w-full rounded-2xl border border-sage-200 bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-sage-300" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
+    <div class="rounded-3xl bg-sage-800 text-white px-6 sm:px-12 py-10 sm:py-14 relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-sage-700/50 blur-2xl"></div>
+      <div class="absolute right-20 bottom-0 w-40 h-40 rounded-full bg-clay-500/30 blur-2xl"></div>
+      <p class="text-sage-200 font-medium tracking-wide uppercase text-sm relative z-10">New Season Edit</p>
+      <h1 class="font-display font-bold text-3xl sm:text-5xl mt-2 max-w-xl relative z-10">Everyday pieces, considered for the long run.</h1>
+      <p class="text-sage-100 mt-3 max-w-md relative z-10">Browse our latest arrivals — soft fabrics, honest pricing, fast delivery.</p>
+    </div>
+  </section>
+
+  <!-- Filters + Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="flex flex-wrap items-center gap-3 mb-6" id="filterBar">
+      <!-- category chips injected here -->
+    </div>
+
+    <div class="flex items-center justify-between mb-4">
+      <p id="resultsCount" class="text-sm text-slate-500"></p>
+      <select id="sortSelect" class="text-sm rounded-xl border border-sage-200 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-sage-300">
+        <option value="default">Sort: Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating-desc">Highest Rated</option>
+      </select>
+    </div>
+
+    <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+  </main>
+
+  <!-- Product Detail Modal -->
+  <div id="detailModal" class="fixed inset-0 z-[60] hidden">
+    <div id="detailOverlay" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 flex items-end sm:items-center justify-center p-0 sm:p-6">
+      <div class="bg-white w-full sm:max-w-3xl sm:rounded-3xl rounded-t-3xl shadow-lift max-h-[92vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white flex justify-end p-3 z-10">
+          <button id="closeDetail" class="p-2 rounded-full hover:bg-slate-100">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="detailContent" class="px-6 sm:px-10 pb-10"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-sage-800 text-white px-5 py-3 rounded-2xl shadow-lift opacity-0 pointer-events-none transition-opacity duration-300 z-[70] text-sm font-medium"></div>
+
+  <!-- Footer -->
+  <footer class="bg-sage-900 text-sage-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-white text-xl font-display font-bold">Shopsage</h3>
+          <p class="mt-3 text-sm leading-7 text-sage-300">Modern ecommerce experiences with clean design, fast browsing, and responsive layouts.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold">Quick Links</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white">About</a></li>
+            <li><a href="#" class="hover:text-white">Products</a></li>
+            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold">Support</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white">Shipping</a></li>
+            <li><a href="#" class="hover:text-white">Returns</a></li>
+            <li><a href="#" class="hover:text-white">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---------------- Product Data ----------------
+    const products = [
+      { id: 1, name: "Classic Cotton Jacket", price: 79.99, oldPrice: 99.99, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=80", category: "Men's Outerwear", rating: 4.8, reviews: 128, colors: ["Sage Green","Black","Sand"], sizes:["S","M","L","XL"], description: "A lightweight, breathable cotton jacket designed for everyday wear. Perfect for casual outings, office layering, and travel comfort." },
+      { id: 2, name: "Urban Hoodie", price: 49.00, oldPrice: null, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80", category: "Streetwear", rating: 4.6, reviews: 94, colors: ["Charcoal","Cream"], sizes:["S","M","L","XL"], description: "Soft fleece-lined hoodie with a relaxed streetwear silhouette, ideal for layering in cooler weather." },
+      { id: 3, name: "Denim Shirt", price: 39.00, oldPrice: 45.00, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=80", category: "Men's Wear", rating: 4.4, reviews: 61, colors: ["Indigo","Light Wash"], sizes:["S","M","L"], description: "A versatile denim shirt that pairs easily with chinos or layers over a tee for an everyday casual look." },
+      { id: 4, name: "Classic Trousers", price: 54.00, oldPrice: null, image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=900&q=80", category: "Men's Wear", rating: 4.5, reviews: 73, colors: ["Stone","Navy","Black"], sizes:["28","30","32","34"], description: "Tailored trousers with a smart fit, finished with a soft stretch fabric for all-day comfort." },
+      { id: 5, name: "Winter Coat", price: 109.00, oldPrice: 139.00, image: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=900&q=80", category: "Outerwear", rating: 4.9, reviews: 152, colors: ["Camel","Black"], sizes:["S","M","L","XL"], description: "An insulated winter coat built for warmth without bulk, featuring a durable shell and cozy lining." },
+      { id: 6, name: "Linen Summer Shirt", price: 34.50, oldPrice: null, image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=80", category: "Men's Wear", rating: 4.3, reviews: 47, colors: ["White","Sky Blue"], sizes:["S","M","L","XL"], description: "Breathable linen shirt designed to keep you cool on warm days while looking effortlessly sharp." },
+      { id: 7, name: "Performance Sneakers", price: 89.00, oldPrice: 110.00, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80", category: "Footwear", rating: 4.7, reviews: 203, colors: ["White","Grey"], sizes:["7","8","9","10","11"], description: "Lightweight performance sneakers with responsive cushioning, built for daily training and casual wear." },
+      { id: 8, name: "Leather Crossbody Bag", price: 64.00, oldPrice: null, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80", category: "Accessories", rating: 4.6, reviews: 88, colors: ["Tan","Black"], sizes:["One Size"], description: "A compact leather crossbody bag with adjustable strap, designed for daily essentials on the move." },
+      { id: 9, name: "Wool Beanie", price: 18.00, oldPrice: 22.00, image: "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?auto=format&fit=crop&w=900&q=80", category: "Accessories", rating: 4.2, reviews: 39, colors: ["Charcoal","Mustard","Sage"], sizes:["One Size"], description: "A ribbed wool beanie that keeps you warm through winter without sacrificing style." },
+      { id: 10, name: "Tailored Blazer", price: 129.00, oldPrice: 159.00, image: "https://images.unsplash.com/photo-1593032465175-481ac7f401a0?auto=format&fit=crop&w=900&q=80", category: "Men's Outerwear", rating: 4.8, reviews: 67, colors: ["Charcoal","Navy"], sizes:["S","M","L","XL"], description: "A modern tailored blazer that transitions easily from the office to evening occasions." },
+      { id: 11, name: "Graphic Tee", price: 24.00, oldPrice: null, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=900&q=80", category: "Streetwear", rating: 4.1, reviews: 56, colors: ["White","Black"], sizes:["S","M","L","XL"], description: "100% cotton graphic tee with a relaxed fit and durable print that holds up wash after wash." },
+      { id: 12, name: "Slim Fit Chinos", price: 47.00, oldPrice: 58.00, image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=900&q=80&sat=-50", category: "Men's Wear", rating: 4.5, reviews: 102, colors: ["Khaki","Navy","Olive"], sizes:["28","30","32","34","36"], description: "Slim fit chinos with a touch of stretch, made for comfort whether at work or on the weekend." },
+      { id: 13, name: "Canvas Backpack", price: 59.00, oldPrice: null, image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?auto=format&fit=crop&w=900&q=80", category: "Accessories", rating: 4.7, reviews: 134, colors: ["Olive","Black"], sizes:["One Size"], description: "A durable canvas backpack with padded laptop sleeve, built for daily commutes and weekend trips." },
+      { id: 14, name: "Running Jacket", price: 72.00, oldPrice: 95.00, image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80", category: "Activewear", rating: 4.6, reviews: 81, colors: ["Black","Electric Blue"], sizes:["S","M","L","XL"], description: "A water-resistant running jacket with reflective details, packable into its own pocket." },
+    ];
+
+    const categories = ["All", ...Array.from(new Set(products.map(p => p.category)))];
+
+    // ---------------- State ----------------
+    let activeCategory = "All";
+    let searchQuery = "";
+    let sortMode = "default";
+    let cart = [];
+
+    // ---------------- Helpers ----------------
+    const fmt = (n) => `$${n.toFixed(2)}`;
+    const starString = (rating) => {
+      const full = Math.round(rating);
+      return "★".repeat(full) + "☆".repeat(5 - full);
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 1800);
+    }
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cartCount').textContent = count;
+    }
+
+    function addToCart(productId, qty = 1) {
+      const existing = cart.find(c => c.id === productId);
+      if (existing) existing.qty += qty;
+      else cart.push({ id: productId, qty });
+      updateCartCount();
+      const p = products.find(x => x.id === productId);
+      showToast(`Added "${p.name}" to cart`);
+    }
+
+    // ---------------- Render: Filter Chips ----------------
+    function renderFilters() {
+      const bar = document.getElementById('filterBar');
+      bar.innerHTML = categories.map(cat => `
+        <button data-cat="${cat}" class="catChip text-sm font-medium px-4 py-2 rounded-full border transition
+          ${cat === activeCategory ? 'bg-sage-800 text-white border-sage-800' : 'bg-white text-slate-600 border-sage-200 hover:border-sage-400'}">
+          ${cat}
+        </button>
+      `).join('');
+
+      bar.querySelectorAll('.catChip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCategory = btn.dataset.cat;
+          renderFilters();
+          renderGrid();
+        });
+      });
+    }
+
+    // ---------------- Render: Product Grid ----------------
+    function renderGrid() {
+      let list = products.filter(p => {
+        const matchCat = activeCategory === "All" || p.category === activeCategory;
+        const matchSearch = (p.name + " " + p.category).toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchSearch;
+      });
+
+      if (sortMode === "price-asc") list = [...list].sort((a,b) => a.price - b.price);
+      if (sortMode === "price-desc") list = [...list].sort((a,b) => b.price - a.price);
+      if (sortMode === "rating-desc") list = [...list].sort((a,b) => b.rating - a.rating);
+
+      document.getElementById('resultsCount').textContent = `${list.length} product${list.length !== 1 ? 's' : ''}`;
+
+      const grid = document.getElementById('productGrid');
+      if (list.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-16 text-slate-400">
+          <p class="text-lg font-medium">No products match your search.</p>
+          <p class="text-sm mt-1">Try a different keyword or category.</p>
+        </div>`;
+        return;
+      }
+
+      grid.innerHTML = list.map((p, i) => `
+        <article class="fade-up card-anim group bg-white rounded-3xl shadow-soft border border-sage-100 overflow-hidden cursor-pointer flex flex-col" style="animation-delay:${(i % 8) * 40}ms" data-id="${p.id}">
+          <div class="relative overflow-hidden">
+            <img src="${p.image}" alt="${p.name}" class="h-44 sm:h-56 w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+            ${p.oldPrice ? `<span class="absolute top-3 left-3 bg-clay-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">SALE</span>` : ''}
+            <button data-id="${p.id}" class="quickAddBtn absolute bottom-3 right-3 bg-white/95 text-sage-800 text-xs font-semibold px-3 py-2 rounded-full shadow-soft opacity-0 group-hover:opacity-100 transition-opacity">+ Add</button>
+          </div>
+          <div class="p-4 sm:p-5 flex flex-col flex-1">
+            <p class="text-xs font-semibold uppercase tracking-wide text-sage-600">${p.category}</p>
+            <h3 class="font-semibold text-slate-900 mt-1 leading-snug">${p.name}</h3>
+            <div class="flex items-center gap-1.5 mt-1.5 text-xs text-slate-500">
+              <span class="text-amber-400">${starString(p.rating)}</span>
+              <span>${p.rating} (${p.reviews})</span>
+            </div>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="font-bold text-slate-900">${fmt(p.price)}</span>
+              ${p.oldPrice ? `<span class="text-sm text-slate-400 line-through">${fmt(p.oldPrice)}</span>` : ''}
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      grid.querySelectorAll('article').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.quickAddBtn')) return;
+          openDetail(Number(card.dataset.id));
+        });
+      });
+
+      grid.querySelectorAll('.quickAddBtn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          addToCart(Number(btn.dataset.id), 1);
+        });
+      });
+    }
+
+    // ---------------- Render: Product Detail ----------------
+    function openDetail(id) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+
+      let qty = 1;
+      let selColor = p.colors[0];
+      let selSize = p.sizes[0];
+
+      const content = document.getElementById('detailContent');
+      content.innerHTML = `
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="rounded-2xl overflow-hidden bg-sage-50">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-72 sm:h-96 object-cover" />
+          </div>
+          <div>
+            <p class="text-sage-700 font-semibold text-sm">${p.category}</p>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900 mt-1">${p.name}</h2>
+            <div class="flex items-center gap-2 mt-2 text-sm">
+              <span class="text-amber-400">${starString(p.rating)}</span>
+              <span class="text-slate-500">${p.rating} (${p.reviews} reviews)</span>
+            </div>
+            <div class="mt-4 flex items-end gap-3">
+              <span class="text-3xl font-bold text-slate-900">${fmt(p.price)}</span>
+              ${p.oldPrice ? `<span class="text-lg text-slate-400 line-through">${fmt(p.oldPrice)}</span><span class="text-sm font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">${Math.round((1 - p.price/p.oldPrice)*100)}% OFF</span>` : ''}
+            </div>
+            <p class="mt-5 text-slate-600 leading-7">${p.description}</p>
+
+            <div class="mt-6">
+              <h3 class="font-semibold text-slate-900 mb-2 text-sm">Color</h3>
+              <div class="flex flex-wrap gap-2" id="detailColors">
+                ${p.colors.map((c,i) => `<button data-color="${c}" class="colorChip text-sm px-3 py-1.5 rounded-full border ${i===0 ? 'border-sage-600 bg-sage-50 text-sage-800' : 'border-slate-200 text-slate-600'}">${c}</button>`).join('')}
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <h3 class="font-semibold text-slate-900 mb-2 text-sm">Size</h3>
+              <div class="flex flex-wrap gap-2" id="detailSizes">
+                ${p.sizes.map((s,i) => `<button data-size="${s}" class="sizeChip text-sm min-w-[2.75rem] px-3 py-1.5 rounded-xl border font-medium ${i===0 ? 'border-sage-600 bg-sage-50 text-sage-800' : 'border-slate-200 text-slate-600'}">${s}</button>`).join('')}
+              </div>
+            </div>
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+              <div class="flex items-center justify-between sm:justify-start gap-4 rounded-2xl border border-slate-200 px-4 py-3">
+                <span class="font-medium text-sm">Qty</span>
+                <div class="flex items-center gap-3">
+                  <button id="detailQtyMinus" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200">-</button>
+                  <span id="detailQtyValue" class="min-w-6 text-center font-semibold">1</span>
+                  <button id="detailQtyPlus" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200">+</button>
+                </div>
+              </div>
+              <button id="detailAddBtn" class="flex-1 rounded-2xl bg-sage-700 text-white py-3.5 font-semibold hover:bg-sage-800 transition">Add to Cart</button>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-3 mt-6 text-sm">
+              <div class="rounded-2xl bg-sage-50 p-4">
+                <p class="font-semibold text-slate-900">Free Shipping</p>
+                <p class="text-slate-500 mt-1">On orders over $50</p>
+              </div>
+              <div class="rounded-2xl bg-sage-50 p-4">
+                <p class="font-semibold text-slate-900">Easy Returns</p>
+                <p class="text-slate-500 mt-1">30-day return policy</p>
+              </div>
+              <div class="rounded-2xl bg-sage-50 p-4">
+                <p class="font-semibold text-slate-900">Secure Payment</p>
+                <p class="text-slate-500 mt-1">100% protected checkout</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // color/size selection
+      content.querySelectorAll('.colorChip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          content.querySelectorAll('.colorChip').forEach(b => b.className = "colorChip text-sm px-3 py-1.5 rounded-full border border-slate-200 text-slate-600");
+          btn.className = "colorChip text-sm px-3 py-1.5 rounded-full border border-sage-600 bg-sage-50 text-sage-800";
+          selColor = btn.dataset.color;
+        });
+      });
+      content.querySelectorAll('.sizeChip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          content.querySelectorAll('.sizeChip').forEach(b => b.className = "sizeChip text-sm min-w-[2.75rem] px-3 py-1.5 rounded-xl border font-medium border-slate-200 text-slate-600");
+          btn.className = "sizeChip text-sm min-w-[2.75rem] px-3 py-1.5 rounded-xl border font-medium border-sage-600 bg-sage-50 text-sage-800";
+          selSize = btn.dataset.size;
+        });
+      });
+
+      // qty controls
+      const qtyValEl = document.getElementById('detailQtyValue');
+      document.getElementById('detailQtyMinus').addEventListener('click', () => {
+        if (qty > 1) { qty--; qtyValEl.textContent = qty; }
+      });
+      document.getElementById('detailQtyPlus').addEventListener('click', () => {
+        qty++; qtyValEl.textContent = qty;
+      });
+
+      document.getElementById('detailAddBtn').addEventListener('click', () => {
+        addToCart(p.id, qty);
+        closeDetail();
+      });
+
+      document.getElementById('detailModal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeDetail() {
+      document.getElementById('detailModal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    document.getElementById('closeDetail').addEventListener('click', closeDetail);
+    document.getElementById('detailOverlay').addEventListener('click', closeDetail);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetail(); });
+
+    // ---------------- Search & Sort ----------------
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      document.getElementById('searchInputMobile').value = searchQuery;
+      renderGrid();
+    });
+    document.getElementById('searchInputMobile').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      document.getElementById('searchInput').value = searchQuery;
+      renderGrid();
+    });
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      sortMode = e.target.value;
+      renderGrid();
+    });
+
+    // ---------------- Mobile Menu ----------------
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    // ---------------- Init ----------------
+    renderFilters();
+    renderGrid();
+  </script>
+</body>
+</html>
