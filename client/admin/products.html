@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSage - Admin Products</title>
+    <!-- Tailwind Output -->
+    <link href="../tailwind.output.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md flex-shrink-0 flex flex-col transition-all duration-300 z-20 hidden md:flex">
+        <!-- Logo -->
+        <div class="h-16 flex items-center px-6 border-b border-gray-200">
+            <span class="text-2xl font-bold text-indigo-600 tracking-wider">
+                <i class="fa-solid fa-leaf mr-2"></i>ShopSage
+            </span>
+        </div>
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1">
+                <li>
+                    <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-gauge-high w-5"></i>
+                        <span class="ml-3 font-medium">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html" class="flex items-center px-6 py-3 text-indigo-600 bg-indigo-50 border-r-4 border-indigo-600 transition-colors">
+                        <i class="fa-solid fa-box w-5"></i>
+                        <span class="ml-3 font-medium">Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.html" class="flex items-center px-6 py-3 text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-cart-shopping w-5"></i>
+                        <span class="ml-3 font-medium">Orders</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <!-- Top Navbar -->
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 border-b border-gray-200">
+            <div class="flex items-center">
+                <h1 class="text-xl font-semibold text-gray-800">Products Management</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="Admin Profile" class="w-9 h-9 rounded-full">
+            </div>
+        </header>
+
+        <!-- Main Content area -->
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Products</h2>
+                    <p class="text-gray-500 text-sm mt-1">Manage your store products and inventory.</p>
+                </div>
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-sm flex items-center">
+                    <i class="fa-solid fa-plus mr-2"></i> Add Product
+                </button>
+            </div>
+
+            <!-- Controls -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+                <div class="relative w-full sm:w-64">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                </div>
+                <div class="flex space-x-3 w-full sm:w-auto">
+                    <select class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full sm:w-auto">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                            <th class="px-6 py-4 font-medium">Product</th>
+                            <th class="px-6 py-4 font-medium">Category</th>
+                            <th class="px-6 py-4 font-medium">Price</th>
+                            <th class="px-6 py-4 font-medium">Stock</th>
+                            <th class="px-6 py-4 font-medium">Status</th>
+                            <th class="px-6 py-4 font-medium text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 flex items-center">
+                                <div class="w-10 h-10 bg-gray-200 rounded-md mr-4 flex-shrink-0"></div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Wireless Headphones</p>
+                                    <p class="text-xs text-gray-500">SKU: WH-1001</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Electronics</td>
+                            <td class="px-6 py-4 font-medium text-gray-700">$129.99</td>
+                            <td class="px-6 py-4 text-gray-600">45</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2.5 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Active</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="text-red-600 hover:text-red-900"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 flex items-center">
+                                <div class="w-10 h-10 bg-gray-200 rounded-md mr-4 flex-shrink-0"></div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Cotton T-Shirt</p>
+                                    <p class="text-xs text-gray-500">SKU: CT-2004</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Clothing</td>
+                            <td class="px-6 py-4 font-medium text-gray-700">$24.99</td>
+                            <td class="px-6 py-4 text-gray-600">120</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2.5 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Active</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="text-red-600 hover:text-red-900"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 flex items-center">
+                                <div class="w-10 h-10 bg-gray-200 rounded-md mr-4 flex-shrink-0"></div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Gaming Mouse</p>
+                                    <p class="text-xs text-gray-500">SKU: GM-3012</p>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">Electronics</td>
+                            <td class="px-6 py-4 font-medium text-gray-700">$59.99</td>
+                            <td class="px-6 py-4 text-red-600 font-medium">0</td>
+                            <td class="px-6 py-4">
+                                <span class="px-2.5 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Out of Stock</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="text-red-600 hover:text-red-900"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-between items-center text-sm text-gray-500">
+                    <span>Showing 1 to 3 of 486 results</span>
+                    <div class="space-x-1">
+                        <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">Prev</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded bg-indigo-50 text-indigo-600">1</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">2</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">Next</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
