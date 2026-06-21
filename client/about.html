@@ -1,121 +1,241 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShopSage | About Us</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              display: ['"Fraunces"', "serif"],
-              body: ['"Inter"', "sans-serif"],
-            },
-            colors: {
-              sage: {
-                50: "#f3f7f4",
-                100: "#e4efe7",
-                200: "#c8decd",
-                300: "#9fc4a8",
-                400: "#73a97e",
-                500: "#4f8a5b",
-                600: "#3f6f49",
-                700: "#34593b",
-                800: "#2c4932",
-                900: "#243c28",
-              },
-              clay: { 500: "#c4744f", 600: "#a85f3d" },
-            },
-            boxShadow: {
-              soft: "0 10px 30px rgba(15, 23, 42, 0.08)",
-              lift: "0 20px 40px rgba(15, 23, 42, 0.14)",
-            },
-          },
-        },
-      };
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      .font-display {
-        font-family: "Fraunces", serif;
-        font-feature-settings: "ss01";
-      }
-      .fade-up {
-        animation: fadeUp 0.5s ease both;
-      }
-      @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(14px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <section class="bg-dark text-white">
-      <div class="max-w-7xl mx-auto px-6 py-24 text-center">
-        <span
-          class="inline-block px-4 py-2 bg-accent text-dark font-semibold rounded-full mb-6"
-        >
-          About Our Brand
-        </span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopSage | About Us</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-hero{
+      min-height:68vh;
+      background:linear-gradient(rgba(18,28,51,0.66),rgba(15,27,57,0.66)),
+      url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:white;
+      padding:52px 8%;
+    }
 
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">
-          Building Better Shopping Experiences
-        </h1>
+    .about-hero-content h1{
+      font-size:48px;
+      max-width:860px;
+      margin:0 auto;
+      line-height:1.15;
+    }
 
-        <p class="max-w-3xl mx-auto text-slate-300 text-lg">
-          We connect customers with premium products while delivering
-          exceptional service, trust, and value every step of the way.
+    .about-hero-content p{
+      max-width:680px;
+      margin:18px auto 26px;
+      opacity:0.92;
+    }
+
+    .about-story{
+      padding:70px 8%;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:42px;
+      align-items:center;
+      background:#f5f8ff;
+    }
+
+    .about-story-image img{
+      width:100%;
+      height:420px;
+      object-fit:cover;
+      border-radius:16px;
+      box-shadow:0 18px 40px rgba(25,52,111,0.13);
+    }
+
+    .about-label{
+      color:#2e63ff;
+      font-weight:800;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    .about-story-text h2{
+      font-size:36px;
+      color:#1f2b4d;
+      margin-bottom:18px;
+      line-height:1.2;
+    }
+
+    .about-story-text p{
+      color:#66738f;
+      margin-bottom:14px;
+    }
+
+    .about-values{
+      padding-top:60px;
+      padding-bottom:65px;
+    }
+
+    .about-stats{
+      padding:46px 8% 70px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:20px;
+      background:#f5f8ff;
+    }
+
+    .stat-card{
+      background:white;
+      border:1px solid #ebf0ff;
+      border-radius:14px;
+      box-shadow:0 12px 28px rgba(30,54,105,0.08);
+      padding:28px 22px;
+      text-align:center;
+    }
+
+    .stat-card strong{
+      display:block;
+      color:#2e63ff;
+      font-size:38px;
+      margin-bottom:6px;
+    }
+
+    .stat-card span{
+      color:#66738f;
+      font-weight:700;
+    }
+
+    @media(max-width:768px){
+      .about-hero-content h1{
+        font-size:34px;
+      }
+
+      .about-story{
+        grid-template-columns:1fr;
+        padding:48px 8%;
+      }
+
+      .about-story-image img{
+        height:300px;
+      }
+
+      .about-story-text h2{
+        font-size:30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">ShopSage</div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="home.html#products">Products</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="cart-btn" type="button" onclick="window.location.href='cart.html'">
+        Cart <span id="cartCount">0</span>
+      </button>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+  </nav>
+
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <p class="hero-tag">About ShopSage</p>
+      <h1>Making online shopping smarter, simpler, and more reliable.</h1>
+      <p>
+        We bring together curated products, trusted service, and a smooth shopping
+        experience so every customer can buy with confidence.
+      </p>
+      <a class="hero-cta" href="home.html#products">Explore Products</a>
+    </div>
+  </section>
+
+  <main>
+    <section class="about-story">
+      <div class="about-story-image">
+        <img
+          src="https://images.unsplash.com/photo-1556740749-887f6717d7e4"
+          alt="ShopSage team helping online shoppers"
+        />
+      </div>
+
+      <div class="about-story-text">
+        <p class="about-label">Our Story</p>
+        <h2>From a simple idea to a trusted shopping destination.</h2>
+        <p>
+          ShopSage started with a clear goal: help people discover quality
+          products without the stress of endless searching. We focus on useful
+          picks, fair value, and dependable service from browsing to delivery.
+        </p>
+        <p>
+          Today, we continue to improve the way customers shop by keeping our
+          catalog practical, our checkout secure, and our support team ready to
+          help whenever questions come up.
         </p>
       </div>
     </section>
-    <section class="py-24 bg-white">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <img
-              src="https://images.unsplash.com/photo-1556740749-887f6717d7e4"
-              class="rounded-3xl shadow-xl"
-              alt="Company Story"
-            />
-          </div>
 
-          <div>
-            <span class="text-primary font-semibold uppercase tracking-wider">
-              Our Story
-            </span>
+    <section class="why-choose-us about-values">
+      <h2>What We Care About</h2>
+      <p class="section-subtitle">
+        These values guide every product we list and every order we deliver.
+      </p>
 
-            <h2 class="text-4xl font-bold mt-3 mb-6 text-dark">
-              From a Small Idea to a Trusted Marketplace
-            </h2>
-
-            <p class="text-slate-600 mb-4">
-              Our journey began with a simple mission: make quality products
-              accessible to everyone through a seamless online shopping
-              experience.
-            </p>
-
-            <p class="text-slate-600">
-              Today, we serve thousands of customers while maintaining the same
-              commitment to quality, transparency, and innovation.
-            </p>
-          </div>
-        </div>
+      <div class="choose-grid">
+        <article class="choose-card">
+          <h3>Customer Trust</h3>
+          <p>Clear details, secure checkout, and honest support keep every order simple.</p>
+        </article>
+        <article class="choose-card">
+          <h3>Quality Picks</h3>
+          <p>We choose products that balance style, usefulness, and lasting value.</p>
+        </article>
+        <article class="choose-card">
+          <h3>Fast Service</h3>
+          <p>Quick processing and helpful updates make shopping feel effortless.</p>
+        </article>
+        <article class="choose-card">
+          <h3>Smart Shopping</h3>
+          <p>Our experience is designed to help customers compare, choose, and buy faster.</p>
+        </article>
       </div>
     </section>
-  </body>
+
+    <section class="about-stats">
+      <div class="stat-card">
+        <strong>10k+</strong>
+        <span>Happy Customers</span>
+      </div>
+      <div class="stat-card">
+        <strong>500+</strong>
+        <span>Curated Products</span>
+      </div>
+      <div class="stat-card">
+        <strong>24/7</strong>
+        <span>Customer Support</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ShopSage. All Rights Reserved.</p>
+    <p>Email: hello@shopsage.com</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    window.toggleMenu = window.toggleMenu || function () {
+      document.getElementById("navLinks").classList.toggle("active");
+    };
+  </script>
+</body>
 </html>
