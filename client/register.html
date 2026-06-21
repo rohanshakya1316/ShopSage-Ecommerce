@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ShopSage Register</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopSage | Register</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div class="auth-container">
+  <main class="auth-container">
     <form class="auth-card" id="registerForm">
+      <a class="logo" href="home.html">ShopSage</a>
       <h2>Create Account</h2>
-      <p>Join ShopSage today</p>
+      <p>Join ShopSage to save carts, place orders, and view order history.</p>
 
-      <input type="text" id="name" placeholder="Full Name" required />
-      <input type="email" id="email" placeholder="Email Address" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <select id="accountType" required>
+        <option value="CUSTOMER">Customer account</option>
+        <option value="BUSINESS">Business account request</option>
+      </select>
+      <input type="text" id="businessName" placeholder="Business name" hidden>
+      <input type="tel" id="businessPhone" placeholder="Business phone" hidden>
 
-      <button type="submit">Register</button>
+      <button class="primary-btn" type="submit">Register</button>
 
-      <p class="switch-text">
-        Already have an account?
-        <a href="index.html">Login</a>
-      </p>
+      <p class="switch-text">Already have an account? <a href="index.html">Login</a></p>
 
       <div id="registerMessage"></div>
     </form>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
