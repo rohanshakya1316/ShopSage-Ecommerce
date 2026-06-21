@@ -4,447 +4,175 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShopSage | Order Management</title>
-    <link rel="stylesheet" href="tailwind.output.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
-    <style>
-      :root {
-        --primary: #4f46e5;
-        --primary-hover: #4338ca;
-        --accent: #fbbf24;
-        --dark: #0f172a;
-        --dark-secondary: #1e293b;
-        --page-bg: #f8fafc;
-        --card-bg: #ffffff;
-        --heading: #0f172a;
-        --body: #475569;
-        --line: #e2e8f0;
-        --soft: #eef2ff;
-      }
-
-      body {
-        background: var(--page-bg);
-        color: var(--body);
-      }
-
-      .order-management {
-        padding: 36px 8% 64px;
-      }
-
-      .management-hero {
-        background: linear-gradient(
-          135deg,
-          var(--dark) 0%,
-          var(--dark-secondary) 62%,
-          #312e81 100%
-        );
-        color: white;
-        border-radius: 8px;
-        padding: 32px;
-        display: grid;
-        grid-template-columns: 1.4fr 1fr;
-        gap: 24px;
-        align-items: end;
-        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: #c7d2fe;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-
-      /* .eyebrow::before {
-        content: "";
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 0 5px rgba(251, 191, 36, 0.16);
-      } */
-
-      .management-hero h1 {
-        color: white;
-        font-size: 42px;
-        line-height: 1.1;
-        margin-bottom: 12px;
-      }
-
-      .management-hero p {
-        max-width: 650px;
-        color: #cbd5e1;
-      }
-
-      .hero-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 42px;
-        border: none;
-        border-radius: 8px;
-        padding: 0 16px;
-        font-weight: 800;
-        text-decoration: none;
-        cursor: pointer;
-        transition: 0.2s ease;
-      }
-
-      .btn-primary {
-        background: var(--primary);
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background: var(--primary-hover);
-        transform: translateY(-1px);
-      }
-
-      .btn-ghost {
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-      }
-
-      .btn-view {
-        background: var(--soft);
-        color: var(--primary);
-        min-height: 36px;
-        padding: 0 12px;
-        font-size: 13px;
-      }
-
-      .btn-view:hover {
-        background: #e0e7ff;
-      }
-
-      .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
-        margin: 22px 0;
-      }
-
-      .stat-card,
-      .orders-panel {
-        background: var(--card-bg);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
-      }
-
-      .stat-card {
-        padding: 20px;
-        border-top: 4px solid var(--primary);
-      }
-
-      .stat-card:nth-child(2) {
-        border-top-color: var(--accent);
-      }
-
-      .stat-card:nth-child(3) {
-        border-top-color: #22c55e;
-      }
-
-      .stat-card:nth-child(4) {
-        border-top-color: #f97316;
-      }
-
-      .stat-label {
-        font-size: 13px;
-        color: var(--body);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      .stat-value {
-        margin-top: 8px;
-        color: var(--heading);
-        font-size: 28px;
-        font-weight: 900;
-      }
-
-      .stat-note {
-        margin-top: 4px;
-        color: #64748b;
-        font-size: 13px;
-      }
-
-      .orders-panel {
-        overflow: hidden;
-      }
-
-      .panel-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 22px 24px;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .panel-top h2 {
-        color: var(--heading);
-        font-size: 26px;
-        margin-bottom: 4px;
-      }
-
-      .panel-top p {
-        font-size: 14px;
-      }
-
-      .filter-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .search-box,
-      .status-filter {
-        height: 40px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: #f8fafc;
-        color: var(--body);
-        padding: 0 12px;
-        font-weight: 600;
-        outline: none;
-      }
-
-      .search-box {
-        min-width: 240px;
-      }
-
-      .table-wrap {
-        width: 100%;
-        overflow-x: auto;
-      }
-
-      .orders-table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 920px;
-      }
-
-      .orders-table th {
-        background: #f1f5f9;
-        color: var(--heading);
-        text-align: left;
-        font-size: 12px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        padding: 14px 18px;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .orders-table td {
-        padding: 16px 18px;
-        border-bottom: 1px solid #eef2f7;
-        color: var(--body);
-        font-weight: 600;
-        vertical-align: middle;
-      }
-
-      .orders-table tbody tr:hover {
-        background: #f8fafc;
-      }
-
-      .order-id,
-      .amount {
-        color: var(--heading);
-        font-weight: 900;
-      }
-
-      .order-no {
-        color: var(--primary);
-        font-weight: 900;
-      }
-
-      .status {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 12px;
-        font-weight: 900;
-        white-space: nowrap;
-      }
-
-      .status::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: currentColor;
-      }
-
-      .status-delivered {
-        color: #15803d;
-        background: #dcfce7;
-      }
-
-      .status-processing {
-        color: #4338ca;
-        background: #e0e7ff;
-      }
-
-      .status-shipped {
-        color: #0369a1;
-        background: #e0f2fe;
-      }
-
-      .status-pending {
-        color: #b45309;
-        background: #fef3c7;
-      }
-
-      .status-cancelled {
-        color: #b91c1c;
-        background: #fee2e2;
-      }
-
-      .panel-footer {
-        padding: 16px 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 14px;
-        background: #f8fafc;
-        color: #64748b;
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      @media (max-width: 980px) {
-        .management-hero {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-actions {
-          justify-content: flex-start;
-        }
-
-        .stats-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .panel-top {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .order-management {
-          padding: 24px 5% 48px;
-        }
-
-        .management-hero {
-          padding: 24px;
-        }
-
-        .management-hero h1 {
-          font-size: 32px;
-        }
-
-        .stats-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .filter-row,
-        .search-box,
-        .status-filter {
-          width: 100%;
-        }
-
-        .panel-footer {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-      }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo">ShopSage</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="product.html">Products</a></li>
-        <li><a href="cart.html">Cart</a></li>
-        <li><a href="ordermanegement.html">Orders</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="nav-right">
-        <button class="cart-btn">Cart <span id="cartCount">3</span></button>
-        <button class="logout-btn">Logout</button>
+  <body class="bg-[#F8FAFC] text-[#475569] font-sans">
+    <nav
+      class="bg-white border-b border-slate-200 px-4 md:px-7 py-3 flex flex-wrap items-center justify-between gap-3"
+    >
+      <div class="flex items-center gap-6 flex-wrap">
+        <a
+          href="index.html"
+          class="text-3xl font-extrabold italic text-[#4F46E5] leading-none"
+          >ShopSage</a
+        >
+        <a
+          class="text-sm font-semibold text-slate-800 hover:text-[#4F46E5]"
+          href="index.html"
+          >Home</a
+        >
+        <a
+          class="text-sm font-semibold text-slate-800 hover:text-[#4F46E5]"
+          href="product.html"
+          >Products</a
+        >
+        <a
+          class="text-sm font-semibold text-slate-800 hover:text-[#4F46E5]"
+          href="cart.html"
+          >Cart</a
+        >
+        <a
+          class="text-sm font-semibold text-[#4F46E5]"
+          href="ordermanegement.html"
+          >Orders</a
+        >
+        <a
+          class="text-sm font-semibold text-slate-800 hover:text-[#4F46E5]"
+          href="contact.html"
+          >Contact</a
+        >
+      </div>
+      <div class="flex items-center gap-3 w-full md:w-auto">
+        <input
+          class="w-full md:w-72 rounded-full border border-slate-300 bg-slate-100 px-4 py-2 text-sm outline-none focus:border-[#4F46E5] focus:ring-2 focus:ring-[#4F46E5]/20"
+          placeholder="Search orders..."
+        />
+        <a
+          href="cart.html"
+          class="rounded-full bg-[#EEF2FF] px-4 py-2 text-sm font-bold text-[#4F46E5]"
+          >Cart 3</a
+        >
       </div>
     </nav>
 
-    <main class="order-management">
-      <section class="management-hero">
-        <div>
-          <span class="eyebrow">Admin dashboard</span>
-          <h1>Order Management</h1>
-          <p>
-            Review ecommerce orders, track fulfillment status, and open order
-            details for customer support and dispatch decisions.
-          </p>
-        </div>
-        <div class="hero-actions">
-          <a href="order.html" class="btn btn-ghost">Create Order</a>
-          <a href="orderdetails.html" class="btn btn-primary">View Details</a>
-        </div>
-      </section>
-
-      <section class="stats-grid" aria-label="Order overview">
-        <article class="stat-card">
-          <p class="stat-label">Total Orders</p>
-          <p class="stat-value">128</p>
-          <p class="stat-note">18 new this week</p>
-        </article>
-        <article class="stat-card">
-          <p class="stat-label">Revenue</p>
-          <p class="stat-value">NPR 742,850</p>
-          <p class="stat-note">From paid orders</p>
-        </article>
-        <article class="stat-card">
-          <p class="stat-label">Delivered</p>
-          <p class="stat-value">92</p>
-          <p class="stat-note">71.8% completion rate</p>
-        </article>
-        <article class="stat-card">
-          <p class="stat-label">Pending</p>
-          <p class="stat-value">11</p>
-          <p class="stat-note">Needs confirmation</p>
-        </article>
-      </section>
-
-      <section class="orders-panel">
-        <div class="panel-top">
+    <main class="max-w-[1450px] mx-auto px-4 md:px-7 py-6 md:py-8">
+      <section
+        class="bg-[#0F172A] text-white rounded-lg overflow-hidden shadow-xl"
+      >
+        <div
+          class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 p-6 md:p-9 bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#312E81]"
+        >
           <div>
-            <h2>Recent Orders</h2>
-            <p>Sample order records with NPR totals for ShopSage operations.</p>
+            <p
+              class="text-[#FBBF24] text-xs font-extrabold uppercase tracking-[0.16em] mb-3"
+            >
+              Admin dashboard
+            </p>
+            <h1
+              class="text-4xl md:text-5xl font-extrabold tracking-tight text-white"
+            >
+              Order Management
+            </h1>
+            <p class="mt-3 max-w-2xl text-slate-300">
+              Manage ecommerce orders, review customer information, track
+              fulfillment status, and open order details for dispatch or
+              support.
+            </p>
           </div>
-          <div class="filter-row">
+          <div
+            class="flex flex-col sm:flex-row lg:justify-end lg:items-end gap-3"
+          >
+            <a
+              href="order.html"
+              class="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 px-5 py-3 text-sm font-bold text-white hover:bg-white/20"
+              >Create Order</a
+            >
+            <a
+              href="orderdetails.html"
+              class="inline-flex items-center justify-center rounded-lg bg-[#4F46E5] px-5 py-3 text-sm font-bold text-white hover:bg-[#4338CA]"
+              >View Details</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-5"
+        aria-label="Order overview"
+      >
+        <article
+          class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm border-t-4 border-t-[#4F46E5]"
+        >
+          <p
+            class="text-xs uppercase tracking-wider font-extrabold text-[#475569]"
+          >
+            Total Orders
+          </p>
+          <p class="mt-2 text-3xl font-extrabold text-[#0F172A]">128</p>
+          <p class="mt-1 text-sm text-slate-500">18 new this week</p>
+        </article>
+        <article
+          class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm border-t-4 border-t-[#FBBF24]"
+        >
+          <p
+            class="text-xs uppercase tracking-wider font-extrabold text-[#475569]"
+          >
+            Revenue
+          </p>
+          <p class="mt-2 text-3xl font-extrabold text-[#0F172A]">NPR 742,850</p>
+          <p class="mt-1 text-sm text-slate-500">From paid orders</p>
+        </article>
+        <article
+          class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm border-t-4 border-t-green-600"
+        >
+          <p
+            class="text-xs uppercase tracking-wider font-extrabold text-[#475569]"
+          >
+            Delivered
+          </p>
+          <p class="mt-2 text-3xl font-extrabold text-[#0F172A]">92</p>
+          <p class="mt-1 text-sm text-slate-500">71.8% completion rate</p>
+        </article>
+        <article
+          class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm border-t-4 border-t-[#FBBF24]"
+        >
+          <p
+            class="text-xs uppercase tracking-wider font-extrabold text-[#475569]"
+          >
+            Pending
+          </p>
+          <p class="mt-2 text-3xl font-extrabold text-[#0F172A]">11</p>
+          <p class="mt-1 text-sm text-slate-500">Needs confirmation</p>
+        </article>
+      </section>
+
+      <section
+        class="mt-5 bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden"
+      >
+        <div
+          class="p-5 md:p-6 border-b border-slate-200 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+        >
+          <div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-[#0F172A]">
+              Recent Orders
+            </h2>
+            <p class="mt-1 text-sm text-[#475569]">
+              Sample order records with customer names, email addresses, and NPR
+              totals.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
             <input
-              class="search-box"
+              class="w-full lg:w-72 rounded-lg border border-slate-300 bg-slate-50 px-4 py-2 text-sm font-semibold outline-none focus:border-[#4F46E5] focus:ring-2 focus:ring-[#4F46E5]/20"
               type="search"
               placeholder="Search order or customer"
             />
-            <select class="status-filter" aria-label="Filter by status">
+            <select
+              class="rounded-lg border border-slate-300 bg-slate-50 px-4 py-2 text-sm font-semibold outline-none focus:border-[#4F46E5] focus:ring-2 focus:ring-[#4F46E5]/20"
+              aria-label="Filter by status"
+            >
               <option>All Status</option>
               <option>Pending</option>
               <option>Processing</option>
@@ -455,161 +183,378 @@
           </div>
         </div>
 
-        <div class="table-wrap">
-          <table class="orders-table">
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[1040px] border-collapse">
             <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Order No.</th>
-                <th>Customer</th>
-                <th>Order Date</th>
-                <th>Total Amount</th>
-                <th>Order Status</th>
-                <th>View Details</th>
+              <tr class="bg-slate-100">
+                <th
+                  class="px-5 py-4 text-left text-xs font-extrabold uppercase tracking-wider text-[#0F172A] border-b border-slate-200"
+                >
+                  Order ID
+                </th>
+                <th
+                  class="px-5 py-4 text-left text-xs font-extrabold uppercase tracking-wider text-[#0F172A] border-b border-slate-200"
+                >
+                  Order No.
+                </th>
+                <th
+                  class="px-5 py-4 text-left text-xs font-extrabold uppercase tracking-wider text-[#0F172A] border-b border-slate-200"
+                >
+                  Customer ID
+                </th>
+                <th
+                  class="px-5 py-4 text-left text-xs font-extrabold uppercase tracking-wider text-[#0F172A] border-b border-slate-200"
+                >
+                  Order Date
+                </th>
+                <th
+                  class="px-5 py-4 text-left text-xs font-extrabold uppercase tracking-wider text-[#0F172A] border-b border-slate-200"
+                >
+                  Total Amount
+                </th>
+                <th
+                  class="px-5 py-4 text-left text-xs font-extrabold uppercase tracking-wider text-[#0F172A] border-b border-slate-200"
+                >
+                  Order Status
+                </th>
+                <th
+                  class="px-5 py-4 text-left text-xs font-extrabold uppercase tracking-wider text-[#0F172A] border-b border-slate-200"
+                >
+                  View Details
+                </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="order-id">ORD-1001</td>
-                <td class="order-no">SS-2026-001</td>
-                <td>
+            <tbody class="divide-y divide-slate-100">
+              <tr class="hover:bg-slate-50">
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  ORD-1001
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#4F46E5]"
+                >
+                  SS-2026-001
+                </td>
+                <td class="px-5 py-4 align-middle">
                   <div class="flex flex-col gap-1">
-                    <span class="text-slate-900 font-extrabold">CUS-4521</span>
-                    <span class="text-slate-700 font-bold">Nisha Gurung</span>
+                    <span class="text-sm font-extrabold text-[#0F172A]"
+                      >CUS-4521</span
+                    >
+                    <span class="text-sm font-bold text-slate-700"
+                      >Nisha Gurung</span
+                    >
                     <a
-                      class="text-indigo-600 text-sm font-semibold hover:text-indigo-700"
+                      class="text-sm font-semibold text-[#4F46E5] hover:text-[#4338CA]"
                       href="mailto:nishagurung23@gmail.com"
                       >nishagurung23@gmail.com</a
                     >
                   </div>
                 </td>
-                <td>21 Jun 2026</td>
-                <td class="amount">NPR 18,450</td>
-                <td>
-                  <span class="status status-processing">Processing</span>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-semibold text-[#475569]"
+                >
+                  21 Jun 2026
                 </td>
-                <td>
-                  <a class="btn btn-view" href="orderdetails.html">View</a>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  NPR 18,450
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <span
+                    class="inline-flex rounded-full bg-indigo-100 px-3 py-1 text-xs font-extrabold text-[#4338CA]"
+                    >Processing</span
+                  >
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <a
+                    class="inline-flex rounded-lg bg-[#EEF2FF] px-4 py-2 text-sm font-extrabold text-[#4F46E5] hover:bg-indigo-100"
+                    href="orderdetails.html"
+                    >View</a
+                  >
                 </td>
               </tr>
-              <tr>
-                <td class="order-id">ORD-1002</td>
-                <td class="order-no">SS-2026-002</td>
-                <td>
+              <tr class="hover:bg-slate-50">
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  ORD-1002
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#4F46E5]"
+                >
+                  SS-2026-002
+                </td>
+                <td class="px-5 py-4 align-middle">
                   <div class="flex flex-col gap-1">
-                    <span class="text-slate-900 font-extrabold">CUS-3188</span>
-                    <span class="text-slate-700 font-bold">Santoshi Thapa</span>
+                    <span class="text-sm font-extrabold text-[#0F172A]"
+                      >CUS-3188</span
+                    >
+                    <span class="text-sm font-bold text-slate-700"
+                      >Santoshi Thapa</span
+                    >
                     <a
-                      class="text-indigo-600 text-sm font-semibold hover:text-indigo-700"
+                      class="text-sm font-semibold text-[#4F46E5] hover:text-[#4338CA]"
                       href="mailto:santoshithapa43@gmail.com"
                       >santoshithapa43@gmail.com</a
                     >
                   </div>
                 </td>
-                <td>20 Jun 2026</td>
-                <td class="amount">NPR 7,990</td>
-                <td><span class="status status-shipped">Shipped</span></td>
-                <td>
-                  <a class="btn btn-view" href="orderdetails.html">View</a>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-semibold text-[#475569]"
+                >
+                  20 Jun 2026
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  NPR 7,990
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <span
+                    class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-extrabold text-blue-600"
+                    >Shipped</span
+                  >
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <a
+                    class="inline-flex rounded-lg bg-[#EEF2FF] px-4 py-2 text-sm font-extrabold text-[#4F46E5] hover:bg-indigo-100"
+                    href="orderdetails.html"
+                    >View</a
+                  >
                 </td>
               </tr>
-              <tr>
-                <td class="order-id">ORD-1003</td>
-                <td class="order-no">SS-2026-003</td>
-                <td>
+              <tr class="hover:bg-slate-50">
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  ORD-1003
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#4F46E5]"
+                >
+                  SS-2026-003
+                </td>
+                <td class="px-5 py-4 align-middle">
                   <div class="flex flex-col gap-1">
-                    <span class="text-slate-900 font-extrabold">CUS-7740</span>
-                    <span class="text-slate-700 font-bold">Amrish Puri</span>
+                    <span class="text-sm font-extrabold text-[#0F172A]"
+                      >CUS-7740</span
+                    >
+                    <span class="text-sm font-bold text-slate-700"
+                      >Amrish Puri</span
+                    >
                     <a
-                      class="text-indigo-600 text-sm font-semibold hover:text-indigo-700"
+                      class="text-sm font-semibold text-[#4F46E5] hover:text-[#4338CA]"
                       href="mailto:amrishpuri45@gmail.com"
                       >amrishpuri45@gmail.com</a
                     >
                   </div>
                 </td>
-                <td>19 Jun 2026</td>
-                <td class="amount">NPR 42,300</td>
-                <td><span class="status status-delivered">Delivered</span></td>
-                <td>
-                  <a class="btn btn-view" href="orderdetails.html">View</a>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-semibold text-[#475569]"
+                >
+                  19 Jun 2026
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  NPR 42,300
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <span
+                    class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-extrabold text-green-700"
+                    >Delivered</span
+                  >
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <a
+                    class="inline-flex rounded-lg bg-[#EEF2FF] px-4 py-2 text-sm font-extrabold text-[#4F46E5] hover:bg-indigo-100"
+                    href="orderdetails.html"
+                    >View</a
+                  >
                 </td>
               </tr>
-              <tr>
-                <td class="order-id">ORD-1004</td>
-                <td class="order-no">SS-2026-004</td>
-                <td>
+              <tr class="hover:bg-slate-50">
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  ORD-1004
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#4F46E5]"
+                >
+                  SS-2026-004
+                </td>
+                <td class="px-5 py-4 align-middle">
                   <div class="flex flex-col gap-1">
-                    <span class="text-slate-900 font-extrabold">CUS-5902</span>
-                    <span class="text-slate-700 font-bold">Balen Shah</span>
+                    <span class="text-sm font-extrabold text-[#0F172A]"
+                      >CUS-5902</span
+                    >
+                    <span class="text-sm font-bold text-slate-700"
+                      >Balen Shah</span
+                    >
                     <a
-                      class="text-indigo-600 text-sm font-semibold hover:text-indigo-700"
+                      class="text-sm font-semibold text-[#4F46E5] hover:text-[#4338CA]"
                       href="mailto:balenshah2088@gmail.com"
                       >balenshah2088@gmail.com</a
                     >
                   </div>
                 </td>
-                <td>18 Jun 2026</td>
-                <td class="amount">NPR 3,650</td>
-                <td><span class="status status-pending">Pending</span></td>
-                <td>
-                  <a class="btn btn-view" href="orderdetails.html">View</a>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-semibold text-[#475569]"
+                >
+                  18 Jun 2026
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  NPR 3,650
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <span
+                    class="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold text-amber-700"
+                    >Pending</span
+                  >
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <a
+                    class="inline-flex rounded-lg bg-[#EEF2FF] px-4 py-2 text-sm font-extrabold text-[#4F46E5] hover:bg-indigo-100"
+                    href="orderdetails.html"
+                    >View</a
+                  >
                 </td>
               </tr>
-              <tr>
-                <td class="order-id">ORD-1005</td>
-                <td class="order-no">SS-2026-005</td>
-                <td>
+              <tr class="hover:bg-slate-50">
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  ORD-1005
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#4F46E5]"
+                >
+                  SS-2026-005
+                </td>
+                <td class="px-5 py-4 align-middle">
                   <div class="flex flex-col gap-1">
-                    <span class="text-slate-900 font-extrabold">CUS-1167</span>
-                    <span class="text-slate-700 font-bold">Aayush Karki</span>
+                    <span class="text-sm font-extrabold text-[#0F172A]"
+                      >CUS-1167</span
+                    >
+                    <span class="text-sm font-bold text-slate-700"
+                      >Aayush Karki</span
+                    >
                     <a
-                      class="text-indigo-600 text-sm font-semibold hover:text-indigo-700"
+                      class="text-sm font-semibold text-[#4F46E5] hover:text-[#4338CA]"
                       href="mailto:aayushkarki16@gmail.com"
                       >aayushkarki16@gmail.com</a
                     >
                   </div>
                 </td>
-                <td>17 Jun 2026</td>
-                <td class="amount">NPR 26,780</td>
-                <td><span class="status status-cancelled">Cancelled</span></td>
-                <td>
-                  <a class="btn btn-view" href="orderdetails.html">View</a>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-semibold text-[#475569]"
+                >
+                  17 Jun 2026
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  NPR 26,780
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <span
+                    class="inline-flex rounded-full bg-red-100 px-3 py-1 text-xs font-extrabold text-red-700"
+                    >Cancelled</span
+                  >
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <a
+                    class="inline-flex rounded-lg bg-[#EEF2FF] px-4 py-2 text-sm font-extrabold text-[#4F46E5] hover:bg-indigo-100"
+                    href="orderdetails.html"
+                    >View</a
+                  >
                 </td>
               </tr>
-              <tr>
-                <td class="order-id">ORD-1006</td>
-                <td class="order-no">SS-2026-006</td>
-                <td>
+              <tr class="hover:bg-slate-50">
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  ORD-1006
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#4F46E5]"
+                >
+                  SS-2026-006
+                </td>
+                <td class="px-5 py-4 align-middle">
                   <div class="flex flex-col gap-1">
-                    <span class="text-slate-900 font-extrabold">CUS-8845</span>
-                    <span class="text-slate-700 font-bold">Sujata Rai</span>
+                    <span class="text-sm font-extrabold text-[#0F172A]"
+                      >CUS-8845</span
+                    >
+                    <span class="text-sm font-bold text-slate-700"
+                      >Sujata Rai</span
+                    >
                     <a
-                      class="text-indigo-600 text-sm font-semibold hover:text-indigo-700"
+                      class="text-sm font-semibold text-[#4F46E5] hover:text-[#4338CA]"
                       href="mailto:sujatarai29@gmail.com"
                       >sujatarai29@gmail.com</a
                     >
                   </div>
                 </td>
-                <td>16 Jun 2026</td>
-                <td class="amount">NPR 12,125</td>
-                <td><span class="status status-delivered">Delivered</span></td>
-                <td>
-                  <a class="btn btn-view" href="orderdetails.html">View</a>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-semibold text-[#475569]"
+                >
+                  16 Jun 2026
+                </td>
+                <td
+                  class="px-5 py-4 align-middle text-sm font-extrabold text-[#0F172A]"
+                >
+                  NPR 12,125
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <span
+                    class="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-extrabold text-green-700"
+                    >Delivered</span
+                  >
+                </td>
+                <td class="px-5 py-4 align-middle">
+                  <a
+                    class="inline-flex rounded-lg bg-[#EEF2FF] px-4 py-2 text-sm font-extrabold text-[#4F46E5] hover:bg-indigo-100"
+                    href="orderdetails.html"
+                    >View</a
+                  >
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="panel-footer">
+        <div
+          class="bg-slate-50 px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm font-semibold text-slate-500"
+        >
           <span>Showing 6 of 128 orders</span>
           <span>Currency: Nepalese Rupee (NPR)</span>
         </div>
       </section>
     </main>
 
-    <footer>
-      <p>ShopSage Order Management | New Baneshwor, Kathmandu, Nepal</p>
+    <footer class="bg-[#0F172A] text-slate-300 mt-10">
+      <div
+        class="max-w-7xl mx-auto px-4 md:px-7 py-8 flex flex-col md:flex-row justify-between gap-4"
+      >
+        <div>
+          <h2 class="text-2xl font-extrabold italic text-[#FBBF24]">
+            ShopSage
+          </h2>
+          <p class="mt-2 text-sm text-slate-400">
+            Order management for ecommerce teams.
+          </p>
+        </div>
+        <div class="text-sm text-slate-400 md:text-right">
+          <p>New Baneshwor, Kathmandu, Nepal</p>
+          <p class="mt-1">© 2026 ShopSage. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
   </body>
 </html>
