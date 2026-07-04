@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShopSage | Product</title>
+  <title>ShopSage | Products</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="tailwind.output.css">
 </head>
@@ -27,16 +27,29 @@
     </nav>
 
     <main class="section">
-      <div data-product-detail></div>
-      <section class="mt-xl">
-        <div class="section-header">
-          <div>
-            <p class="eyebrow">More Picks</p>
-            <h2>Related Products</h2>
-          </div>
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Catalog</p>
+          <h1>All Products</h1>
+          <p class="section-subtitle" data-results-count>Showing products</p>
         </div>
-        <div class="grid product-grid" data-product-grid="related"></div>
-      </section>
+      </div>
+
+      <form class="search-bar" data-search-form>
+        <input data-search-input type="search" placeholder="Search products, categories, or deals">
+        <button class="primary-btn" type="submit">Search</button>
+      </form>
+
+      <div class="filter-row">
+        <button class="filter-button" type="button" data-category-filter="all">All</button>
+        <button class="filter-button" type="button" data-category-filter="Fashion">Fashion</button>
+        <button class="filter-button" type="button" data-category-filter="Electronics">Electronics</button>
+        <button class="filter-button" type="button" data-category-filter="Shoes">Shoes</button>
+        <button class="filter-button" type="button" data-category-filter="Accessories">Accessories</button>
+      </div>
+
+      <div class="panel" data-empty-state hidden>No products match this search.</div>
+      <div class="grid product-grid" data-product-grid="all"></div>
     </main>
   </div>
 

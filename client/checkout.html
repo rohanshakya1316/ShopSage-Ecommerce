@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopSage | Checkout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="navbar">
+      <a class="logo" href="home.html">ShopSage</a>
+      <ul class="nav-links">
+        <li><a data-nav href="home.html">Home</a></li>
+        <li><a data-nav href="products.html">Products</a></li>
+        <li><a data-nav href="categories.html">Categories</a></li>
+        <li><a data-nav href="deals.html">Deals</a></li>
+        <li><a data-nav href="business-dashboard.html">Business</a></li>
+      </ul>
+      <div class="nav-right">
+        <span class="user-label" data-user-name></span>
+        <a class="cart-btn" href="cart.html">Cart <span data-cart-count>0</span></a>
+        <a class="login-btn" data-login-link href="index.html">Login</a>
+        <button class="logout-btn" data-logout-button onclick="logout()" hidden>Logout</button>
+      </div>
+    </nav>
+
+    <main class="section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Checkout</p>
+          <h1>Complete Your Order</h1>
+          <p class="section-subtitle">Enter delivery details and place the order.</p>
+        </div>
+      </div>
+
+      <div class="panel" data-checkout-locked hidden>
+        Please log in before checkout. <a href="index.html?redirect=checkout.html">Login here</a>.
+      </div>
+
+      <div class="two-column" data-checkout-content>
+        <form class="panel form-grid" id="checkoutForm">
+          <h2>Delivery Details</h2>
+          <input name="fullName" placeholder="Full name" required>
+          <input name="phone" placeholder="Phone number" required>
+          <input name="address" placeholder="Delivery address" required>
+          <select name="paymentMethod" required>
+            <option value="">Select payment method</option>
+            <option>Cash on Delivery</option>
+            <option>Card</option>
+            <option>eSewa</option>
+            <option>Khalti</option>
+          </select>
+          <button class="primary-btn" type="submit">Place Order</button>
+        </form>
+        <aside class="panel">
+          <h2>Summary</h2>
+          <div data-checkout-items></div>
+          <div class="price-row"><span>Subtotal</span><strong data-checkout-subtotal>$0.00</strong></div>
+          <div class="price-row"><span>Tax</span><strong data-checkout-tax>$0.00</strong></div>
+          <div class="price-row"><span>Total</span><strong class="price" data-checkout-total>$0.00</strong></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

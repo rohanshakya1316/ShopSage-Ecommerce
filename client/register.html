@@ -1,89 +1,37 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-slate-100 min-h-screen flex justify-center items-center p-4">
-    <div class="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg">
-      <h2 class="text-3xl font-bold text-center text-blue-600 mb-2">
-        Create Account
-      </h2>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopSage | Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="auth-container">
+    <form class="auth-card" id="registerForm">
+      <a class="logo" href="home.html">ShopSage</a>
+      <h2>Create Account</h2>
+      <p>Join ShopSage to save carts, place orders, and view order history.</p>
 
-      <p class="text-center text-gray-500 mb-6">Register your account</p>
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <select id="accountType" required>
+        <option value="CUSTOMER">Customer account</option>
+        <option value="BUSINESS">Business account request</option>
+      </select>
+      <input type="text" id="businessName" placeholder="Business name" hidden>
+      <input type="tel" id="businessPhone" placeholder="Business phone" hidden>
 
-      <form id="registerForm">
-        <div class="mb-4">
-          <label class="block mb-2">Full Name</label>
-          <input
-            type="text"
-            placeholder="Enter full name"
-            required
-            class="w-full border rounded-lg px-4 py-3"
-          />
-        </div>
+      <button class="primary-btn" type="submit">Register</button>
 
-        <div class="mb-4">
-          <label class="block mb-2">Email</label>
-          <input
-            type="email"
-            placeholder="Enter email"
-            required
-            class="w-full border rounded-lg px-4 py-3"
-          />
-        </div>
+      <p class="switch-text">Already have an account? <a href="index.html">Login</a></p>
 
-        <div class="mb-4">
-          <label class="block mb-2">Phone Number</label>
-          <input
-            type="text"
-            placeholder="98XXXXXXXX"
-            required
-            class="w-full border rounded-lg px-4 py-3"
-          />
-        </div>
+      <div id="registerMessage"></div>
+    </form>
+  </main>
 
-        <div class="mb-4">
-          <label class="block mb-2">Role</label>
-          <select class="w-full border rounded-lg px-4 py-3">
-            <option>Customer</option>
-            <option>Vendor</option>
-          </select>
-        </div>
-
-        <div class="mb-4">
-          <label class="block mb-2">Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            required
-            class="w-full border rounded-lg px-4 py-3"
-          />
-        </div>
-
-        <div class="mb-5">
-          <label class="block mb-2">Confirm Password</label>
-          <input
-            type="password"
-            placeholder="Confirm password"
-            required
-            class="w-full border rounded-lg px-4 py-3"
-          />
-        </div>
-
-        <button
-          class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-        >
-          Register
-        </button>
-      </form>
-
-      <p class="text-center mt-5 text-gray-600">
-        Already have an account?
-        <a href="login.html" class="text-indigo-600 font-semibold"> Login </a>
-      </p>
-    </div>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>

@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ShopSage</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopSage | Smart Ecommerce</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -31,49 +31,45 @@
     <div class="menu-toggle" onclick="toggleMenu()">â˜°</div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <p class="hero-tag">New arrivals every week</p>
-      <h1>Shop smarter. Look better. Feel unstoppable.</h1>
-      <p>Discover trend-forward picks, premium quality, and unbeatable offers crafted for your lifestyle.</p>
-      <a class="hero-cta" href="#products">Shop Now</a>
-    </div>
-  </section>
-
-  <!-- Products -->
-  <section class="products" id="products">
-    <h2>Featured Products</h2>
-    <p class="section-subtitle">Curated essentials loved by thousands of happy customers.</p>
-
-    <div class="product-grid">
-
-      <div class="product-card" data-id="tshirt" data-name="Stylish T-Shirt" data-price="29">
-        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" alt="Stylish T-Shirt">
-        <h3>Stylish T-Shirt</h3>
-        <p>$29</p>
-        <button onclick="addToCart(this)">Add to Cart</button>
-        <!-- <button onclick="addToCart('p2')">Add to Cart</button> -->
+    <header class="hero">
+      <div class="hero-content">
+        <span class="hero-tag">Red, white, and dark blue shopping</span>
+        <h1>Everything your customers need, styled with confidence.</h1>
+        <p>ShopSage brings fashion, electronics, shoes, and accessories into one fast storefront with business tools built in.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="products.html">Shop Products</a>
+          <a class="secondary-btn" href="business-dashboard.html">Business Dashboard</a>
+        </div>
       </div>
+    </header>
 
-      <div class="product-card" data-id="shoes" data-name="Running Shoes" data-price="59">
-        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Running Shoes">
-        <h3>Running Shoes</h3>
-        <p>$59</p>
-        <button onclick="addToCart(this)">Add to Cart</button>
-        <!-- <button onclick="addToCart('p3')">Add to Cart</button> -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Featured</p>
+          <h2>Customer Favorites</h2>
+          <p class="section-subtitle">A sharper selection of essentials, updated for the new ShopSage theme.</p>
+        </div>
+        <a class="secondary-btn" href="products.html">View All</a>
       </div>
+      <div class="grid product-grid" data-product-grid="featured"></div>
+    </section>
 
-      <div class="product-card" data-id="phone" data-name="Smartphone" data-price="399">
-        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Smartphone">
-        <h3>Smartphone</h3>
-        <p>$399</p>
-        <button onclick="addToCart(this)">Add to Cart</button>
-        <!-- <button onclick="addToCart('p1')">Add to Cart</button> -->
+    <section class="section dark">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Why ShopSage</p>
+          <h2>Built for buyers and sellers</h2>
+          <p class="section-subtitle">Customers get simple checkout. Businesses get products, inventory, and order visibility.</p>
+        </div>
       </div>
-
-    </div>
-  </section>
+      <div class="grid dashboard-grid">
+        <article class="stat-card"><h3>Fast Delivery</h3><strong>24h</strong><p>Priority shipping for major city orders.</p></article>
+        <article class="stat-card"><h3>Secure Checkout</h3><strong>100%</strong><p>Protected customer order flow.</p></article>
+        <article class="stat-card"><h3>Business Tools</h3><strong>2</strong><p>Dashboard and admin panel included.</p></article>
+        <article class="stat-card"><h3>Live Catalog</h3><strong>8+</strong><p>Products ready for browsing and checkout.</p></article>
+      </div>
+    </section>
 
   <!-- Why Choose Us -->
   <section class="why-choose-us" id="why-choose-us">
@@ -115,64 +111,16 @@
       <h3>ðŸšš Fast Delivery</h3>
     </div>
 
-    <div class="feature-card">
-      <h3>ðŸ”’ Secure Payment</h3>
-    </div>
-
-    <div class="feature-card">
-      <h3>â­ Best Quality</h3>
-    </div>
-
-    <div class="feature-card">
-      <h3>ðŸ“ž 24/7 Support</h3>
-    </div>
-  </section>
-
-  <!-- Footer -->
   <footer>
-    <p>© 2026 ShopSage. All Rights Reserved.</p>
-    <p>Email: hello@shopsage.com</p>
-    <p>Â© 2026 ShopSage. All Rights Reserved.</p>
-    <p>Email: shopsage.com</p>
+    <div class="footer-grid">
+      <div><h3>ShopSage</h3><p>A modern ecommerce storefront for shoppers and growing businesses.</p></div>
+      <div><h4>Shop</h4><a href="products.html">Products</a><a href="deals.html">Deals</a><a href="cart.html">Cart</a></div>
+      <div><h4>Business</h4><a href="business-dashboard.html">Dashboard</a><a href="admin.html">Admin Panel</a><a href="orders.html">Orders</a></div>
+      <div><h4>Support</h4><p>hello@shopsage.com</p><p>Open daily</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 ShopSage</span><span>Privacy · Terms · Accessibility</span></div>
   </footer>
-
-  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
-    <div class="cart-header">
-      <h3>Your Cart</h3>
-      <button class="drawer-close" type="button" onclick="toggleCart()">×</button>
-    </div>
-    <div id="cartItems" class="cart-items">
-      <p class="empty-cart">Your cart is empty.</p>
-    </div>
-    <div class="cart-footer">
-      <p>Total: <strong id="cartTotal">$0.00</strong></p>
-      <button type="button" class="order-btn" onclick="openOrderModal()">Order Now</button>
-    </div>
-  </aside>
-
-  <div class="overlay" id="overlay" onclick="closePanels()"></div>
-
-  <div class="order-modal" id="orderModal" aria-hidden="true">
-    <div class="order-modal-content">
-      <button class="drawer-close" type="button" onclick="closeOrderModal()">×</button>
-      <h3>Order Details</h3>
-      <form id="orderForm">
-        <input id="fullName" type="text" placeholder="Full name" required />
-        <input id="phone" type="tel" placeholder="Phone number" required />
-        <input id="address" type="text" placeholder="Delivery address" required />
-        <select id="paymentMethod" required>
-          <option value="">Select payment method</option>
-          <option value="Cash on Delivery">Cash on Delivery</option>
-          <option value="Card">Card</option>
-          <option value="eSewa">eSewa</option>
-        </select>
-        <button type="submit" class="order-btn">Confirm Order</button>
-      </form>
-      <p id="orderMessage"></p>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-

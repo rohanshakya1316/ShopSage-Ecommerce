@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShopSage | Product</title>
+  <title>ShopSage | Orders</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="tailwind.output.css">
 </head>
 <body>
   <div class="site-shell">
@@ -27,16 +26,16 @@
     </nav>
 
     <main class="section">
-      <div data-product-detail></div>
-      <section class="mt-xl">
-        <div class="section-header">
-          <div>
-            <p class="eyebrow">More Picks</p>
-            <h2>Related Products</h2>
-          </div>
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Orders</p>
+          <h1>Your Orders</h1>
+          <p class="section-subtitle">Track orders placed through the demo checkout flow.</p>
         </div>
-        <div class="grid product-grid" data-product-grid="related"></div>
-      </section>
+      </div>
+      <div class="panel" data-orders-locked hidden>Please log in to view your orders.</div>
+      <div class="panel" data-orders-empty hidden>No orders yet. Your next checkout will appear here.</div>
+      <div class="grid" data-orders-list></div>
     </main>
   </div>
 

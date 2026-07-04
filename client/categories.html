@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShopSage | Product</title>
+  <title>ShopSage | Categories</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="tailwind.output.css">
 </head>
 <body>
   <div class="site-shell">
@@ -27,16 +26,19 @@
     </nav>
 
     <main class="section">
-      <div data-product-detail></div>
-      <section class="mt-xl">
-        <div class="section-header">
-          <div>
-            <p class="eyebrow">More Picks</p>
-            <h2>Related Products</h2>
-          </div>
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Departments</p>
+          <h1>Shop Categories</h1>
+          <p class="section-subtitle">Jump into the exact product group your customer needs.</p>
         </div>
-        <div class="grid product-grid" data-product-grid="related"></div>
-      </section>
+      </div>
+      <div class="grid category-grid">
+        <a class="category-card" href="products.html?category=Fashion"><h3>Fashion</h3><p>Tees, jackets, and daily style essentials.</p></a>
+        <a class="category-card" href="products.html?category=Electronics"><h3>Electronics</h3><p>Smartphones, headphones, and connected gear.</p></a>
+        <a class="category-card" href="products.html?category=Shoes"><h3>Shoes</h3><p>Running shoes and care products.</p></a>
+        <a class="category-card" href="products.html?category=Accessories"><h3>Accessories</h3><p>Watches, backpacks, and useful extras.</p></a>
+      </div>
     </main>
   </div>
 

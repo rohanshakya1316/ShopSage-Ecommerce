@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About ShopSage</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a class="logo" href="home.html">ShopSage</a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="home.html#products">Products</a></li>
+      <li><a href="home.html#categories">Categories</a></li>
+      <li><a href="about.html" class="active-link">About</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a class="nav-action" href="home.html#products">Shop Now</a>
+    </div>
+
+    <button class="menu-toggle about-menu-toggle" type="button" onclick="toggleMenu()" aria-label="Open menu">Menu</button>
+  </nav>
+
+  <main>
+    <section class="about-hero">
+      <div class="about-hero-copy">
+        <p class="about-kicker">About ShopSage</p>
+        <h1>Thoughtfully chosen products for easier everyday shopping.</h1>
+        <p>
+          ShopSage brings fashion, tech, shoes, and accessories into one clean shopping experience,
+          with quality picks, fair pricing, and support that keeps customers confident from cart to delivery.
+        </p>
+        <div class="about-actions">
+          <a class="hero-cta" href="home.html#products">Explore Products</a>
+          <a class="about-secondary-link" href="cart.html">View Cart</a>
+        </div>
+      </div>
+      <div class="about-hero-image">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d" alt="ShopSage customer receiving an online order" />
+      </div>
+    </section>
+
+    <section class="about-stats" aria-label="ShopSage highlights">
+      <div>
+        <strong>10k+</strong>
+        <span>happy customers</span>
+      </div>
+      <div>
+        <strong>24/7</strong>
+        <span>customer support</span>
+      </div>
+      <div>
+        <strong>500+</strong>
+        <span>curated products</span>
+      </div>
+      <div>
+        <strong>Fast</strong>
+        <span>tracked delivery</span>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <div class="about-section-heading">
+        <p class="about-kicker">Our Story</p>
+        <h2>Built for shoppers who want less noise and better choices.</h2>
+      </div>
+      <div class="about-story-grid">
+        <p>
+          Online shopping should feel simple, trustworthy, and enjoyable. ShopSage was created to
+          make product discovery quicker by highlighting useful, stylish, and dependable essentials
+          across everyday categories.
+        </p>
+        <p>
+          We focus on clear product information, secure checkout, responsive support, and smooth
+          delivery so customers can spend less time comparing tabs and more time enjoying what they buy.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-values">
+      <article class="value-card">
+        <span>01</span>
+        <h3>Curated Quality</h3>
+        <p>Every item is selected with practical use, durability, and style in mind.</p>
+      </article>
+      <article class="value-card">
+        <span>02</span>
+        <h3>Secure Shopping</h3>
+        <p>Checkout is designed around protected payments and a clear ordering flow.</p>
+      </article>
+      <article class="value-card">
+        <span>03</span>
+        <h3>Helpful Service</h3>
+        <p>Our support approach is direct, friendly, and focused on solving customer needs quickly.</p>
+      </article>
+    </section>
+
+    <section class="about-process">
+      <div class="about-process-image">
+        <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f" alt="Packaged ecommerce orders ready for delivery" />
+      </div>
+      <div class="about-process-copy">
+        <p class="about-kicker">How We Work</p>
+        <h2>From product pick to doorstep, every step is intentional.</h2>
+        <ul>
+          <li>We compare product usefulness, value, and customer fit before listing.</li>
+          <li>We keep categories simple so customers can find what they need quickly.</li>
+          <li>We prepare every order with tracking, support, and clear communication.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="about-cta">
+      <h2>Ready to find your next favorite product?</h2>
+      <p>Browse ShopSage picks and build a cart that fits your day, your style, and your budget.</p>
+      <a class="hero-cta" href="home.html#products">Start Shopping</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ShopSage. All Rights Reserved.</p>
+    <p>Email: hello@shopsage.com</p>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      document.getElementById("navLinks").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>
