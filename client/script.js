@@ -89,8 +89,7 @@ const PRODUCT_CATALOG = [
     featured: false,
     imageUrl:
       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80",
-    description:
-      "Noise-isolating audio with a comfortable over-ear build.",
+    description: "Noise-isolating audio with a comfortable over-ear build.",
   },
   {
     id: "jacket",
@@ -279,7 +278,9 @@ function getAllProducts() {
 }
 
 function isLoggedIn() {
-  return localStorage.getItem("loggedIn") === "true" || Boolean(getAccessToken());
+  return (
+    localStorage.getItem("loggedIn") === "true" || Boolean(getAccessToken())
+  );
 }
 
 function getStoredUser() {
@@ -352,7 +353,10 @@ function findProduct(productId) {
 function updateAuthControls() {
   const user = getStoredUser();
   const roleLabel = normalizeRole(user?.role).join(", ");
-  const label = isLoggedIn() && user ? `Hi, ${user.name}${roleLabel ? ` (${roleLabel})` : ""}` : "";
+  const label =
+    isLoggedIn() && user
+      ? `Hi, ${user.name}${roleLabel ? ` (${roleLabel})` : ""}`
+      : "";
   const target = currentPageName() + window.location.search;
 
   document.querySelectorAll("[data-user-name], #userName").forEach((el) => {
@@ -364,9 +368,11 @@ function updateAuthControls() {
     el.hidden = isLoggedIn();
   });
 
-  document.querySelectorAll("[data-logout-button], #logoutButton").forEach((el) => {
-    el.hidden = !isLoggedIn();
-  });
+  document
+    .querySelectorAll("[data-logout-button], #logoutButton")
+    .forEach((el) => {
+      el.hidden = !isLoggedIn();
+    });
 }
 
 function setActiveNav() {
@@ -422,7 +428,9 @@ function buildProductCard(product) {
 function productsForGrid(grid) {
   const mode = grid.dataset.productGrid || "all";
   const category = grid.dataset.category;
-  const currentProductId = new URLSearchParams(window.location.search).get("id");
+  const currentProductId = new URLSearchParams(window.location.search).get(
+    "id",
+  );
   const products = getAllProducts();
 
   if (mode === "featured") {
@@ -438,7 +446,9 @@ function productsForGrid(grid) {
   }
 
   if (mode === "related") {
-    return products.filter((product) => product.id !== currentProductId).slice(0, 4);
+    return products
+      .filter((product) => product.id !== currentProductId)
+      .slice(0, 4);
   }
 
   return products;
@@ -452,7 +462,10 @@ function renderProductGrids() {
 
 function setActiveCategory(category) {
   document.querySelectorAll("[data-category-filter]").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.categoryFilter === category);
+    button.classList.toggle(
+      "is-active",
+      button.dataset.categoryFilter === category,
+    );
   });
 }
 
@@ -462,7 +475,8 @@ function applyProductFilters() {
   const categoryFromUrl = params.get("category") || "all";
   const searchInput = document.querySelector("[data-search-input]");
   const query = (searchInput?.value || queryFromUrl).trim().toLowerCase();
-  const activeCategory = document.body.dataset.activeCategory || categoryFromUrl;
+  const activeCategory =
+    document.body.dataset.activeCategory || categoryFromUrl;
   const cards = [...document.querySelectorAll("[data-product-card]")];
   let visibleCount = 0;
 
@@ -505,7 +519,11 @@ function setupSearch() {
       if (currentPageName() === "products.html") {
         const params = new URLSearchParams(window.location.search);
         query ? params.set("search", query) : params.delete("search");
-        window.history.replaceState({}, "", `products.html?${params.toString()}`);
+        window.history.replaceState(
+          {},
+          "",
+          `products.html?${params.toString()}`,
+        );
         applyProductFilters();
         return;
       }
@@ -526,7 +544,9 @@ function setupSearch() {
       const params = new URLSearchParams(window.location.search);
 
       document.body.dataset.activeCategory = category;
-      category === "all" ? params.delete("category") : params.set("category", category);
+      category === "all"
+        ? params.delete("category")
+        : params.set("category", category);
       window.history.replaceState(
         {},
         "",
@@ -557,7 +577,9 @@ function addProductToCart(product) {
 }
 
 function addToCart(button) {
-  if (!requireLogin("Please log in to add items to your cart.", currentPageName())) {
+  if (
+    !requireLogin("Please log in to add items to your cart.", currentPageName())
+  ) {
     return;
   }
 
@@ -573,7 +595,12 @@ function addToCart(button) {
 }
 
 function buyNow(productId) {
-  if (!requireLogin("Please log in to buy this item.", `product.html?id=${productId}`)) {
+  if (
+    !requireLogin(
+      "Please log in to buy this item.",
+      `product.html?id=${productId}`,
+    )
+  ) {
     return;
   }
 
@@ -787,7 +814,7 @@ function renderCheckoutPage() {
         `,
         )
         .join("")
-    : '<p>Your cart is empty.</p>';
+    : "<p>Your cart is empty.</p>";
 
   document.querySelectorAll("[data-checkout-subtotal]").forEach((el) => {
     el.textContent = formatMoney(totals.subtotal);
@@ -850,7 +877,9 @@ function renderBusinessDashboard() {
   const ordersTable = document.querySelector("[data-business-orders]");
   const locked = document.querySelector("[data-business-locked]");
   const requestPanel = document.querySelector("[data-business-request-panel]");
-  const dashboardContent = document.querySelector("[data-business-dashboard-content]");
+  const dashboardContent = document.querySelector(
+    "[data-business-dashboard-content]",
+  );
 
   if (!stats && !ordersTable && !locked) {
     return;
@@ -877,7 +906,9 @@ function renderBusinessDashboard() {
   const products = getAllProducts();
   const orders = getOrders().length ? getOrders() : DEMO_ORDERS;
   const revenue = orders.reduce((sum, order) => sum + Number(order.total), 0);
-  const lowStock = products.filter((product) => Number(product.stock || 0) < 20).length;
+  const lowStock = products.filter(
+    (product) => Number(product.stock || 0) < 20,
+  ).length;
 
   if (stats) {
     stats.innerHTML = `
@@ -927,15 +958,14 @@ function renderBusinessRequests() {
   }
 
   requestTable.innerHTML = requests
-    .map(
-      (request) => {
-        const reviewedLabel = request.tempPassword
-          ? `Temp password: ${request.tempPassword}${
-              request.backendSynced ? " · backend synced" : " · local demo"
-            }`
-          : "Reviewed";
+    .map((request) => {
+      const reviewedLabel = request.tempPassword
+        ? `Temp password: ${request.tempPassword}${
+            request.backendSynced ? " · backend synced" : " · local demo"
+          }`
+        : "Reviewed";
 
-        return `
+      return `
       <tr>
         <td>${request.businessName}</td>
         <td>${request.ownerName}</td>
@@ -951,8 +981,7 @@ function renderBusinessRequests() {
         </td>
       </tr>
     `;
-      },
-    )
+    })
     .join("");
 }
 
@@ -969,7 +998,8 @@ function setupBusinessRequestForm() {
     const requests = getBusinessRequests();
     const email = formData.get("email").trim().toLowerCase();
     const existing = requests.find(
-      (request) => request.email.toLowerCase() === email && request.status === "pending",
+      (request) =>
+        request.email.toLowerCase() === email && request.status === "pending",
     );
     const message = document.querySelector("[data-business-request-message]");
 
@@ -993,7 +1023,8 @@ function setupBusinessRequestForm() {
     saveBusinessRequests(requests);
     form.reset();
     message.style.color = "#16724d";
-    message.textContent = "Request sent. A super admin can review it from the admin panel.";
+    message.textContent =
+      "Request sent. A super admin can review it from the admin panel.";
     renderBusinessRequests();
   });
 }
@@ -1009,7 +1040,8 @@ async function reviewBusinessRequest(requestId, status) {
   request.status = status;
 
   if (status === "approved") {
-    request.tempPassword = request.tempPassword || `Business@${String(Date.now()).slice(-4)}`;
+    request.tempPassword =
+      request.tempPassword || `Business@${String(Date.now()).slice(-4)}`;
     saveLocalUser({
       name: request.ownerName,
       email: request.email,
@@ -1057,7 +1089,8 @@ function setupBusinessRequestActions() {
       return;
     }
 
-    const status = button.dataset.businessAction === "approve" ? "approved" : "rejected";
+    const status =
+      button.dataset.businessAction === "approve" ? "approved" : "rejected";
     reviewBusinessRequest(button.dataset.id, status);
   });
 }
@@ -1067,18 +1100,32 @@ function renderAdminPanel() {
   const orderTable = document.querySelector("[data-admin-orders]");
 
   if (productTable) {
+    const businessProductIds = new Set(
+      getBusinessProducts().map((product) => product.id),
+    );
+
     productTable.innerHTML = getAllProducts()
-      .map(
-        (product) => `
+      .map((product) => {
+        const isEditable = businessProductIds.has(product.id);
+        const actions = isEditable
+          ? `
+            <button type="button" class="secondary-btn" data-edit-product="${product.id}">Edit</button>
+            <button type="button" class="danger-btn" data-delete-product="${product.id}">Delete</button>
+          `
+          : `<span class="category-label">Demo item</span>`;
+
+        return `
         <tr>
+          <td><img class="table-thumb" src="${product.imageUrl}" alt="${product.name}"></td>
           <td>${product.name}</td>
           <td>${product.category}</td>
           <td>${formatMoney(product.price)}</td>
           <td>${product.stock || 0}</td>
           <td><span class="badge">${product.badge || "Live"}</span></td>
+          <td class="table-actions">${actions}</td>
         </tr>
-      `,
-      )
+      `;
+      })
       .join("");
   }
 
@@ -1101,6 +1148,25 @@ function renderAdminPanel() {
   renderBusinessRequests();
 }
 
+const DEFAULT_PRODUCT_IMAGE =
+  "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80";
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error("Could not read image file"));
+    reader.readAsDataURL(file);
+  });
+}
+
+function setAdminMessage(text) {
+  const message = document.querySelector("[data-admin-message]");
+  if (message) {
+    message.textContent = text;
+  }
+}
+
 function setupAdminForm() {
   const form = document.getElementById("adminProductForm");
 
@@ -1108,39 +1174,181 @@ function setupAdminForm() {
     return;
   }
 
+  const productTable = document.querySelector("[data-admin-products]");
+  const imageFileInput = form.querySelector("#productImageInput");
+  const imageUrlInput = form.querySelector("[name='imageUrl']");
+  const previewImg = form.querySelector("[data-image-preview-img]");
+  const previewPlaceholder = form.querySelector(
+    "[data-image-preview-placeholder]",
+  );
+  const removeImageBtn = form.querySelector("[data-remove-image]");
+  const formTitle = document.querySelector("[data-form-title]");
+  const submitBtn = form.querySelector("[data-form-submit]");
+  const cancelBtn = form.querySelector("[data-form-cancel]");
+  const productIdField = form.querySelector("[name='productId']");
+
+  let currentImageData = "";
+
+  function showPreview(src) {
+    if (src) {
+      previewImg.src = src;
+      previewImg.hidden = false;
+      previewPlaceholder.hidden = true;
+      removeImageBtn.hidden = false;
+    } else {
+      previewImg.src = "";
+      previewImg.hidden = true;
+      previewPlaceholder.hidden = false;
+      removeImageBtn.hidden = true;
+    }
+  }
+
+  function resetToAddMode() {
+    form.reset();
+    productIdField.value = "";
+    currentImageData = "";
+    showPreview("");
+    formTitle.textContent = "Add Product";
+    submitBtn.textContent = "Add Product";
+    cancelBtn.hidden = true;
+  }
+
+  function enterEditMode(product) {
+    productIdField.value = product.id;
+    form.name.value = product.name;
+    form.category.value = product.category;
+    form.price.value = product.price;
+    form.oldPrice.value = product.oldPrice || "";
+    form.stock.value = product.stock || 0;
+    form.description.value = product.description || "";
+    imageUrlInput.value = "";
+    currentImageData = product.imageUrl || "";
+    showPreview(currentImageData);
+    formTitle.textContent = "Edit Product";
+    submitBtn.textContent = "Update Product";
+    cancelBtn.hidden = false;
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  imageFileInput.addEventListener("change", async () => {
+    const file = imageFileInput.files[0];
+    if (!file) {
+      return;
+    }
+    try {
+      currentImageData = await fileToBase64(file);
+      imageUrlInput.value = "";
+      showPreview(currentImageData);
+    } catch {
+      setAdminMessage(
+        "Could not read that image file. Please try another one.",
+      );
+    }
+  });
+
+  imageUrlInput.addEventListener("input", () => {
+    if (imageUrlInput.value.trim()) {
+      imageFileInput.value = "";
+      currentImageData = imageUrlInput.value.trim();
+      showPreview(currentImageData);
+    }
+  });
+
+  removeImageBtn.addEventListener("click", () => {
+    currentImageData = "";
+    imageFileInput.value = "";
+    imageUrlInput.value = "";
+    showPreview("");
+  });
+
+  cancelBtn.addEventListener("click", resetToAddMode);
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(form);
+    const editingId = productIdField.value;
     const businessProducts = getBusinessProducts();
-    const newProduct = {
-      id: `business-${Date.now()}`,
+
+    const productData = {
       name: formData.get("name").trim(),
       category: formData.get("category"),
       price: Number(formData.get("price")),
       oldPrice: Number(formData.get("oldPrice")) || null,
       stock: Number(formData.get("stock")) || 0,
-      badge: "Business",
-      rating: "4.5",
-      featured: false,
-      imageUrl:
-        formData.get("imageUrl").trim() ||
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80",
+      imageUrl: currentImageData || DEFAULT_PRODUCT_IMAGE,
       description:
         formData.get("description").trim() ||
         "Business listed product ready for customer orders.",
     };
 
-    businessProducts.unshift(newProduct);
+    if (editingId) {
+      const index = businessProducts.findIndex(
+        (product) => product.id === editingId,
+      );
+      if (index !== -1) {
+        businessProducts[index] = {
+          ...businessProducts[index],
+          ...productData,
+        };
+      }
+      setAdminMessage("Product updated.");
+    } else {
+      businessProducts.unshift({
+        id: `business-${Date.now()}`,
+        badge: "Business",
+        rating: "4.5",
+        featured: false,
+        ...productData,
+      });
+      setAdminMessage("Product added to the business catalog.");
+    }
+
     writeJson("businessProducts", businessProducts);
-    form.reset();
+    resetToAddMode();
     renderProductGrids();
     renderAdminPanel();
     renderBusinessDashboard();
-    const message = document.querySelector("[data-admin-message]");
-    if (message) {
-      message.textContent = "Product added to the business catalog.";
-    }
   });
+
+  if (productTable) {
+    productTable.addEventListener("click", (event) => {
+      const editButton = event.target.closest("[data-edit-product]");
+      const deleteButton = event.target.closest("[data-delete-product]");
+
+      if (editButton) {
+        const product = getBusinessProducts().find(
+          (item) => item.id === editButton.dataset.editProduct,
+        );
+        if (product) {
+          enterEditMode(product);
+        }
+      }
+
+      if (deleteButton) {
+        const productId = deleteButton.dataset.deleteProduct;
+        const product = getBusinessProducts().find(
+          (item) => item.id === productId,
+        );
+        const confirmed = window.confirm(
+          `Delete "${product ? product.name : "this product"}"? This cannot be undone.`,
+        );
+        if (!confirmed) {
+          return;
+        }
+        const remaining = getBusinessProducts().filter(
+          (item) => item.id !== productId,
+        );
+        writeJson("businessProducts", remaining);
+        if (productIdField.value === productId) {
+          resetToAddMode();
+        }
+        renderProductGrids();
+        renderAdminPanel();
+        renderBusinessDashboard();
+        setAdminMessage("Product deleted.");
+      }
+    });
+  }
 }
 
 function logout() {
@@ -1198,7 +1406,8 @@ if (registerForm) {
       });
       saveBusinessRequests(requests);
       message.style.color = "#16724d";
-      message.textContent = "Business request submitted. A super admin must approve it before dashboard access.";
+      message.textContent =
+        "Business request submitted. A super admin must approve it before dashboard access.";
       registerForm.reset();
       accountType.dispatchEvent(new Event("change"));
       return;
