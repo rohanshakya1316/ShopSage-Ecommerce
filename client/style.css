@@ -598,6 +598,93 @@ th {
   gap: 12px;
 }
 
+/* PRODUCT IMAGE UPLOAD (Admin) */
+
+.image-upload-row {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 160px 1fr;
+}
+
+.image-preview {
+  align-items: center;
+  aspect-ratio: 4 / 3;
+  background: var(--soft);
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px;
+  text-align: center;
+}
+
+.image-preview img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.image-preview span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.image-upload-fields {
+  display: grid;
+  gap: 10px;
+}
+
+.upload-label {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.image-upload-fields input[type="file"] {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 9px 10px;
+  width: 100%;
+}
+
+.image-upload-fields .secondary-btn {
+  justify-self: start;
+  min-height: 38px;
+  padding: 8px 14px;
+}
+
+@media (max-width: 620px) {
+  .image-upload-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ADMIN PRODUCT TABLE */
+
+.table-thumb {
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  object-fit: cover;
+  width: 56px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.table-actions .secondary-btn,
+.table-actions .danger-btn {
+  min-height: 36px;
+  padding: 7px 12px;
+}
+
 .cart-list {
   display: grid;
   gap: 16px;
