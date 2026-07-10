@@ -1,4 +1,4 @@
-// src/app/product-management/_components/Table.js
+           // src/app/product-management/_components/Table.js
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -17,22 +17,19 @@ function ConfirmationModal({ open, title, message, onConfirm, onCancel }) {
             aria-modal="true"
             onClick={onCancel}
         >
-            <div
-                onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-sm rounded-xl bg-white p-5 shadow-xl sm:p-6"
-            >
-                <h3 className="text-base font-semibold text-[#0F172A] sm:text-lg">{title}</h3>
+            <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+                <h3 className="text-lg font-semibold text-[#0F172A]">{title}</h3>
                 <p className="mt-2 text-sm text-[#475569]">{message}</p>
-                <div className="mt-6 flex flex-col-reverse justify-end gap-2 sm:flex-row sm:gap-3">
+                <div className="mt-6 flex justify-end gap-3">
                     <button
                         onClick={onCancel}
-                        className="w-full rounded-lg border border-[#94A3B8]/40 bg-white px-5 py-2.5 text-sm font-medium text-[#475569] hover:bg-[#F8FAFC] sm:w-auto"
+                        className="rounded-lg border border-[#94A3B8]/40 bg-white px-5 py-2.5 text-sm font-medium text-[#475569] hover:bg-[#F8FAFC]"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="w-full rounded-lg bg-[#EF4444] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#DC2626] sm:w-auto"
+                        className="rounded-lg bg-[#EF4444] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#DC2626]"
                     >
                         Delete
                     </button>
@@ -52,7 +49,7 @@ function Toast({ message, onClose }) {
         <div
             role="status"
             aria-live="polite"
-            className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-lg bg-[#0F172A] px-4 py-3 text-center text-sm font-medium text-white shadow-xl sm:bottom-6 sm:left-auto sm:right-6 sm:w-auto sm:max-w-none sm:translate-x-0 sm:px-5 sm:py-3.5 sm:text-left"
+            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-[#0F172A] px-5 py-3.5 text-sm font-medium text-white shadow-xl sm:left-auto sm:right-6 sm:translate-x-0"
         >
             {message}
         </div>
@@ -107,8 +104,8 @@ export default function Table() {
 
     if (products.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#94A3B8]/40 bg-white py-14 text-center sm:py-20">
-                <p className="text-sm text-[#94A3B8] sm:text-base">No products yet.</p>
+            <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#94A3B8]/40 bg-white py-20 text-center">
+                <p className="text-[#94A3B8]">No products yet.</p>
             </div>
         );
     }
@@ -117,8 +114,8 @@ export default function Table() {
         <>
             <div className="overflow-hidden rounded-xl border border-[#94A3B8]/20 bg-white shadow-sm">
                 {/* Stats bar */}
-                <div className="flex flex-col gap-2 border-b border-[#94A3B8]/20 bg-[#F8FAFC] px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3 sm:px-5">
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-[#475569] sm:gap-6 sm:text-sm">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#94A3B8]/20 bg-[#F8FAFC] px-5 py-3">
+                    <div className="flex items-center gap-6 text-sm text-[#475569]">
                         <span>
                             All Products: <strong className="text-[#0F172A]">{products.length}</strong>
                         </span>
@@ -133,16 +130,16 @@ export default function Table() {
 
                 {/* Table */}
                 <div className="overflow-x-auto">
-                    <table className="w-full min-w-[640px] border-collapse text-xs sm:min-w-[900px] sm:text-sm">
+                    <table className="w-full min-w-[900px] border-collapse text-sm">
                         <thead>
-                            <tr className="border-b border-[#94A3B8]/20 bg-[#F8FAFC] text-left text-[10px] font-semibold uppercase tracking-wide text-[#64748B] sm:text-xs">
-                                <th className="px-3 py-2.5 sm:px-5 sm:py-3">Product</th>
-                                <th className="px-3 py-2.5 sm:px-5 sm:py-3">Category</th>
-                                <th className="hidden px-3 py-2.5 sm:table-cell sm:px-5 sm:py-3">Brand</th>
-                                <th className="px-3 py-2.5 sm:px-5 sm:py-3">Price</th>
-                                <th className="px-3 py-2.5 sm:px-5 sm:py-3">Stock</th>
-                                <th className="hidden px-3 py-2.5 md:table-cell sm:px-5 sm:py-3">Created At</th>
-                                <th className="px-3 py-2.5 text-right sm:px-5 sm:py-3">Actions</th>
+                            <tr className="border-b border-[#94A3B8]/20 bg-[#F8FAFC] text-left text-xs font-semibold uppercase tracking-wide text-[#64748B]">
+                                <th className="px-5 py-3">Product</th>
+                                <th className="px-5 py-3">Category</th>
+                                <th className="px-5 py-3">Brand</th>
+                                <th className="px-5 py-3">Price</th>
+                                <th className="px-5 py-3">Stock</th>
+                                <th className="px-5 py-3">Created At</th>
+                                <th className="px-5 py-3 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -154,9 +151,9 @@ export default function Table() {
                                         key={product.id}
                                         className="border-b border-[#94A3B8]/10 last:border-0 hover:bg-[#F8FAFC]"
                                     >
-                                        <td className="px-3 py-2.5 sm:px-5 sm:py-3">
-                                            <div className="flex items-center gap-2 sm:gap-3">
-                                                <div className="h-8 w-8 shrink-0 overflow-hidden rounded-lg border border-[#94A3B8]/20 bg-[#F8FAFC] sm:h-10 sm:w-10">
+                                        <td className="px-5 py-3">
+                                            <div className="flex items-center gap-3">
+                                                <div className="h-10 w-10 shrink-0 overflow-hidden rounded-lg border border-[#94A3B8]/20 bg-[#F8FAFC]">
                                                     {product.image ? (
                                                         <img
                                                             src={product.image}
@@ -164,7 +161,7 @@ export default function Table() {
                                                             className="h-full w-full object-cover"
                                                         />
                                                     ) : (
-                                                        <div className="flex h-full w-full items-center justify-center text-[9px] text-[#94A3B8] sm:text-[10px]">
+                                                        <div className="flex h-full w-full items-center justify-center text-[10px] text-[#94A3B8]">
                                                             N/A
                                                         </div>
                                                     )}
@@ -172,32 +169,28 @@ export default function Table() {
                                                 <span className="font-medium text-[#0F172A]">{product.name}</span>
                                             </div>
                                         </td>
-                                        <td className="px-3 py-2.5 sm:px-5 sm:py-3">
-                                            <span className="whitespace-nowrap rounded-full bg-[#EF4444]/10 px-2 py-0.5 text-[10px] font-medium text-[#EF4444] sm:px-2.5 sm:py-1 sm:text-xs">
+                                        <td className="px-5 py-3">
+                                            <span className="rounded-full bg-[#EF4444]/10 px-2.5 py-1 text-xs font-medium text-[#EF4444]">
                                                 {product.category || "—"}
                                             </span>
                                         </td>
-                                        <td className="hidden px-3 py-2.5 text-[#475569] sm:table-cell sm:px-5 sm:py-3">
-                                            {product.brand || "—"}
-                                        </td>
-                                        <td className="px-3 py-2.5 text-[#475569] sm:px-5 sm:py-3">
+                                        <td className="px-5 py-3 text-[#475569]">{product.brand || "—"}</td>
+                                        <td className="px-5 py-3 text-[#475569]">
                                             Rs. {Number(product.price || 0).toLocaleString()}
                                         </td>
-                                        <td className="px-3 py-2.5 sm:px-5 sm:py-3">
-                                            <span className="flex items-center gap-1.5 text-[#475569] sm:gap-2">
+                                        <td className="px-5 py-3">
+                                            <span className="flex items-center gap-2 text-[#475569]">
                                                 <span
-                                                    className={`h-2 w-2 shrink-0 rounded-full sm:h-2.5 sm:w-2.5 ${
+                                                    className={`h-2.5 w-2.5 rounded-full ${
                                                         isLow ? "bg-[#EF4444]" : "bg-[#22C55E]"
                                                     }`}
                                                 />
                                                 {stock}
                                             </span>
                                         </td>
-                                        <td className="hidden px-3 py-2.5 text-[#475569] md:table-cell sm:px-5 sm:py-3">
-                                            {formatDate(product.createdAt)}
-                                        </td>
-                                        <td className="px-3 py-2.5 sm:px-5 sm:py-3">
-                                            <div className="flex items-center justify-end gap-2 sm:gap-3">
+                                        <td className="px-5 py-3 text-[#475569]">{formatDate(product.createdAt)}</td>
+                                        <td className="px-5 py-3">
+                                            <div className="flex items-center justify-end gap-3">
                                                 <button
                                                     onClick={() =>
                                                         router.push(`/product-management/edit?id=${product.id}&view=1`)
@@ -242,8 +235,8 @@ export default function Table() {
                 </div>
 
                 {/* Pagination */}
-                <div className="flex flex-col gap-3 border-t border-[#94A3B8]/20 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-5">
-                    <span className="text-center text-xs text-[#94A3B8] sm:text-left">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#94A3B8]/20 px-5 py-3">
+                    <span className="text-xs text-[#94A3B8]">
                         Showing{" "}
                         <strong className="text-[#0F172A]">
                             {(page - 1) * PAGE_SIZE + 1}-{Math.min(page * PAGE_SIZE, products.length)}
@@ -251,11 +244,11 @@ export default function Table() {
                         of <strong className="text-[#0F172A]">{products.length}</strong>
                     </span>
 
-                    <div className="flex items-center justify-center gap-1 sm:justify-end">
+                    <div className="flex items-center gap-1">
                         <button
                             onClick={() => setPage((p) => Math.max(1, p - 1))}
                             disabled={page === 1}
-                            className="rounded-md border border-[#94A3B8]/30 px-2 py-1.5 text-xs text-[#64748B] disabled:opacity-40 sm:px-2.5"
+                            className="rounded-md border border-[#94A3B8]/30 px-2.5 py-1.5 text-xs text-[#64748B] disabled:opacity-40"
                         >
                             ‹
                         </button>
@@ -268,14 +261,14 @@ export default function Table() {
                             }, [])
                             .map((p, idx) =>
                                 p === "..." ? (
-                                    <span key={`ellipsis-${idx}`} className="px-1.5 text-xs text-[#94A3B8] sm:px-2">
+                                    <span key={`ellipsis-${idx}`} className="px-2 text-xs text-[#94A3B8]">
                                         …
                                     </span>
                                 ) : (
                                     <button
                                         key={p}
                                         onClick={() => setPage(p)}
-                                        className={`rounded-md px-2.5 py-1.5 text-xs font-medium sm:px-3 ${
+                                        className={`rounded-md px-3 py-1.5 text-xs font-medium ${
                                             p === page
                                                 ? "border border-[#0F172A] text-[#0F172A]"
                                                 : "text-[#64748B] hover:bg-[#F8FAFC]"
@@ -288,7 +281,7 @@ export default function Table() {
                         <button
                             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                             disabled={page === totalPages}
-                            className="rounded-md border border-[#94A3B8]/30 px-2 py-1.5 text-xs text-[#64748B] disabled:opacity-40 sm:px-2.5"
+                            className="rounded-md border border-[#94A3B8]/30 px-2.5 py-1.5 text-xs text-[#64748B] disabled:opacity-40"
                         >
                             ›
                         </button>
