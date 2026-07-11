@@ -1,4 +1,4 @@
-// src/app/product-management/_components/Form.js
+// src/app/product-management/_components/EditForm.js
 "use client";
 
 import { useMemo, useState } from "react";
@@ -7,10 +7,10 @@ import {
     STORAGE_KEY,
     MAX_DESCRIPTION_LENGTH,
     CATEGORY_OPTIONS,
-    initialValues,
     baseInputClass,
     inputBorder,
     generateSku,
+    formatDate,
     Button,
     SectionCard,
     Field,
@@ -20,25 +20,43 @@ import {
     ChecklistItem,
 } from "./shared";
 
+// Build the editable form state from a stored product record.
+function toFormValues(product) {
+    return {
+        image: product.image || "",
+        name: product.name || "",
+        category: product.category || "",
+        brand: product.brand || "",
+        price: product.price ?? "",
+        discountPrice: product.discountPrice ?? "",
+        stock: product.stock ?? "",
+        sku: product.sku || "",
+        description: product.description || "",
+    };
+}
+
 // =============================================================================
-// Main <Form /> component — create a new product
+// <EditForm /> — view, update, and delete an existing product
 // =============================================================================
-export default function Form() {
+export default function EditForm({ product, viewOnly = false }) {
     const router = useRouter();
 
-    const [form, setForm] = useState(initialValues);
+    const [form, setForm] = useState(() => toFormValues(product));
     const [fileName, setFileName] = useState("");
     const [fileSize, setFileSize] = useState(0);
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [toast, setToast] = useState("");
-    const [saveModalOpen, setSaveModalOpen] = useState(false);
+    const [updateModalOpen, setUpdateModalOpen] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+    const isReadOnly = viewOnly;
 
     // ---------------------------------------------------------------------
     // Generic change handler shared by every text / number / select field
     // ---------------------------------------------------------------------
     const handleChange = ({ target }) => {
+        if (isReadOnly) return;
         const { name, value } = target;
         setForm((prev) => ({ ...prev, [name]: value }));
         setErrors((prev) => ({ ...prev, [name]: "" }));
@@ -48,6 +66,8 @@ export default function Form() {
     // Image handling: validate type + size, read as Base64, update preview
     // ---------------------------------------------------------------------
     const handleImageFile = (file) => {
+        if (isReadOnly) return;
+
         if (!file.type.startsWith("image/")) {
             setErrors((prev) => ({ ...prev, image: "Please upload a valid image file." }));
             return;
@@ -82,21 +102,23 @@ export default function Form() {
     };
 
     const handleRemoveImage = () => {
+        if (isReadOnly) return;
         setForm((prev) => ({ ...prev, image: "" }));
         setFileName("");
         setFileSize(0);
     };
 
     // ---------------------------------------------------------------------
-    // SKU auto-suggest — only fills the field if the user hasn't typed one
+    // SKU regenerate
     // ---------------------------------------------------------------------
     const handleGenerateSku = () => {
+        if (isReadOnly) return;
         setForm((prev) => ({ ...prev, sku: generateSku(prev.name || "product") }));
         setErrors((prev) => ({ ...prev, sku: "" }));
     };
 
     // ---------------------------------------------------------------------
-    // Validation — returns an errors object; used both live and on submit
+    // Validation — same rules as the add form
     // ---------------------------------------------------------------------
     const validate = () => {
         const nextErrors = {};
@@ -149,28 +171,29 @@ export default function Form() {
     );
 
     // ---------------------------------------------------------------------
-    // Save flow: validate -> open confirmation -> persist on confirm
+    // Update flow: validate -> open confirmation -> persist on confirm
     // ---------------------------------------------------------------------
-    const handleSaveClick = (e) => {
+    const handleUpdateClick = (e) => {
         e.preventDefault();
+        if (isReadOnly) return;
+
         const nextErrors = validate();
         setErrors(nextErrors);
 
         if (Object.keys(nextErrors).length > 0) {
-            // Scroll the first invalid field into view for quick correction.
             const firstErrorField = document.getElementById(Object.keys(nextErrors)[0]);
             firstErrorField?.scrollIntoView({ behavior: "smooth", block: "center" });
             return;
         }
 
-        setSaveModalOpen(true);
+        setUpdateModalOpen(true);
     };
 
-    const confirmSave = () => {
+    const confirmUpdate = () => {
         setLoading(true);
 
-        const product = {
-            id: crypto.randomUUID(),
+        const updatedProduct = {
+            ...product,
             image: form.image,
             name: form.name.trim(),
             category: form.category,
@@ -180,17 +203,18 @@ export default function Form() {
             stock: Number(form.stock),
             sku: form.sku.trim() || generateSku(form.name),
             description: form.description.trim(),
-            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
         };
 
         try {
             const products = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-            localStorage.setItem(STORAGE_KEY, JSON.stringify([product, ...products]));
-            setSaveModalOpen(false);
-            setToast("Product added successfully");
+            const nextProducts = products.map((p) => (p.id === product.id ? updatedProduct : p));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(nextProducts));
+            setUpdateModalOpen(false);
+            setToast("Product updated successfully");
             setTimeout(() => router.push("/product-management"), 900);
         } catch {
-            setSaveModalOpen(false);
+            setUpdateModalOpen(false);
             setLoading(false);
             setErrors((prev) => ({
                 ...prev,
@@ -200,28 +224,39 @@ export default function Form() {
     };
 
     // ---------------------------------------------------------------------
-    // Delete / clear flow
+    // Delete flow
     // ---------------------------------------------------------------------
-    const confirmClear = () => {
-        setForm(initialValues);
-        setFileName("");
-        setFileSize(0);
-        setErrors({});
-        setDeleteModalOpen(false);
+    const confirmDelete = () => {
+        setLoading(true);
+        try {
+            const products = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+            const nextProducts = products.filter((p) => p.id !== product.id);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(nextProducts));
+            setDeleteModalOpen(false);
+            setToast("Product deleted");
+            setTimeout(() => router.push("/product-management"), 700);
+        } catch {
+            setDeleteModalOpen(false);
+            setLoading(false);
+            setErrors((prev) => ({
+                ...prev,
+                form: "Something went wrong while deleting. Please try again.",
+            }));
+        }
     };
 
     const descriptionCount = form.description.length;
 
     return (
         <>
-            <form onSubmit={handleSaveClick} noValidate className="pb-24 sm:pb-0">
+            <form onSubmit={handleUpdateClick} noValidate className="pb-24 sm:pb-0">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
                     {/* ============================= Main column ============================= */}
                     <div className="space-y-6">
-                        {/* Product Images */}
+                        {/* Product Image */}
                         <SectionCard
                             title="Product Image"
-                            description="A clear photo helps customers recognize your product."
+                            description={isReadOnly ? "The image on file for this product." : "A clear photo helps customers recognize your product."}
                             icon={
                                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5" aria-hidden="true">
                                     <path
@@ -239,6 +274,7 @@ export default function Form() {
                                 onFile={handleImageFile}
                                 onRemove={handleRemoveImage}
                                 error={errors.image}
+                                disabled={isReadOnly}
                             />
                         </SectionCard>
 
@@ -264,6 +300,7 @@ export default function Form() {
                                         type="text"
                                         value={form.name}
                                         onChange={handleChange}
+                                        disabled={isReadOnly}
                                         placeholder="e.g. Wireless Over-Ear Headphones"
                                         aria-invalid={!!errors.name}
                                         aria-required="true"
@@ -277,6 +314,7 @@ export default function Form() {
                                         name="category"
                                         value={form.category}
                                         onChange={handleChange}
+                                        disabled={isReadOnly}
                                         aria-invalid={!!errors.category}
                                         aria-required="true"
                                         className={`${baseInputClass} ${inputBorder(errors.category)} appearance-none`}
@@ -297,6 +335,7 @@ export default function Form() {
                                         type="text"
                                         value={form.brand}
                                         onChange={handleChange}
+                                        disabled={isReadOnly}
                                         placeholder="e.g. Acme Audio"
                                         className={`${baseInputClass} ${inputBorder(errors.brand)}`}
                                     />
@@ -315,6 +354,7 @@ export default function Form() {
                                         rows={5}
                                         value={form.description}
                                         onChange={handleChange}
+                                        disabled={isReadOnly}
                                         placeholder="Describe materials, features, sizing, and anything customers should know…"
                                         maxLength={MAX_DESCRIPTION_LENGTH}
                                         aria-invalid={!!errors.description}
@@ -327,7 +367,7 @@ export default function Form() {
                         {/* Pricing & Inventory */}
                         <SectionCard
                             title="Pricing & Inventory"
-                            description="Set what you charge and what you have in stock."
+                            description="What you charge and what you have in stock."
                             icon={
                                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5" aria-hidden="true">
                                     <path d="M10.75 10.818v2.614A3.13 3.13 0 0011.888 13c.482-.315.612-.648.612-.875 0-.227-.13-.56-.612-.875a3.13 3.13 0 00-1.138-.432zM8.33 8.62c.053.055.115.11.184.164.208.16.46.284.736.363V6.603a2.45 2.45 0 00-.35.13c-.14.065-.27.143-.386.233-.377.292-.514.627-.514.909 0 .184.058.39.202.592.037.051.08.102.128.152z" />
@@ -351,6 +391,7 @@ export default function Form() {
                                             step="0.01"
                                             value={form.price}
                                             onChange={handleChange}
+                                            disabled={isReadOnly}
                                             placeholder="0.00"
                                             aria-invalid={!!errors.price}
                                             aria-required="true"
@@ -370,6 +411,7 @@ export default function Form() {
                                             step="0.01"
                                             value={form.discountPrice}
                                             onChange={handleChange}
+                                            disabled={isReadOnly}
                                             placeholder="0.00"
                                             aria-invalid={!!errors.discountPrice}
                                             className={`${baseInputClass} ${inputBorder(errors.discountPrice)} pl-7`}
@@ -386,6 +428,7 @@ export default function Form() {
                                         step="1"
                                         value={form.stock}
                                         onChange={handleChange}
+                                        disabled={isReadOnly}
                                         placeholder="0"
                                         aria-invalid={!!errors.stock}
                                         aria-required="true"
@@ -401,12 +444,15 @@ export default function Form() {
                                             type="text"
                                             value={form.sku}
                                             onChange={handleChange}
+                                            disabled={isReadOnly}
                                             placeholder="e.g. WH-AC102"
                                             className={`${baseInputClass} ${inputBorder(errors.sku)}`}
                                         />
-                                        <Button type="button" variant="secondary" size="md" onClick={handleGenerateSku} aria-label="Generate SKU">
-                                            Generate
-                                        </Button>
+                                        {!isReadOnly && (
+                                            <Button type="button" variant="secondary" size="md" onClick={handleGenerateSku} aria-label="Generate SKU">
+                                                Generate
+                                            </Button>
+                                        )}
                                     </div>
                                 </Field>
                             </div>
@@ -422,6 +468,22 @@ export default function Form() {
 
                     {/* ============================= Sidebar ============================= */}
                     <aside className="space-y-6 lg:sticky lg:top-6 lg:self-start">
+                        {/* Meta info */}
+                        <SectionCard title="Product Info">
+                            <dl className="space-y-2 text-base">
+                                <div className="flex justify-between gap-3">
+                                    <dt className="text-[#94A3B8]">Added on</dt>
+                                    <dd className="font-medium text-[#0F172A]">{formatDate(product.createdAt)}</dd>
+                                </div>
+                                {product.updatedAt && (
+                                    <div className="flex justify-between gap-3">
+                                        <dt className="text-[#94A3B8]">Last updated</dt>
+                                        <dd className="font-medium text-[#0F172A]">{formatDate(product.updatedAt)}</dd>
+                                    </div>
+                                )}
+                            </dl>
+                        </SectionCard>
+
                         {/* Checklist */}
                         <SectionCard title="Checklist" description="Track what's ready to publish.">
                             <ul className="space-y-2.5">
@@ -431,12 +493,23 @@ export default function Form() {
                             </ul>
                         </SectionCard>
 
-                        {/* Publish actions */}
-                        <SectionCard title="Publish">
+                        {/* Actions */}
+                        <SectionCard title={isReadOnly ? "Actions" : "Save changes"}>
                             <div className="hidden flex-col gap-3 sm:flex">
-                                <Button type="submit" disabled={loading} className="w-full">
-                                    {loading ? "Saving…" : "Save Product"}
-                                </Button>
+                                {isReadOnly ? (
+                                    <Button
+                                        type="button"
+                                        disabled={loading}
+                                        onClick={() => router.push(`/product-management/${product.id}/edit`)}
+                                        className="w-full"
+                                    >
+                                        Edit Product
+                                    </Button>
+                                ) : (
+                                    <Button type="submit" disabled={loading} className="w-full">
+                                        {loading ? "Updating…" : "Update Product"}
+                                    </Button>
+                                )}
                                 <Button
                                     type="button"
                                     variant="danger"
@@ -444,39 +517,23 @@ export default function Form() {
                                     onClick={() => setDeleteModalOpen(true)}
                                     className="w-full"
                                 >
-                                    Delete / Clear Form
+                                    Delete Product
                                 </Button>
                                 <Button
                                     type="button"
                                     variant="ghost"
                                     disabled={loading}
-                                    onClick={() => router.back()}
+                                    onClick={() => router.push("/product-management")}
                                     className="w-full"
                                 >
-                                    Cancel
+                                    Back to list
                                 </Button>
                             </div>
-                            <p className="text-sm text-[#94A3B8] sm:mt-1">
-                                Review the checklist above before publishing — you can always edit later.
-                            </p>
-                        </SectionCard>
-
-                        {/* Photo tips */}
-                        <SectionCard title="Photo tips">
-                            <ul className="space-y-2 text-base text-[#475569]">
-                                <li className="flex gap-2">
-                                    <span className="text-[#FBBF24]" aria-hidden="true">•</span>
-                                    Use natural light and a plain background.
-                                </li>
-                                <li className="flex gap-2">
-                                    <span className="text-[#FBBF24]" aria-hidden="true">•</span>
-                                    Show the product from its most flattering angle.
-                                </li>
-                                <li className="flex gap-2">
-                                    <span className="text-[#FBBF24]" aria-hidden="true">•</span>
-                                    Square images (1:1) crop most consistently.
-                                </li>
-                            </ul>
+                            {!isReadOnly && (
+                                <p className="text-sm text-[#94A3B8] sm:mt-1">
+                                    Changes apply immediately once confirmed.
+                                </p>
+                            )}
                         </SectionCard>
                     </aside>
                 </div>
@@ -492,34 +549,46 @@ export default function Form() {
                     onClick={() => setDeleteModalOpen(true)}
                     className="flex-1"
                 >
-                    Clear
+                    Delete
                 </Button>
-                <Button type="button" size="md" disabled={loading} onClick={handleSaveClick} className="flex-1">
-                    {loading ? "Saving…" : "Save Product"}
-                </Button>
+                {isReadOnly ? (
+                    <Button
+                        type="button"
+                        size="md"
+                        disabled={loading}
+                        onClick={() => router.push(`/product-management/${product.id}/edit`)}
+                        className="flex-1"
+                    >
+                        Edit
+                    </Button>
+                ) : (
+                    <Button type="button" size="md" disabled={loading} onClick={handleUpdateClick} className="flex-1">
+                        {loading ? "Updating…" : "Update"}
+                    </Button>
+                )}
             </div>
 
-            {/* Save confirmation */}
+            {/* Update confirmation */}
             <ConfirmationModal
-                open={saveModalOpen}
-                title="Add Product?"
-                message="Do you want to add this product to your catalog?"
-                confirmLabel="Add Product"
+                open={updateModalOpen}
+                title="Update Product?"
+                message="Do you want to save these changes to the product?"
+                confirmLabel="Update Product"
                 cancelLabel="Cancel"
                 variant="primary"
-                onConfirm={confirmSave}
-                onCancel={() => setSaveModalOpen(false)}
+                onConfirm={confirmUpdate}
+                onCancel={() => setUpdateModalOpen(false)}
             />
 
-            {/* Delete / clear confirmation */}
+            {/* Delete confirmation */}
             <ConfirmationModal
                 open={deleteModalOpen}
                 title="Delete Product?"
-                message="This will clear all entered information, including the uploaded image. This can't be undone."
+                message={`Are you sure you want to delete "${product.name}"? This can't be undone.`}
                 confirmLabel="Delete"
                 cancelLabel="Cancel"
                 variant="danger"
-                onConfirm={confirmClear}
+                onConfirm={confirmDelete}
                 onCancel={() => setDeleteModalOpen(false)}
             />
 

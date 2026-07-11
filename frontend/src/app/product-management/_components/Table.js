@@ -1,4 +1,4 @@
-           // src/app/product-management/_components/Table.js
+// src/app/product-management/_components/Table.js
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -18,18 +18,18 @@ function ConfirmationModal({ open, title, message, onConfirm, onCancel }) {
             onClick={onCancel}
         >
             <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
-                <h3 className="text-lg font-semibold text-[#0F172A]">{title}</h3>
-                <p className="mt-2 text-sm text-[#475569]">{message}</p>
+                <h3 className="text-xl font-semibold text-[#0F172A]">{title}</h3>
+                <p className="mt-2 text-base text-[#475569]">{message}</p>
                 <div className="mt-6 flex justify-end gap-3">
                     <button
                         onClick={onCancel}
-                        className="rounded-lg border border-[#94A3B8]/40 bg-white px-5 py-2.5 text-sm font-medium text-[#475569] hover:bg-[#F8FAFC]"
+                        className="rounded-lg border border-[#94A3B8]/40 bg-white px-5 py-2.5 text-base font-medium text-[#475569] hover:bg-[#F8FAFC]"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="rounded-lg bg-[#EF4444] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#DC2626]"
+                        className="rounded-lg bg-[#EF4444] px-5 py-2.5 text-base font-medium text-white hover:bg-[#DC2626]"
                     >
                         Delete
                     </button>
@@ -49,7 +49,7 @@ function Toast({ message, onClose }) {
         <div
             role="status"
             aria-live="polite"
-            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-[#0F172A] px-5 py-3.5 text-sm font-medium text-white shadow-xl sm:left-auto sm:right-6 sm:translate-x-0"
+            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-[#0F172A] px-5 py-3.5 text-base font-medium text-white shadow-xl sm:left-auto sm:right-6 sm:translate-x-0"
         >
             {message}
         </div>
@@ -115,7 +115,7 @@ export default function Table() {
             <div className="overflow-hidden rounded-xl border border-[#94A3B8]/20 bg-white shadow-sm">
                 {/* Stats bar */}
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#94A3B8]/20 bg-[#F8FAFC] px-5 py-3">
-                    <div className="flex items-center gap-6 text-sm text-[#475569]">
+                    <div className="flex items-center gap-6 text-base text-[#475569]">
                         <span>
                             All Products: <strong className="text-[#0F172A]">{products.length}</strong>
                         </span>
@@ -130,9 +130,9 @@ export default function Table() {
 
                 {/* Table */}
                 <div className="overflow-x-auto">
-                    <table className="w-full min-w-[900px] border-collapse text-sm">
+                    <table className="w-full min-w-[900px] border-collapse text-base">
                         <thead>
-                            <tr className="border-b border-[#94A3B8]/20 bg-[#F8FAFC] text-left text-xs font-semibold uppercase tracking-wide text-[#64748B]">
+                            <tr className="border-b border-[#94A3B8]/20 bg-[#F8FAFC] text-left text-sm font-semibold uppercase tracking-wide text-[#64748B]">
                                 <th className="px-5 py-3">Product</th>
                                 <th className="px-5 py-3">Category</th>
                                 <th className="px-5 py-3">Brand</th>
@@ -161,7 +161,7 @@ export default function Table() {
                                                             className="h-full w-full object-cover"
                                                         />
                                                     ) : (
-                                                        <div className="flex h-full w-full items-center justify-center text-[10px] text-[#94A3B8]">
+                                                        <div className="flex h-full w-full items-center justify-center text-xs text-[#94A3B8]">
                                                             N/A
                                                         </div>
                                                     )}
@@ -170,7 +170,7 @@ export default function Table() {
                                             </div>
                                         </td>
                                         <td className="px-5 py-3">
-                                            <span className="rounded-full bg-[#EF4444]/10 px-2.5 py-1 text-xs font-medium text-[#EF4444]">
+                                            <span className="rounded-full bg-[#EF4444]/10 px-2.5 py-1 text-sm font-medium text-[#EF4444]">
                                                 {product.category || "—"}
                                             </span>
                                         </td>
@@ -193,7 +193,7 @@ export default function Table() {
                                             <div className="flex items-center justify-end gap-3">
                                                 <button
                                                     onClick={() =>
-                                                        router.push(`/product-management/edit?id=${product.id}&view=1`)
+                                                        router.push(`/product-management/${product.id}/edit?view=1`)
                                                     }
                                                     aria-label="View"
                                                     className="text-[#64748B] hover:text-[#0F172A]"
@@ -204,7 +204,7 @@ export default function Table() {
                                                     </svg>
                                                 </button>
                                                 <button
-                                                    onClick={() => router.push(`/product-management/edit?id=${product.id}`)}
+                                                    onClick={() => router.push(`/product-management/${product.id}/edit`)}
                                                     aria-label="Edit"
                                                     className="text-[#64748B] hover:text-[#4F46E5]"
                                                 >
@@ -236,7 +236,7 @@ export default function Table() {
 
                 {/* Pagination */}
                 <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#94A3B8]/20 px-5 py-3">
-                    <span className="text-xs text-[#94A3B8]">
+                    <span className="text-sm text-[#94A3B8]">
                         Showing{" "}
                         <strong className="text-[#0F172A]">
                             {(page - 1) * PAGE_SIZE + 1}-{Math.min(page * PAGE_SIZE, products.length)}
@@ -248,7 +248,7 @@ export default function Table() {
                         <button
                             onClick={() => setPage((p) => Math.max(1, p - 1))}
                             disabled={page === 1}
-                            className="rounded-md border border-[#94A3B8]/30 px-2.5 py-1.5 text-xs text-[#64748B] disabled:opacity-40"
+                            className="rounded-md border border-[#94A3B8]/30 px-2.5 py-1.5 text-sm text-[#64748B] disabled:opacity-40"
                         >
                             ‹
                         </button>
@@ -261,14 +261,14 @@ export default function Table() {
                             }, [])
                             .map((p, idx) =>
                                 p === "..." ? (
-                                    <span key={`ellipsis-${idx}`} className="px-2 text-xs text-[#94A3B8]">
+                                    <span key={`ellipsis-${idx}`} className="px-2 text-sm text-[#94A3B8]">
                                         …
                                     </span>
                                 ) : (
                                     <button
                                         key={p}
                                         onClick={() => setPage(p)}
-                                        className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+                                        className={`rounded-md px-3 py-1.5 text-sm font-medium ${
                                             p === page
                                                 ? "border border-[#0F172A] text-[#0F172A]"
                                                 : "text-[#64748B] hover:bg-[#F8FAFC]"
@@ -281,7 +281,7 @@ export default function Table() {
                         <button
                             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                             disabled={page === totalPages}
-                            className="rounded-md border border-[#94A3B8]/30 px-2.5 py-1.5 text-xs text-[#64748B] disabled:opacity-40"
+                            className="rounded-md border border-[#94A3B8]/30 px-2.5 py-1.5 text-sm text-[#64748B] disabled:opacity-40"
                         >
                             ›
                         </button>
