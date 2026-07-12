@@ -3,7 +3,9 @@ export const ABOUT_ROUTE = "/about";
 export const PRODUCT_ROUTE = "/products";
 export const ORDER_ROUTE = "/orders";
 export const CONTACT_ROUTE = "/contact";
-export const CATEGORY_ROUTE = "/categories"
+export const CATEGORY_ROUTE = "/categories";
+export const LOGIN_ROUTE = "/login";
+export const REGISTER_ROUTE = "/register";
 
 export const navMenu = [
   {

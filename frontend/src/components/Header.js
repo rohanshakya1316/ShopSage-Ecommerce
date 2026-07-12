@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HOME_ROUTE, navMenu } from "@/constants/routes";
+import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -49,10 +49,11 @@ const Header = () => {
                   3
                 </span>
               </button>
-
-              <button className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
-                Login
-              </button>
+              <Link href={LOGIN_ROUTE}>
+                <button className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+                  Login
+                </button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -93,10 +94,11 @@ const Header = () => {
                 </span>
               </button>
             </div>
-
-            <button className="max-w-5xl bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 transition">
-              Login
-            </button>
+            <Link href={LOGIN_ROUTE}>
+              <button className="max-w-5xl bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 transition">
+                Login
+              </button>
+            </Link>
           </div>
         </div>
       </nav>
