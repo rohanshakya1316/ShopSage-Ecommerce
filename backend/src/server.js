@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import cors from "cors";
 
 import fs from "fs/promises";
 import config from "./config/config.js";
@@ -35,6 +36,8 @@ app.get("/", (request, response) => {
     port: config.port,
   });
 });
+
+app.use(cors());
 
 app.use("/api/products", upload.array("images", 5), productRoute);
 
