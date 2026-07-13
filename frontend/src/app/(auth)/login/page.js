@@ -1,17 +1,37 @@
 "use client";
 
 import { login } from "@/api/auth";
-import { REGISTER_ROUTE } from "@/constants/routes";
+import PasswordInput from "@/components/PasswordInput";
+import Spinner from "@/components/Spinner";
+import { HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
+import useAuthStore from "@/stores/authStore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const { register, handleSubmit } = useForm();
+  const { loginUser } = useAuthStore.getState();
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const submitForm = (data) => {
+    setLoading(true);
+
     login(data)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        loginUser({ user: response.data });
+        router.replace(HOME_ROUTE);
+        toast.success("Login Successful!");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -55,14 +75,7 @@ const LoginForm = () => {
             Password
           </label>
 
-          <input
-            type="password"
-            placeholder="Enter your password"
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none transition-all duration-300
-            focus:border-primary focus:ring-4 focus:ring-primary/20"
-            required
-            {...register("password")}
-          />
+          <PasswordInput {...register("password")} />
         </div>
 
         {/* Remember */}
@@ -83,9 +96,10 @@ const LoginForm = () => {
         {/* Login Button */}
         <button
           type="submit"
-          className="w-full rounded-xl bg-primary py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:bg-primary-hover hover:shadow-xl hover:-translate-y-1 active:translate-y-0"
+          className="relative w-full rounded-xl bg-primary py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:bg-primary-hover hover:shadow-xl hover:-translate-y-1 active:translate-y-0 disabled:opacity-80"
+          disabled={loading}
         >
-          Login
+          Login {loading && <Spinner className="absolute top-2.5 right-5 w-7! h-7!" />}
         </button>
 
         {/* Divider */}

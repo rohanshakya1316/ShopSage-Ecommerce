@@ -1,13 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import useAuthStore from "@/stores/authStore";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathName = usePathname();
+
+  const { isAuthenticated, logout } = useAuthStore.getState();
+
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+
+    router.replace(LOGIN_ROUTE);
+  };
+
+  useEffect(() => {}, [isAuthenticated]);
+
   return (
     <header>
       <nav className="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
@@ -41,19 +55,29 @@ const Header = () => {
 
             {/* Desktop Icons */}
             <div className="hidden md:flex items-center space-x-5">
-              <button className="hover:text-indigo-400">🔍</button>
+              {isAuthenticated ? (
+                <>
+                  <button className="relative hover:text-indigo-400">
+                    🛒
+                    <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
+                      3
+                    </span>
+                  </button>
 
-              <button className="relative hover:text-indigo-400">
-                🛒
-                <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
-                  3
-                </span>
-              </button>
-              <Link href={LOGIN_ROUTE}>
-                <button className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
-                  Login
-                </button>
-              </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link href={LOGIN_ROUTE}>
+                  <button className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+                    Login
+                  </button>
+                </Link>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -83,22 +107,30 @@ const Header = () => {
                 {menu.label}
               </Link>
             ))}
-
-            <div className="flex items-center gap-4 pt-2 justify-end">
-              <button className="hover:text-indigo-400 text-xl">🔍</button>
-
-              <button className="relative hover:text-indigo-400 text-xl">
-                🛒
-                <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
-                  3
-                </span>
-              </button>
-            </div>
-            <Link href={LOGIN_ROUTE}>
-              <button className="max-w-5xl bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 transition">
-                Login
-              </button>
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <div className="flex items-center gap-4 pt-2 justify-end">
+                  <button className="relative hover:text-indigo-400 text-xl">
+                    🛒
+                    <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
+                      3
+                    </span>
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <Link href={LOGIN_ROUTE}>
+                <button className="max-w-5xl bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 transition">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </nav>

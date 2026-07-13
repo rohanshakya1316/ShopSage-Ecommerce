@@ -1,7 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import login_hero from "@/assets/images/login_hero.png";
+import useAuthStore from "@/stores/authStore";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { HOME_ROUTE } from "@/constants/routes";
 
 const AuthLayout = ({ children }) => {
+  const { isAuthenticated } = useAuthStore.getState();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push(HOME_ROUTE);
+    }
+  });
+
+  if (isAuthenticated) return;
+
   return (
     <section className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="mt-4 w-full max-w-6xl shadow-2xl rounded-3xl overflow-hidden bg-card">

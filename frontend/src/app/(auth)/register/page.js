@@ -1,13 +1,25 @@
 "use client";
 
 import { signup } from "@/api/auth";
-import { LOGIN_ROUTE } from "@/constants/routes";
+import PasswordInput from "@/components/PasswordInput";
+import Spinner from "@/components/Spinner";
+import { HOME_ROUTE, LOGIN_ROUTE } from "@/constants/routes";
+import useAuthStore from "@/stores/authStore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const { register, handleSubmit } = useForm();
+
+  const { registerUser } = useAuthStore.getState();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const submitForm = (data) => {
+    setLoading(true);
     signup({
       name: data.name,
       email: data.email,
@@ -18,8 +30,16 @@ const RegisterForm = () => {
         province: data.province,
       },
     })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        registerUser({ user: response.data });
+        router.replace(HOME_ROUTE);
+        toast.success("Register Sucessfull!");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -140,13 +160,7 @@ const RegisterForm = () => {
             Password
           </label>
 
-          <input
-            type="password"
-            placeholder="Enter password"
-            className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition duration-300 focus:border-primary focus:ring-4 focus:ring-primary/20"
-            required
-            {...register("password")}
-          />
+          <PasswordInput {...register("password")} />
         </div>
 
         {/* Confirm Password */}
@@ -158,20 +172,19 @@ const RegisterForm = () => {
             Confirm Password
           </label>
 
-          <input
-            type="password"
-            placeholder="Confirm password"
-            className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition duration-300 focus:border-primary focus:ring-4 focus:ring-primary/20"
-            required
-          />
+          <PasswordInput />
         </div>
 
         {/* Button */}
         <button
           type="submit"
-          className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition duration-300 hover:bg-primary-hover hover:-translate-y-1 shadow-lg"
+          className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition duration-300 hover:bg-primary-hover hover:-translate-y-1 shadow-lg disabled:opacity-80"
+          disabled={loading}
         >
-          Create Account
+          Create Account{" "}
+          {loading && (
+            <Spinner className="absolute top-2.5 right-5 w-7! h-7!" />
+          )}
         </button>
 
         {/* Login Link */}
