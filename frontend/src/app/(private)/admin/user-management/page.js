@@ -1,8 +1,6 @@
-import React from "react";
 import UsersTable from "./_components/Table";
 
 const UserManagementPage = () => {
-  return <div>UserManagementPage</div>;
   return (
     <section className="py-3">
       <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
