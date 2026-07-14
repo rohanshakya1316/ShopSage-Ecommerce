@@ -26,6 +26,7 @@ body {
 } */
 
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --primary: #4F46E5;
