@@ -81,7 +81,17 @@ const updateProduct = async (id, input, files) => {
   });
 };
 
-const deleteProduct = async (id) => {
+const deleteProduct = async (id, authUser) => {
+  const product = await getProductById(id);
+  if (
+    authUser._id !== product.createdBy.toString() &&
+    !authUser.roles.includes(ROLE_ADMIN)
+  ) {
+    throw {
+      status: 403,
+      message: "Access denied",
+    };
+  }
   await Product.findByIdAndDelete(id);
 };
 

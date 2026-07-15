@@ -35,7 +35,7 @@ router.put(
 router.delete(
   "/:id",
   auth,
-  roleBaseAuth(ROLE_ADMIN),
+  roleBaseAuth(ROLE_MERCHANT),
   productController.deleteProduct,
 );
 
