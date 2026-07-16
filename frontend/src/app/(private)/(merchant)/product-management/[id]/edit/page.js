@@ -1,11 +1,12 @@
+import { getProductById } from "@/api/products";
 import BackButton from "@/components/BackButton";
-import ProductForm from "../_components/Form";
+import ProductForm from "../../_components/Form";
 
-export const metadata = {
-  title: "Add Product",
-};
+const ProductEditPage = async ({ params }) => {
+  const { id } = await params;
 
-const AddProductPage = () => {
+  const product = await getProductById(id);
+
   return (
     <>
       <section className="min-h-screen bg-background py-6 px-4">
@@ -17,18 +18,18 @@ const AddProductPage = () => {
             </div>
 
             <div>
-              <h1 className="text-3xl font-bold text-white">Add New Product</h1>
+              <h1 className="text-3xl font-bold text-white">Update Product</h1>
               <p className="text-white/80 mt-2">
-                Fill all required information before publishing.
+                Fill all required information before updating.
               </p>
             </div>
           </div>
 
-          <ProductForm />
+          <ProductForm product={product} isEditing={true} />
         </div>
       </section>
     </>
   );
 };
 
-export default AddProductPage;
+export default ProductEditPage;

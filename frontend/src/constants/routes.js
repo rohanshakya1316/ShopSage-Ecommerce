@@ -7,6 +7,9 @@ export const CATEGORY_ROUTE = "/categories";
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
 
+// Admin Routes
+export const PRODUCT_MANAGEMENT_ROUTE = "/product-management";
+
 export const navMenu = [
   {
     label: "Home",

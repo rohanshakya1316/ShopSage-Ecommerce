@@ -5,11 +5,13 @@ import { CloudUpload } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/Spinner";
-import { addProduct } from "@/api/products";
+import { addProduct, updateProduct } from "@/api/products";
 import { toast } from "react-toastify";
 
-const ProductForm = () => {
-  const { register, handleSubmit, reset } = useForm();
+const ProductForm = ({ product, isEditing = false }) => {
+  const { register, handleSubmit, reset } = useForm({
+    values: product,
+  });
 
   const [loading, setLoading] = useState(false);
   const [productImages, setProductImages] = useState([]);
@@ -35,18 +37,28 @@ const ProductForm = () => {
     return formData;
   };
 
+  const upsertProduct = async (input) => {
+    if (isEditing) {
+      return updateProduct(product._id, input);
+    }
+
+    return addProduct(input);
+  };
+
   const submitForm = (data) => {
     setLoading(true);
     const input = prepareData(data);
 
-    addProduct(input)
+    upsertProduct(input)
       .then((response) => {
-        toast.success("Product Added Successfully!");
-
-        setProductImages([]);
-        setLocalImageUrls([]);
-
-        reset();
+        if (isEditing) {
+          toast.success("Product Updated Successfully!");
+        } else {
+          toast.success("Product Added Successfully!");
+          setProductImages([]);
+          setLocalImageUrls([]);
+          reset();
+        }
       })
       .catch((error) => {
         toast.error(error.response.data);
@@ -304,7 +316,7 @@ const ProductForm = () => {
           ) : (
             <>
               <CloudUpload className="h-5 w-5" />
-              Add Product
+              {isEditing ? "Update Product" : "Add Product"}
             </>
           )}
         </button>
