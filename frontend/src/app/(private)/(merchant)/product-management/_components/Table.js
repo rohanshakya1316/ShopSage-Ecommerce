@@ -18,7 +18,7 @@ const ProductsTable = () => {
   const { user } = useAuthStore.getState();
 
   const fetchProducts = () => {
-    getProducts({ userId: user._id })
+    getProducts({ createdBy: user._id })
       .then((data) => {
         setProducts(data);
       })
@@ -53,7 +53,9 @@ const ProductsTable = () => {
         <tbody className="text-sm divide-y divide-gray-100">
           {products.length == 0 ? (
             <tr>
-              <td colSpan={7} className="text-center font-semibold py-4">No products.</td>
+              <td colSpan={7} className="text-center font-semibold py-4">
+                No products.
+              </td>
             </tr>
           ) : (
             products?.map((product, index) => (

@@ -1,6 +1,7 @@
 import { PRODUCT_ROUTE } from "@/constants/routes";
 import Image from "next/image";
 import Link from "next/link";
+import placeholder from "@/assets/images/placeholder.png";
 
 const ProductCard = ({
   name,
@@ -15,10 +16,10 @@ const ProductCard = ({
   const originalPrice = null;
 
   return (
-    <div className="bg-card rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group flex flex-col h-full">
+    <div className="bg-card rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group flex flex-col h-full w-full">
       <Link href={`${PRODUCT_ROUTE}/${_id}`} className="block overflow-hidden">
         <Image
-          src={imageUrls[0]}
+          src={imageUrls[0] ?? placeholder}
           alt={name}
           height={300}
           width={400}
