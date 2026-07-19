@@ -1,9 +1,19 @@
-import Image from "next/image";
+import HeroSection from "@/components/HeroSection";
+import WhyChooseUs from "./about/_components/WhyChooseUs";
+import Featured from "@/components/Featured";
+import FlashSale from "@/components/FlashSales";
+import Footer from "@/components/Footer";
 
-export default function Home() {
+const Home = async () => {
   return (
-    <div>Hello World from Rohan Shakya.
-      <h1>For Dynamic UI file configuration setup complete.</h1>
+    <div>
+      <HeroSection />
+      <WhyChooseUs />
+      <Featured />
+      <FlashSale />
+      <Footer />
     </div>
   );
-}
+};
+
+export default Home;

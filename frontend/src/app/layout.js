@@ -17,6 +17,7 @@ const RootLayout = ({ children }) => {
     <html lang="en">
       <body>
         <Header />
+       
         {children}
         <ToastContainer position="top-center" autoClose={1500} />
       </body>

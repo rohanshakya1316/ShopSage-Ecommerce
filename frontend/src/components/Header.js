@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -23,8 +23,8 @@ const Header = () => {
   useEffect(() => {}, [isAuthenticated]);
 
   return (
-    <header>
-      <nav className="sticky! top-0! z-50! bg-slate-900 text-white shadow-lg w-full">
+    <header className="sticky! top-0! z-50!">
+      <nav className="bg-slate-900 text-white shadow-lg w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}

@@ -1,28 +1,30 @@
+import { Lock, RefreshCw, Star, Truck } from "lucide-react";
+
 // Why Choose Us Features
 export const features = [
   {
     title: "Premium Quality",
     description:
       "Every product is carefully selected to ensure the highest quality and customer satisfaction.",
-    icon: "⭐",
+    icon: <Star/>,
   },
   {
     title: "Fast Delivery",
     description:
       "Get your orders delivered quickly and safely with our trusted delivery partners.",
-    icon: "🚚",
+    icon: <Truck />,
   },
   {
     title: "Secure Payments",
     description:
       "Shop confidently with secure payment methods and encrypted transactions.",
-    icon: "🔒",
+    icon: <Lock />,
   },
   {
     title: "Easy Returns",
     description:
       "  Hassle-free return and refund policies for customer satisfaction.",
-    icon: "💬 ↩️",
+    icon: <RefreshCw />,
   },
 ];
 
@@ -45,7 +47,7 @@ export const values = [
   },
 ];
 
-// Trust Banner 
+// Trust Banner
 export const trustBanner = [
   {
     title: "Customers",

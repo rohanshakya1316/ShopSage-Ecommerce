@@ -183,7 +183,7 @@ const Filters = ({ brands, categories }) => {
       </button>
 
       {/* Desktop sidebar */}
-      <div className="self-start sticky top-20 hidden md:block shadow-md rounded-2xl py-5 px-4 bg-card">
+      <div className="self-start sticky! top-20! hidden md:block shadow-md rounded-2xl py-5 px-4 bg-card">
         {filterContent}
       </div>
 

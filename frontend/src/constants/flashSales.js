@@ -1,0 +1,38 @@
+export const flashProducts = [
+  {
+    id: 1,
+    name: "Gaming Headset",
+    image: "https://picsum.photos/400/300?random=11",
+    discount: "-50%",
+    description: "High-quality surround sound",
+    price: "Rs. 4999",
+    oldPrice: "Rs. 9999",
+  },
+  {
+    id: 2,
+    name: "Smartphone Case",
+    image: "https://picsum.photos/400/300?random=12",
+    discount: "-40%",
+    description: "Shockproof premium design",
+    price: "Rs. 1599",
+    oldPrice: "Rs. 3500",
+  },
+  {
+    id: 3,
+    name: "Fitness Smart Band",
+    image: "https://picsum.photos/400/300?random=13",
+    discount: "-35%",
+    description: "Track your health easily",
+    price: "Rs. 2400",
+    oldPrice: "Rs. 4500",
+  },
+  {
+    id: 4,
+    name: "Wireless Mouse",
+    image: "https://picsum.photos/400/300?random=14",
+    discount: "-60%",
+    description: "Smooth performance",
+    price: "Rs. 1500",
+    oldPrice: "Rs. 5999",
+  },
+];
