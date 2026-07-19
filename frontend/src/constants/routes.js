@@ -6,6 +6,7 @@ export const CONTACT_ROUTE = "/contact";
 export const CATEGORY_ROUTE = "/categories";
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
+export const CART_ROUTE = "/cart"
 
 // Admin Routes
 export const PRODUCT_MANAGEMENT_ROUTE = "/product-management";

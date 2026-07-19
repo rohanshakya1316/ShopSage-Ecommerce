@@ -13,16 +13,12 @@ const TrustBanner = () => {
             secure shopping, and exceptional customer experiences.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-10">
-            {"{"}trustBanner.map((trust, index) =&gt; (
-            <div key="{index}">
-              <h4 className="text-3xl font-bold">
-                {"{"}trust.values{"}"}
-              </h4>
-              <p className="text-indigo-100">
-                {"{"}trust.title{"}"}
-              </p>
-            </div>
-            )){"}"}
+            {trustBanner.map((trust, index) => (
+              <div key={index}>
+                <h4 className="text-3xl font-bold">{trust.values}</h4>
+                <p className="text-indigo-100">{trust.title}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,16 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
+import {
+  CART_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  navMenu,
+} from "@/constants/routes";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import useAuthStore from "@/stores/authStore";
+import useCartStore from "@/stores/cartStore";
+import { ShoppingCart } from "lucide-react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathName = usePathname();
 
   const { isAuthenticated, logout } = useAuthStore.getState();
+  const products = useCartStore((state) => state.items);
 
   const router = useRouter();
 
@@ -57,12 +65,14 @@ const Header = () => {
             <div className="hidden md:flex items-center space-x-5">
               {isAuthenticated ? (
                 <>
-                  <button className="relative hover:text-indigo-400">
-                    🛒
-                    <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
-                      3
-                    </span>
-                  </button>
+                  <Link href={CART_ROUTE}>
+                    <button type="button" className="relative hover:text-indigo-400">
+                      <ShoppingCart size={25} />
+                      <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
+                        {products.length}
+                      </span>
+                    </button>{" "}
+                  </Link>
 
                   <button
                     onClick={handleLogout}

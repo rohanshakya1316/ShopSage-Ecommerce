@@ -62,10 +62,8 @@ const HeroSection = () => {
               <Image
                 src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" // Removed ?w=800
                 alt="Product"
-                width={250} // Tells Next.js to generate a 250px wide source
-                height={250} // Tells Next.js to generate a 250px high source
-                quality={90} // Boosts clarity and sharpness
-                priority // Optional: Preloads the image instantly if it is above the fold
+                width={800} // Tells Next.js to generate a 250px wide source
+                height={800} // Tells Next.js to generate a 250px high source
                 className="rounded-2xl w-full h-100 object-cover" // Removed w-full and h-100
               />
 
