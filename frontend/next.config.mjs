@@ -9,6 +9,14 @@ const nextConfig = {
         port: "",
         pathname: "/daijnijpm/image/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos"
+      }
     ],
   },
 };
