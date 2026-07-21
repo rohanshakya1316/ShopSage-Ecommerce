@@ -39,3 +39,16 @@ export const getBrands = async () => {
   const response = await axios.get(`${config.apiUrl}/api/products/brands`);
   return response.data;
 };
+
+export const getRelatedProducts = async (category, currentId) => {
+  const response = await fetch(
+    `${config.apiUrl}/api/products?category=${encodeURIComponent(category)}`,
+    { cache: "no-store" },
+  );
+  if (!response.ok) return [];
+
+  const data = await response.json();
+  const list = Array.isArray(data) ? data : data.products || [];
+
+  return list.filter((p) => p._id !== currentId).slice(0, 3);
+};
