@@ -60,11 +60,12 @@ const HeroSection = () => {
             {/* Main Card */}
             <div className="bg-white rounded-3xl pt-6 p-8 shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" // Removed ?w=800
+                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
                 alt="Product"
-                width={800} // Tells Next.js to generate a 250px wide source
-                height={800} // Tells Next.js to generate a 250px high source
-                className="rounded-2xl w-full h-100 object-cover" // Removed w-full and h-100
+                width={800} 
+                height={800} 
+                className="rounded-2xl w-full h-100 object-cover"
+                loading="eager"
               />
 
               <div className="mt-6">
