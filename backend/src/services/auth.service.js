@@ -40,6 +40,7 @@ const login = async (data) => {
     email: user.email,
     name: user.name,
     isActive: user.isActive,
+    profileImageUrl: user?.profileImageUrl,
   };
 };
 
@@ -54,7 +55,7 @@ const register = async (data) => {
     };
   }
 
-  const saltRounds = 10; 
+  const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(data.password, salt);
 
@@ -70,6 +71,7 @@ const register = async (data) => {
     name: createdUser.name,
     phone: createdUser.phone,
     roles: createdUser.roles,
+    profileImageUrl: user?.profileImageUrl,
   };
 };
 
@@ -143,7 +145,7 @@ const resetPassword = async (input) => {
     };
   }
 
-  const saltRounds = 10; 
+  const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(input.password, salt);
 
