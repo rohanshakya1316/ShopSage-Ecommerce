@@ -3,7 +3,7 @@
 import { login } from "@/api/auth";
 import PasswordInput from "@/components/PasswordInput";
 import Spinner from "@/components/Spinner";
-import { HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
+import { FORGOT_PASSWORD_ROUTE, HOME_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
 import useAuthStore from "@/stores/authStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -86,7 +86,7 @@ const LoginForm = () => {
           </label>
 
           <Link
-            href="/forgot-password"
+            href={FORGOT_PASSWORD_ROUTE}
             className="text-primary hover:text-primary-hover font-medium"
           >
             Forgot Password?
