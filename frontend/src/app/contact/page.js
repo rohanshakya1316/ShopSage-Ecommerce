@@ -73,6 +73,22 @@ const ContactPage = () => {
       </section>
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+        <div className="mb-8 rounded-3xl border border-primary/10 bg-card p-4 shadow-sm sm:p-6">
+          <h4 className="mb-4 text-lg font-semibold text-heading">Find us — New Baneshwor, Kathmandu</h4>
+          <div className="overflow-hidden rounded-2xl border border-primary/20 shadow-sm">
+            <iframe
+              title="Map showing New Baneshwor, Kathmandu"
+              src="https://www.google.com/maps?q=New+Baneshwor,+Kathmandu,+Nepal&output=embed"
+              width="100%"
+              height="260"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
+
         <div className="grid gap-8 lg:grid-cols-5">
           <section className="fade-up lg:col-span-3">
             <div className="rounded-3xl border border-primary/10 bg-card p-6 shadow-sm sm:p-8">
@@ -268,22 +284,6 @@ const ContactPage = () => {
                 <li><a href="/" className="hover:text-white">Returns</a></li>
                 <li><a href="/" className="hover:text-white">FAQ</a></li>
               </ul>
-            </div>
-          </div>
-
-          <div className="mt-10">
-            <h4 className="mb-4 font-semibold text-white">Find us — New Baneshwor, Kathmandu</h4>
-            <div className="overflow-hidden rounded-3xl border border-primary/20 shadow-xl">
-              <iframe
-                title="Map showing New Baneshwor, Kathmandu"
-                src="https://www.google.com/maps?q=New+Baneshwor,+Kathmandu,+Nepal&output=embed"
-                width="100%"
-                height="320"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
             </div>
           </div>
 
