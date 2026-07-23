@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  allowedDevOrigins: ["192.168.1.70", "localhost"],
   images: {
     remotePatterns: [
       {
@@ -15,8 +15,8 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "picsum.photos"
-      }
+        hostname: "picsum.photos",
+      },
     ],
   },
 };
