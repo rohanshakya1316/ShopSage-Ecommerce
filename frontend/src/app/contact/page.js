@@ -1,8 +1,11 @@
+import Contact from "./_components/Contact";
+
 export const metadata = {
   title: "Contact",
 };
-const ContactPage = () => {
-  return <div>ContactPage</div>;
+
+const ContactLayout = () => {
+  return <Contact />;
 };
 
-export default ContactPage;
+export default ContactLayout;
