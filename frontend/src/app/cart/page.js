@@ -73,7 +73,9 @@ const CartPage = () => {
                         src={item.imageUrls[0] ?? placeholder}
                         alt={item.name}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover hover:scale-105 transition duration-300"
+                        loading="eager"
                       />
                     </div>
 
@@ -381,6 +383,7 @@ const CartPage = () => {
                   <Image
                     src={product.image}
                     alt={product.name}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
                     className="object-cover group-hover:scale-110 transition duration-500"
                   />
