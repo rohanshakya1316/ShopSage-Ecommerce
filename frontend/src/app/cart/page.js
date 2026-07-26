@@ -1,28 +1,28 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import placeholder from "@/assets/images/placeholder.png";
+import { recommendedProducts } from "@/constants/recommendedProducts";
+import { PRODUCT_ROUTE } from "@/constants/routes";
+import useCartStore from "@/stores/cartStore";
 import {
+  ArrowLeft,
+  CreditCard,
+  Eye,
+  Heart,
   Minus,
   Plus,
-  Trash2,
-  ShoppingBag,
-  ArrowLeft,
   ShieldCheck,
-  CreditCard,
-  Lock,
-  Tag,
-  Truck,
+  ShoppingBag,
   ShoppingCart,
-  Eye,
   Star,
-  Heart,
+  Tag,
+  Trash2,
+  Truck,
 } from "lucide-react";
-import { PRODUCT_ROUTE } from "@/constants/routes";
-import placeholder from "@/assets/images/placeholder.png";
-import useCartStore from "@/stores/cartStore";
+import Image from "next/image";
+import Link from "next/link";
 import { toast } from "react-toastify";
-import { recommendedProducts } from "@/constants/recommendedProducts";
+import CheckoutButton from "./_components/CheckoutButton";
 
 const CartPage = () => {
   const products = useCartStore((state) => state.items);
@@ -262,11 +262,8 @@ const CartPage = () => {
                   </div>
 
                   {/* CHECKOUT */}
-                  <button className="w-full bg-primary hover:bg-primary-hover text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-lg active:scale-95 flex items-center justify-center gap-2">
-                    <Lock size={20} />
-                    Secure Checkout
-                  </button>
 
+                  <CheckoutButton products={products} totalPrice={total} />
                   <Link href={PRODUCT_ROUTE}>
                     <button className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-white py-4 rounded-xl font-semibold transition">
                       Continue Shopping
