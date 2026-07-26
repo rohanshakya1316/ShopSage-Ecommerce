@@ -1,10 +1,10 @@
-import Image from "next/image";
-import khaltiLogo from "@/assets/images/khaltiLogo.png";
-import { useState } from "react";
 import { payViaKhalti } from "@/api/orders";
+import khaltiLogo from "@/assets/images/khaltiLogo.png";
 import Spinner from "@/components/Spinner";
+import Image from "next/image";
+import { useState } from "react";
 
-const PayViaKhalti = ({orderId}) => {
+const PayViaKhalti = ({ orderId }) => {
   const [loading, setLoading] = useState(false);
 
   const initKhaltiPayment = () => {
@@ -17,7 +17,7 @@ const PayViaKhalti = ({orderId}) => {
       .catch((error) => {
         console.log(error);
       })
-      .finally(setLoading(false));
+      .finally(() => setLoading(false));
   };
   return (
     <div>

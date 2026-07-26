@@ -4,7 +4,7 @@ import { confirmOrder } from "@/api/orders";
 import Spinner from "@/components/Spinner";
 import { ORDER_ROUTE } from "@/constants/routes";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
 const OrderConfirmationPage = () => {
@@ -13,8 +13,11 @@ const OrderConfirmationPage = () => {
   const router = useRouter();
 
   const status = searchParams.get("status");
+  const hasExecuted = useRef(false);
 
-  useEffect(() => {
+  (useEffect(() => {
+    if (hasExecuted.current) return;
+    hasExecuted.current = true;
     if (status == "Completed") {
       toast.success("Payment success");
 
@@ -30,7 +33,8 @@ const OrderConfirmationPage = () => {
         },
       });
     }
-  });
+  }),
+    [status, params.id, router]);
 
   return (
     <div className="flex items-center justify-center py-24">

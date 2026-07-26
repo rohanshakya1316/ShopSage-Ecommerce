@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { ORDER_CANCELLED, ORDER_PENDING } from "@/constants/orderStatus";
 import PayViaKhalti from "./PayViaKhalti";
+import PayViaCash from "./PayViaCash";
 
 const OrderCard = ({ order }) => {
   const [orderStatus, setOrderStatus] = useState([ORDER_PENDING]);
@@ -18,12 +19,14 @@ const OrderCard = ({ order }) => {
       cancelOrder(orderId)
         .then(() => {
           toast.info("Order Cancelled.");
-          setOrderStatus((prev) =>
-            prev.map((order) =>
-              order._id === orderId
-                ? { ...order, status: ORDER_CANCELLED }
-                : order,
-            ),
+          setOrderStatus(
+            (prev) =>
+              prev.map((order) =>
+                order._id === orderId
+                  ? { ...order, status: ORDER_CANCELLED }
+                  : order,
+              ),
+            window.location.reload(),
           );
         })
         .catch((error) => console.log(error));
@@ -99,8 +102,9 @@ const OrderCard = ({ order }) => {
         {/* Buttons */}
 
         {order.status === ORDER_PENDING && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
             <PayViaKhalti orderId={order._id} />
+            <PayViaCash orderId={order._id} />
             <button
               onClick={() => handleCancelOrder(order._id)}
               className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-error py-3 text-error font-semibold hover:bg-error hover:text-white duration-300 transition-all"
