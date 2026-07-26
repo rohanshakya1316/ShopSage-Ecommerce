@@ -13,6 +13,7 @@ import Order from "../models/Order.js";
 import Payment from "../models/Payment.js";
 import { payViaKhalti } from "../utils/payment.js";
 import userService from "./user.service.js";
+import Product from "../models/Product.js";
 
 const getOrders = async () => {
   return await Order.find()
@@ -45,6 +46,24 @@ const createOrder = async (data, authUser) => {
     data.shippingAddress = user.address;
   }
 
+  const productIds = data.orderItems.map((item) => item.product);
+  const products = await Product.find({ _id: { $in: productIds } });
+
+  let totalPrice = 0;
+  for (const item of data.orderItems) {
+    const product = products.find(
+      (p) => p._id.toString() === item.product.toString(),
+    );
+    if (!product) {
+      throw {
+        status: 400,
+        message: `Product ${item.product} not found.`,
+      };
+    }
+    totalPrice += product.price * item.quantity;
+  }
+
+  data.totalPrice = totalPrice;
   data.orderNumber = crypto.randomUUID();
   data.user = authUser._id;
 
@@ -105,6 +124,26 @@ const getOrdersByUser = async (userId) => {
 
 const getOrdersByMerchant = async (merchantId) => {
   return await Order.aggregate([
+    // Unwind so each item keeps its own quantity while we look up its product
+    { $unwind: "$orderItems" },
+
+    {
+      $lookup: {
+        from: "products",
+        localField: "orderItems.product",
+        foreignField: "_id",
+        as: "productDetails",
+      },
+    },
+    { $unwind: "$productDetails" },
+
+    // Keep only items whose product belongs to this merchant
+    {
+      $match: {
+        "productDetails.createdBy": new mongoose.Types.ObjectId(merchantId),
+      },
+    },
+
     {
       $lookup: {
         from: "users",
@@ -113,38 +152,47 @@ const getOrdersByMerchant = async (merchantId) => {
         as: "orderUser",
       },
     },
+    { $unwind: "$orderUser" },
+
+    // Re-group items back under their parent order
     {
-      $unwind: "$orderUser",
-    },
-    {
-      $lookup: {
-        from: "products",
-        localField: "orderItems.product",
-        foreignField: "_id",
-        as: "orderedProducts",
+      $group: {
+        _id: "$_id",
+        orderNumber: { $first: "$orderNumber" },
+        status: { $first: "$status" },
+        totalPrice: { $first: "$totalPrice" },
+        payment: { $first: "$payment" },
+        shippingAddress: { $first: "$shippingAddress" },
+        createdDate: { $first: "$createdDate" },
+        orderUser: { $first: "$orderUser" },
+        orderedProducts: {
+          $push: {
+            _id: "$productDetails._id",
+            name: "$productDetails.name",
+            price: "$productDetails.price",
+            brand: "$productDetails.brand",
+            category: "$productDetails.category",
+            imageUrls: "$productDetails.imageUrls",
+            quantity: "$orderItems.quantity",
+          },
+        },
       },
     },
-    {
-      $match: {
-        "orderedProducts.createdBy": new mongoose.Types.ObjectId(merchantId),
-      },
-    },
+
+    { $sort: { createdDate: -1 } },
+
     {
       $project: {
         orderNumber: 1,
-        payment: 1,
-        shippingAddress: 1,
         status: 1,
         totalPrice: 1,
+        payment: 1,
+        shippingAddress: 1,
+        createdDate: 1,
         "orderUser._id": 1,
         "orderUser.name": 1,
         "orderUser.phone": 1,
-        "orderedProducts._id": 1,
-        "orderedProducts.name": 1,
-        "orderedProducts.price": 1,
-        "orderedProducts.brand": 1,
-        "orderedProducts.category": 1,
-        "orderedProducts.imageUrls": 1,
+        orderedProducts: 1,
       },
     },
   ]);

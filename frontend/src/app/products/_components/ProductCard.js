@@ -1,6 +1,7 @@
 import { PRODUCT_ROUTE } from "@/constants/routes";
 import Image from "next/image";
 import Link from "next/link";
+import AddToCart from "./AddToCart";
 
 const ProductCard = ({
   name,
@@ -13,6 +14,8 @@ const ProductCard = ({
 }) => {
   const hasDiscount = false;
   const originalPrice = null;
+
+  const product = { _id, name, brand, category, price, imageUrls, stock };
 
   return (
     <div className="bg-card rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 group flex flex-col h-full">
@@ -65,9 +68,9 @@ const ProductCard = ({
           >
             View
           </Link>
-          <button className="flex-1 bg-primary text-white py-3 rounded-lg hover:bg-primary-hover active:scale-95 transition-all">
-            Add to Cart
-          </button>
+          <div className="flex-1">
+            <AddToCart product={product} />
+          </div>
         </div>
       </div>
     </div>

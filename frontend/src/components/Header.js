@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import { HOME_ROUTE, LOGIN_ROUTE, navMenu } from "@/constants/routes";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -8,19 +8,23 @@ import useAuthStore from "@/stores/authStore";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathName = usePathname();
 
-  const { isAuthenticated, logout } = useAuthStore.getState();
+  // Reactive selectors — component re-renders when these change.
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout);
 
   const router = useRouter();
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleLogout = () => {
     logout();
-
     router.replace(LOGIN_ROUTE);
   };
-
-  useEffect(() => {}, [isAuthenticated]);
 
   return (
     <header>
@@ -55,7 +59,9 @@ const Header = () => {
 
             {/* Desktop Icons */}
             <div className="hidden md:flex items-center space-x-5">
-              {isAuthenticated ? (
+              {!mounted ? (
+                <div className="w-32 h-10" />
+              ) : isAuthenticated ? (
                 <>
                   <button className="relative hover:text-indigo-400">
                     🛒
@@ -107,23 +113,21 @@ const Header = () => {
                 {menu.label}
               </Link>
             ))}
-            {isAuthenticated ? (
-              <>
-                <div className="flex items-center gap-4 pt-2 justify-end">
-                  <button className="relative hover:text-indigo-400 text-xl">
-                    🛒
-                    <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
-                      3
-                    </span>
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              </>
+            {!mounted ? null : isAuthenticated ? (
+              <div className="flex items-center gap-4 pt-2 justify-end">
+                <button className="relative hover:text-indigo-400 text-xl">
+                  🛒
+                  <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
+                    3
+                  </span>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                >
+                  Logout
+                </button>
+              </div>
             ) : (
               <Link href={LOGIN_ROUTE}>
                 <button className="max-w-5xl bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 transition">

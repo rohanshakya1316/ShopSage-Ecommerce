@@ -10,6 +10,8 @@ export const REGISTER_ROUTE = "/register";
 // Admin Routes
 export const PRODUCT_MANAGEMENT_ROUTE = "/product-management";
 
+export const ORDER_MANAGEMENT_ROUTE = "/order-management";
+
 export const navMenu = [
   {
     label: "Home",
