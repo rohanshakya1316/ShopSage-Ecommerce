@@ -9,6 +9,7 @@ import { cancelOrder } from "@/api/orders";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { ORDER_CANCELLED, ORDER_PENDING } from "@/constants/orderStatus";
+import PayViaKhalti from "./PayViaKhalti";
 
 const OrderCard = ({ order }) => {
   const [orderStatus, setOrderStatus] = useState([ORDER_PENDING]);
@@ -19,7 +20,9 @@ const OrderCard = ({ order }) => {
           toast.info("Order Cancelled.");
           setOrderStatus((prev) =>
             prev.map((order) =>
-              order._id === orderId ? { ...order, status: ORDER_CANCELLED } : order,
+              order._id === orderId
+                ? { ...order, status: ORDER_CANCELLED }
+                : order,
             ),
           );
         })
@@ -95,22 +98,18 @@ const OrderCard = ({ order }) => {
 
         {/* Buttons */}
 
-        <div className="flex flex-col sm:flex-row gap-4 mt-8">
-          <button className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-primary py-3 text-white font-semibold hover:bg-primary-hover transition-all">
-            <Eye size={20} />
-            View Details
-          </button>
-
-          {order.status === ORDER_PENDING && (
+        {order.status === ORDER_PENDING && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <PayViaKhalti orderId={order._id} />
             <button
               onClick={() => handleCancelOrder(order._id)}
-              className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-error py-3 text-error font-semibold hover:bg-error hover:text-white transition-all"
+              className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-error py-3 text-error font-semibold hover:bg-error hover:text-white duration-300 transition-all"
             >
               <XCircle size={20} />
               Cancel Order
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

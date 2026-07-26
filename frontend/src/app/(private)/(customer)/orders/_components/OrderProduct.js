@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import placeholder from "@/assets/images/placeholder.png";
+import { Eye } from "lucide-react";
+import Link from "next/link";
+import { PRODUCT_ROUTE } from "@/constants/routes";
 
 const OrderProduct = ({ item }) => {
   return (
@@ -51,6 +54,18 @@ const OrderProduct = ({ item }) => {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="flex justify-end mt-6">
+          <Link href={`${PRODUCT_ROUTE}/${item.product._id}`}>
+            <button
+              className="self-center
+                inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+            >
+              <Eye size={20} />
+              <span>View Details</span>
+            </button>
+          </Link>
         </div>
       </div>
     </div>
