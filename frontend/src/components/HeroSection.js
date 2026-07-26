@@ -17,7 +17,7 @@ const HeroSection = () => {
 
             <h1 className="text-5xl md:text-6xl font-extrabold text-white mt-6 leading-tight">
               Shop Smarter with
-              <span className="text-indigo-400">ShopSage</span>
+              <span className="text-indigo-400 ml-5">ShopSage</span>
             </h1>
 
             <p className="text-slate-300 text-lg mt-6 max-w-xl">
