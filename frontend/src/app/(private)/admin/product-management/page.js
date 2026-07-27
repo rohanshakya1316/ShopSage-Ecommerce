@@ -16,7 +16,7 @@ const ProductManagementPage = () => {
       <div className="h-16 bg-background shadow-sm flex items-center justify-between px-6 z-10 border-b border-muted rounded-md">
         <div className="flex items-center">
           <h1 className="text-xl font-semibold text-dark-bg">
-            Products Management
+            Product Management
           </h1>
         </div>
         <div className="flex items-center space-x-4">
