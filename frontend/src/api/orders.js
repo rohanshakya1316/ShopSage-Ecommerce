@@ -4,6 +4,14 @@ export const getOrdersById = async (id) => {
   return await api.get(`/api/orders/${id}`);
 };
 
+export const getAllOrders = async () => {
+  return await api.get(`/api/orders`);
+};
+
+export const getOrdersByMerchant = async () =>{
+  return await api.get(`/api/orders/merchant`)
+}
+
 export const getOrdersByUser = async () => {
   return await api.get(`/api/orders/user`);
 };

@@ -28,7 +28,7 @@ const Header = () => {
     router.replace(LOGIN_ROUTE);
   };
 
-  useEffect(() => {}, [isAuthenticated]);
+  if (pathName.startsWith("/admin")) return;
 
   return (
     <header className="sticky! top-0! z-50!">
@@ -37,7 +37,7 @@ const Header = () => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-indigo-400">
+              <Link href={HOME_ROUTE} className="text-2xl font-bold text-indigo-400">
                 ShopSage
               </Link>
             </div>
@@ -66,7 +66,10 @@ const Header = () => {
               {isAuthenticated ? (
                 <>
                   <Link href={CART_ROUTE}>
-                    <button type="button" className="relative hover:text-indigo-400">
+                    <button
+                      type="button"
+                      className="relative hover:text-indigo-400"
+                    >
                       <ShoppingCart size={25} />
                       <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
                         {products.length}

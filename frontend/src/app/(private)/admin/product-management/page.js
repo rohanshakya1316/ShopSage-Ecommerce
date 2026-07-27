@@ -1,9 +1,9 @@
-import Image from "next/image";
 import placeholder from "@/assets/images/placeholder.png";
-import { Plus, Search } from "lucide-react";
-import ProductsTable from "./_components/Table";
-import Link from "next/link";
 import { PRODUCT_MANAGEMENT_ROUTE } from "@/constants/routes";
+import { Plus } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import ProductsTable from "./_components/Table";
 
 export const metadata = {
   title: "Product Managment",
@@ -11,7 +11,7 @@ export const metadata = {
 
 const ProductManagementPage = () => {
   return (
-    <section className="max-w-7xl mx-auto bg-background py-6 px-4 flex-1 flex flex-col h-screen overflow-hidden relative">
+    <section className="max-w-7xl mx-auto bg-background py-4 px-4 flex-1 flex flex-col h-screen overflow-hidden relative">
       {/* Top Navbar */}
       <div className="h-16 bg-background shadow-sm flex items-center justify-between px-6 z-10 border-b border-muted rounded-md">
         <div className="flex items-center">
@@ -44,24 +44,7 @@ const ProductManagementPage = () => {
             </button>
           </Link>
         </div>
-        {/* Controls */}
-        <div className="bg-background p-4 rounded-xl shadow-sm border border-background/50 mb-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-          <div className="relative w-full sm:w-64">
-            <Search className="absolute left-2 top-1.5" />
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="w-full pl-10 pr-4 py-2 border border-gray rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-            />
-          </div>
-          <div className="flex space-x-3 w-full sm:w-auto">
-            <select className="border border-muted/50 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-auto">
-              <option value>All Categories</option>
-              <option value="electronics">Electronics</option>
-              <option value="clothing">Clothing</option>
-            </select>
-          </div>
-        </div>
+
         <ProductsTable />
       </main>
     </section>

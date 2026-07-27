@@ -284,29 +284,7 @@ const ProductForm = ({ product, isEditing = false }) => {
         <button
           type="submit"
           disabled={loading}
-          className="
-                inline-flex
-                items-center
-                justify-center
-                gap-3
-                rounded-xl
-                bg-primary
-                px-8
-                py-3.5
-                text-base
-                font-semibold
-                text-white
-                shadow-lg
-                transition-all
-                duration-300
-                hover:bg-primary-hover
-                hover:shadow-2xl
-                hover:-translate-y-0.5
-                active:translate-y-0
-                disabled:cursor-not-allowed
-                disabled:opacity-60
-                disabled:hover:translate-y-0
-              "
+          className=" inline-flex items-center justify-center gap-3 rounded-xl bg-primary px-8 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-primary-hover hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
         >
           {loading ? (
             <>
