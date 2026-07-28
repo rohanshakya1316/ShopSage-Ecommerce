@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, CreditCard, Truck, Eye, XCircle } from "lucide-react";
+import { CalendarDays, CreditCard, Truck, XCircle } from "lucide-react";
 
 import OrderProduct from "./OrderProduct";
 import OrderStatusBadge from "./OrderStatusBadge";
@@ -8,12 +8,15 @@ import { format } from "date-fns";
 import { cancelOrder } from "@/api/orders";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { ORDER_CANCELLED, ORDER_PENDING } from "@/constants/orderStatus";
+import {
+  ORDER_STATUS_CANCELLED,
+  ORDER_STATUS_PENDING,
+} from "@/constants/orderStatus";
 import PayViaKhalti from "./PayViaKhalti";
 import PayViaCash from "./PayViaCash";
 
 const OrderCard = ({ order }) => {
-  const [orderStatus, setOrderStatus] = useState([ORDER_PENDING]);
+  const [orderStatus, setOrderStatus] = useState([ORDER_STATUS_PENDING]);
   const handleCancelOrder = (orderId) => {
     if (confirm("Are you sure to cancel order?")) {
       cancelOrder(orderId)
@@ -23,7 +26,7 @@ const OrderCard = ({ order }) => {
             (prev) =>
               prev.map((order) =>
                 order._id === orderId
-                  ? { ...order, status: ORDER_CANCELLED }
+                  ? { ...order, status: ORDER_STATUS_CANCELLED }
                   : order,
               ),
             window.location.reload(),
@@ -101,7 +104,7 @@ const OrderCard = ({ order }) => {
 
         {/* Buttons */}
 
-        {order.status === ORDER_PENDING && (
+        {order.status === ORDER_STATUS_PENDING && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
             <PayViaKhalti orderId={order._id} />
             <PayViaCash orderId={order._id} />
