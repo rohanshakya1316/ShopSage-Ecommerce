@@ -12,6 +12,7 @@ export const ABOUT_ROUTE = "/about";
 export const PRODUCT_ROUTE = "/products";
 export const ORDER_ROUTE = "/orders";
 export const CONTACT_ROUTE = "/contact";
+export const PROFILE_ROUTE = "/profile";
 export const CATEGORY_ROUTE = "/categories";
 export const LOGIN_ROUTE = "/login";
 export const REGISTER_ROUTE = "/register";
@@ -31,10 +32,6 @@ export const navMenu = [
   {
     label: "Products",
     route: PRODUCT_ROUTE,
-  },
-  {
-    label: "Orders",
-    route: ORDER_ROUTE,
   },
   {
     label: "Contact",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   CART_ROUTE,
   HOME_ROUTE,
@@ -12,6 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import useAuthStore from "@/stores/authStore";
 import useCartStore from "@/stores/cartStore";
 import { ShoppingCart } from "lucide-react";
+import Account from "./Account";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,7 +38,10 @@ const Header = () => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <Link href={HOME_ROUTE} className="text-2xl font-bold text-indigo-400">
+              <Link
+                href={HOME_ROUTE}
+                className="text-2xl font-bold text-indigo-400"
+              >
                 ShopSage
               </Link>
             </div>
@@ -77,12 +81,7 @@ const Header = () => {
                     </button>{" "}
                   </Link>
 
-                  <button
-                    onClick={handleLogout}
-                    className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-                  >
-                    Logout
-                  </button>
+                  <Account />
                 </>
               ) : (
                 <Link href={LOGIN_ROUTE}>
