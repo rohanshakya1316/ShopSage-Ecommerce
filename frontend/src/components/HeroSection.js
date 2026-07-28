@@ -1,5 +1,7 @@
+import { PRODUCT_ROUTE } from "@/constants/routes";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -27,9 +29,12 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
-              <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-semibold transition">
+              <Link
+                href={PRODUCT_ROUTE}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-semibold transition"
+              >
                 Shop Now
-              </button>
+              </Link>
 
               <button className="border border-slate-500 text-white px-8 py-4 rounded-xl hover:bg-white hover:text-slate-900 transition">
                 Explore Categories
@@ -62,8 +67,8 @@ const HeroSection = () => {
               <Image
                 src="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
                 alt="Product"
-                width={800} 
-                height={800} 
+                width={800}
+                height={800}
                 className="rounded-2xl w-full h-100 object-cover"
                 loading="eager"
               />
@@ -83,7 +88,7 @@ const HeroSection = () => {
                   </span>
 
                   <button className="flex gap-2 bg-primary text-white px-5 py-3 rounded-lg hover:bg-primary-hover">
-                    Add to Cart <ShoppingCart/>
+                    Add to Cart <ShoppingCart />
                   </button>
                 </div>
               </div>
