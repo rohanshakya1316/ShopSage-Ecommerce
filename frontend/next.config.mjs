@@ -1,13 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
       {
         protocol: "http",
         hostname: "res.cloudinary.com",
         port: "",
-        pathname: "/daijnijpm/image/**",
+        pathname: "/dhve8rbbn/image/**",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/dhve8rbbn/image/**",
       },
       {
         protocol: "https",
@@ -15,12 +20,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "picsum.photos"
+        hostname: "picsum.photos",
       },
       {
         protocol: "https",
-        hostname: "images.samsung.com"
-      }
+        hostname: "images.samsung.com",
+      },
     ],
   },
 };
