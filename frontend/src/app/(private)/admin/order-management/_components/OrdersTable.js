@@ -15,6 +15,7 @@ import { format } from "date-fns";
 import { Image as ImageIcon, Pen, Search, Settings } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import EditOrderStatus from "./EditOrderStatus";
 
 const statusStyles = {
   [ORDER_STATUS_PENDING]: "bg-amber-100 text-amber-700",
@@ -31,6 +32,8 @@ const OrdersTable = () => {
 
   const user = useAuthStore((state) => state.user);
 
+  const isAdmin = user?.roles?.includes(ROLE_ADMIN);
+
   useEffect(() => {
     if (!user) return;
     const fetchOrders = async () => {
@@ -39,7 +42,6 @@ const OrdersTable = () => {
         const response = user.roles.includes(ROLE_ADMIN)
           ? await getAllOrders()
           : await getOrdersByMerchant();
-
         setOrders(response.data);
       } catch (error) {
         console.log(error);
@@ -49,6 +51,14 @@ const OrdersTable = () => {
     };
     fetchOrders();
   }, [user]);
+
+  const handleUpdated = (updatedOrder) => {
+    setOrders((prev) =>
+      prev.map((order) =>
+        order._id === updatedOrder._id ? updatedOrder : order,
+      ),
+    );
+  };
 
   const filteredOrders = orders.filter((order) =>
     order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -80,15 +90,18 @@ const OrdersTable = () => {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+              <th className="px-2 py-4 font-semibold">S.N.</th>
               <th className="px-6 py-4 font-semibold">Order Number</th>
               <th className="px-6 py-4 font-semibold">Product</th>
               <th className="px-6 py-4 font-semibold">Customer</th>
               <th className="px-6 py-4 font-semibold">Total Price</th>
               <th className="px-6 py-4 font-semibold">Status</th>
               <th className="px-6 py-4 font-semibold">Created At</th>
-              <th className="px-6 py-4 font-semibold">
-                <Settings />
-              </th>
+              {isAdmin && (
+                <th className="px-6 py-4 font-semibold">
+                  <Settings />
+                </th>
+              )}
             </tr>
           </thead>
           <tbody className="text-sm divide-y divide-gray-100">
@@ -101,11 +114,14 @@ const OrdersTable = () => {
                 </td>
               </tr>
             ) : (
-              filteredOrders.map((order) => (
+              filteredOrders.map((order, index) => (
                 <tr
                   key={order._id}
                   className="hover:bg-gray-50 transition-colors align-top"
                 >
+                  <td className="px-2 py-4 text-gray-600 font-mono text-xs">
+                    {index + 1}
+                  </td>
                   <td className="px-6 py-4 text-gray-600 font-mono text-xs">
                     {order.orderNumber}
                   </td>
@@ -174,9 +190,15 @@ const OrdersTable = () => {
                       : "—"}
                   </td>
 
-                  <td className="px-6 py-4 text-primary text-xs">
-                    <Pen/>
-                  </td>
+                  {isAdmin && (
+                    <td className="px-6 py-4 text-primary text-xs">
+                      <EditOrderStatus
+                        order={order}
+                        onUpdated={handleUpdated}
+                        openUpward={index >= orders.length - 2}
+                      />
+                    </td>
+                  )}
                 </tr>
               ))
             )}

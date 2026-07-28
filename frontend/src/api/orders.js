@@ -8,9 +8,9 @@ export const getAllOrders = async () => {
   return await api.get(`/api/orders`);
 };
 
-export const getOrdersByMerchant = async () =>{
-  return await api.get(`/api/orders/merchant`)
-}
+export const getOrdersByMerchant = async () => {
+  return await api.get(`/api/orders/merchant`);
+};
 
 export const getOrdersByUser = async () => {
   return await api.get(`/api/orders/user`);
@@ -34,4 +34,12 @@ export const payViaCash = async (id) => {
 
 export const confirmOrder = async (id, status) => {
   return await api.put(`/api/orders/${id}/confirm`, { status: status });
+};
+
+export const deleteOrder = async (id) => {
+  return await api.delete(`/api/orders/${id}`);
+};
+
+export const updateOrderStatus = async (id, status) => {
+  return await api.put(`/api/orders/${id}/status`, { status: status });
 };
