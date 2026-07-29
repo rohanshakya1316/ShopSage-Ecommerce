@@ -94,9 +94,12 @@ const Footer = () => {
 
             <div className="flex">
               <input
+                id="email"
+                name="email"
                 type="email"
                 placeholder="Email Address"
                 className="w-full px-3 py-2 rounded-l-lg text-white focus:outline-none"
+                autoComplete="off"
               />
 
               <button className="bg-indigo-600 px-4 rounded-r-lg hover:bg-indigo-700 transition">
