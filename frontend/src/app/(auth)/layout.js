@@ -4,7 +4,7 @@ import Image from "next/image";
 import login_hero from "@/assets/images/login_hero.png";
 import useAuthStore from "@/stores/authStore";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { HOME_ROUTE } from "@/constants/routes";
 
 const AuthLayout = ({ children }) => {
@@ -33,7 +33,7 @@ const AuthLayout = ({ children }) => {
           />
 
           <div className="flex items-center justify-center p-10">
-            {children}
+            <Suspense>{children}</Suspense>
           </div>
         </div>
       </div>
