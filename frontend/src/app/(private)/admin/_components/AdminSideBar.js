@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const AdminSideBar = () => {
+  const user = useAuthStore((state) => state.user);
   const pathname = usePathname();
 
   const logout = useAuthStore((state) => state.logout);
@@ -27,8 +28,11 @@ const AdminSideBar = () => {
         </div>
         <nav className="flex-1 overflow-y-auto py-4 transition-all">
           <ul className="space-y-1">
-            {adminMenu.map(({ label, route, Icon }) => {
+            {adminMenu.map(({ label, route, Icon, allowedRole }) => {
               const isActive = pathname === route;
+
+              if (allowedRole && !user?.roles.includes(allowedRole)) return;
+
               return (
                 <li key={label}>
                   <Link

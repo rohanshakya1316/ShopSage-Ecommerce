@@ -6,6 +6,7 @@ import {
   ShoppingCart,
   Users2,
 } from "lucide-react";
+import { ROLE_ADMIN } from "./userRoles";
 
 export const HOME_ROUTE = "/";
 export const ABOUT_ROUTE = "/about";
@@ -55,7 +56,7 @@ export const adminMenu = [
     label: "User Management",
     route: USER_MANAGEMENT_ROUTE,
     Icon: <Users2 />,
-    active: false,
+    allowedRole: ROLE_ADMIN,
   },
   {
     label: "Product Management",
