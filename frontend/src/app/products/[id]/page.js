@@ -6,6 +6,16 @@ import { getProductById } from "@/api/products";
 import getShortDescription from "@/helpers/getShortDescription";
 import ExpandableDescription from "./_components/ExpandableDescription";
 
+export const generateMetadata = async ({ params }) => {
+  const { id } = await params;
+
+  const product = await getProductById(id);
+
+  return {
+    title: product.name,
+  };
+};
+
 const ProductDetailPage = async ({ params }) => {
   const { id } = await params;
   const product = await getProductById(id);

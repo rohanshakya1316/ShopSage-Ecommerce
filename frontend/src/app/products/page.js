@@ -1,6 +1,7 @@
 import { getBrands, getCategories, getProducts } from "@/api/products";
 import ProductCard from "./_components/ProductCard";
 import Filters from "./_components/Filters";
+
 export const metadata = {
   title: "Products",
 };
