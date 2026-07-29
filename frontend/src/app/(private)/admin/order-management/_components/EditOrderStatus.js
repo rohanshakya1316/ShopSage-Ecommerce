@@ -11,8 +11,6 @@ import {
   ORDER_STATUS_DELIVERED,
   ORDER_STATUS_CANCELLED,
 } from "@/constants/orderStatus";
-import useAuthStore from "@/stores/authStore";
-import { ROLE_ADMIN } from "@/constants/userRoles";
 
 const statusOptions = [
   ORDER_STATUS_PENDING,
@@ -26,7 +24,20 @@ const EditOrderStatus = ({ order, onUpdated, openUpward }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const lockedStatuses = [
+    ORDER_STATUS_CONFIRMED,
+    ORDER_STATUS_DELIVERED,
+    ORDER_STATUS_SHIPPED,
+  ];
+
   const handleChange = async (newStatus) => {
+    // Prevent updating already processed orders
+    if (lockedStatuses.includes(order.status)) {
+      toast.error(`Order status cannot be changed after ${order.status}.`);
+      setOpen(false);
+      return;
+    }
+
     if (newStatus === order.status) {
       setOpen(false);
       return;
