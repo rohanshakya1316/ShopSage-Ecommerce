@@ -3,7 +3,7 @@ import { HOME_ROUTE, LOGIN_ROUTE } from "@/constants/routes";
 import { ROLE_ADMIN } from "@/constants/userRoles";
 import useAuthStore from "@/stores/authStore";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const UserManagementLayout = ({ children }) => {
   const user = useAuthStore((state) => state.user);
