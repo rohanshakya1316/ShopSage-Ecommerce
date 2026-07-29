@@ -67,20 +67,20 @@ const Header = () => {
 
             {/* Desktop Icons */}
             <div className="hidden md:flex items-center space-x-5">
+              <Link href={CART_ROUTE}>
+                <button
+                  type="button"
+                  className="relative hover:text-indigo-400"
+                >
+                  <ShoppingCart size={25} />
+                  <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
+                    {products.length}
+                  </span>
+                </button>{" "}
+              </Link>
+              
               {isAuthenticated ? (
                 <>
-                  <Link href={CART_ROUTE}>
-                    <button
-                      type="button"
-                      className="relative hover:text-indigo-400"
-                    >
-                      <ShoppingCart size={25} />
-                      <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
-                        {products.length}
-                      </span>
-                    </button>{" "}
-                  </Link>
-
                   <Account />
                 </>
               ) : (

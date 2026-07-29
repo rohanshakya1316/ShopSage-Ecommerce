@@ -32,6 +32,7 @@ const OrdersPage = () => {
 
       return matchesStatus && matchesSearch;
     });
+    // .sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
   }, [orders, search, status]);
 
   return (
