@@ -12,6 +12,7 @@ export const FORGOT_PASSWORD_ROUTE = "/forgot-password";
 
 // Admin Routes
 export const PRODUCT_MANAGEMENT_ROUTE = "/product-management";
+export const USER_MANAGEMENT_ROUTE = "/admin/user-management";
 
 export const navMenu = [
   {

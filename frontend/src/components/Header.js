@@ -15,20 +15,23 @@ import { ShoppingCart } from "lucide-react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathName = usePathname();
 
-  const { isAuthenticated, logout } = useAuthStore.getState();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout);
   const products = useCartStore((state) => state.items);
 
   const router = useRouter();
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleLogout = () => {
     logout();
-
     router.replace(LOGIN_ROUTE);
   };
-
-  useEffect(() => {}, [isAuthenticated]);
 
   return (
     <header className="sticky! top-0! z-50!">
@@ -63,7 +66,7 @@ const Header = () => {
 
             {/* Desktop Icons */}
             <div className="hidden md:flex items-center space-x-5">
-              {isAuthenticated ? (
+              {mounted && isAuthenticated ? (
                 <>
                   <Link href={CART_ROUTE}>
                     <button type="button" className="relative hover:text-indigo-400">
@@ -71,7 +74,7 @@ const Header = () => {
                       <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
                         {products.length}
                       </span>
-                    </button>{" "}
+                    </button>
                   </Link>
 
                   <button
@@ -82,11 +85,13 @@ const Header = () => {
                   </button>
                 </>
               ) : (
-                <Link href={LOGIN_ROUTE}>
-                  <button className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
-                    Login
-                  </button>
-                </Link>
+                mounted && (
+                  <Link href={LOGIN_ROUTE}>
+                    <button className="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+                      Login
+                    </button>
+                  </Link>
+                )
               )}
             </div>
 
@@ -123,7 +128,7 @@ const Header = () => {
                   <button className="relative hover:text-indigo-400 text-xl">
                     🛒
                     <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-1.5 rounded-full">
-                      3
+                      {products.length}
                     </span>
                   </button>
                   <button
@@ -135,11 +140,13 @@ const Header = () => {
                 </div>
               </>
             ) : (
-              <Link href={LOGIN_ROUTE}>
-                <button className="max-w-5xl bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 transition">
-                  Login
-                </button>
-              </Link>
+              mounted && (
+                <Link href={LOGIN_ROUTE}>
+                  <button className="max-w-5xl bg-indigo-600 p-2 rounded-lg hover:bg-indigo-700 transition">
+                    Login
+                  </button>
+                </Link>
+              )
             )}
           </div>
         </div>
